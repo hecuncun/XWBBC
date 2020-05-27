@@ -1,0 +1,45 @@
+<resources>
+    <style name="BaseAppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="BaseAppTheme" parent="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="AppTheme" parent="BaseAppTheme.NoActionBar">
+
+    </style>
+    <style name="AppTheme.FullScreen" parent="@style/Theme.AppCompat.DayNight">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+    <!--限制字数的EditText-->
+    <declare-styleable name="LimitScrollEditText">
+        <attr name="hint" format="string"/>
+        <attr name="maxLength" format="integer"/>
+        <attr name="hintTextColor" format="color"/>
+        <attr name="textColor" format="color"/>
+    </declare-styleable>
+
+    <style name="horizontalGrayLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/color_gray_333333</item>
+    </style>
+<!--    圆环进度条-->
+        <declare-styleable name="TasksCompletedView">
+            <attr name="radius" format="dimension"/>
+            <attr name="strokeWidth" format="dimension"/>
+            <attr name="circleColor" format="color"/>
+            <attr name="ringColor" format="color"/>
+        </declare-styleable>
+
+
+</resources>

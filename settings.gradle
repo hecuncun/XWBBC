@@ -1,0 +1,13 @@
+rootProject.name='xingwanban'
+include ':app'
+include ':lib-zxing'//二维码
+include ':UMLibrary'//友盟
+include ':AliyunVideoCommon'
+include ':AlivcMedia'//媒体资源选择库
+include ':AliyunSVideoBase'//短视频基础包
+include ':AliyunFileDownLoader'//资源数据库和下载模块
+include ':AliyunSvideoMusic'//短视频音乐控件
+include ':AliyunRecorder:record'
+include ':AliyunCrop:crop'//裁剪ui模块
+include ':AliyunEditor:editor_demo'//编辑模块ui和功能实现模块
+include ':AlivcLittleVideo'

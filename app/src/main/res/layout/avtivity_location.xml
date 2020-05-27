@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_primary_bar"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_gray_F9F9F9"
+            android:layout_weight="1"
+            android:background="@drawable/bg_gray_151516_r5"
+            android:hint="搜索位置"
+            android:padding="10dp"
+            android:textColorHint="@color/color_gray_999999" />
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="搜索"
+            android:textColor="@color/white" />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"/>
+</LinearLayout>

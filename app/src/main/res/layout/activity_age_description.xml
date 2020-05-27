@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/rl_des"
+    android:background="@color/color_primary_bar"
+    android:layout_height="match_parent">
+<TextView
+    android:id="@+id/tv_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="@color/white"
+    android:textSize="18sp"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:layout_centerInParent="true"
+    android:text="填写年龄后，系统根据以下判断为几零后"/>
+
+    <TextView
+        android:layout_below="@id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_marginTop="28dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:text="60后就是61--69年 70后就是71--79年\n 80后就是81--89年 90后就是91--99年\n00后就是2000--2009年10后就是2010--至今。"/>
+</RelativeLayout>

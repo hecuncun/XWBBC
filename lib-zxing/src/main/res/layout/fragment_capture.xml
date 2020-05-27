@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SurfaceView
+        android:id="@+id/preview_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.uuzuche.lib_zxing.view.ViewfinderView
+            android:id="@+id/viewfinder_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:inner_corner_color="#FFFFFF"
+            app:inner_height="220dp"
+            app:inner_scan_speed="30"
+            app:inner_width="220dp" />
+
+        <TextView
+            android:id="@+id/tv_scanner_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="550dp"
+            android:text="请对准二维码，耐心等待"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_light"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/tv_scanner_state"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bg_light"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_light" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#000000">
+
+        <ImageView
+            android:id="@+id/iv_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:src="@drawable/icon_return" />
+
+        <TextView
+            android:id="@+id/tv_album"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:padding="15dp"
+            android:text="相册"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</FrameLayout>

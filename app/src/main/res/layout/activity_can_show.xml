@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_primary_bar"
+    android:orientation="vertical">
+    <include layout="@layout/toolbar"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_public"
+        android:layout_width="match_parent"
+        android:layout_height="77dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="公开"
+                android:textColor="@color/color_gray_F9F9F9"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="所有人可见"
+                android:textColor="@color/alivc_common_font_gray_999"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_public"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_selected"
+            android:layout_marginRight="15dp" />
+    </RelativeLayout>
+
+    <View style="@style/horizontalGrayLine" />
+    <RelativeLayout
+        android:id="@+id/rl_private"
+        android:layout_width="match_parent"
+        android:layout_height="77dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="私密"
+                android:textColor="@color/color_gray_F9F9F9"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="仅自己可见"
+                android:textColor="@color/alivc_common_font_gray_999"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_private"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_normal"
+            android:layout_marginRight="15dp" />
+    </RelativeLayout>
+
+    <View style="@style/horizontalGrayLine" />
+
+</LinearLayout>

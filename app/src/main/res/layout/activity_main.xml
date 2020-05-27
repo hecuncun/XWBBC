@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_primary_bar"
+    android:orientation="vertical"
+    tools:context=".ui.activity.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </FrameLayout>
+
+    <View
+        android:background="@color/color_gray_999999"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_home"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:text="首页"
+            android:textColor="@color/color_gray_F9F9F9" />
+
+        <TextView
+            android:id="@+id/tv_mine"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:text="我的"
+            android:textColor="@color/color_gray_999999" />
+
+        <ImageView
+            android:id="@+id/iv_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/icon_publish" />
+    </RelativeLayout>
+</LinearLayout>

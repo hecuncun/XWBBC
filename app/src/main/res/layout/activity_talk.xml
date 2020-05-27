@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_primary_bar"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:textColor="@color/color_gray_F9F9F9"
+            android:layout_weight="1"
+            android:background="@drawable/bg_gray_151516_r5"
+            android:hint="搜索更多话题"
+            android:textSize="12sp"
+            android:paddingLeft="15dp"
+            android:textColorHint="@color/color_gray_999999" />
+
+        <TextView
+            android:id="@+id/tv_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="取消"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <View
+        style="@style/horizontalGrayLine"
+        android:layout_marginTop="20dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none" />
+    <LinearLayout
+        android:id="@+id/ll_create_talk"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/icon_talk" />
+            <TextView
+                android:id="@+id/tv_create_talk"
+                android:layout_marginLeft="2dp"
+                android:textColor="@color/color_gray_F9F9F9"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="创建新话题："/>
+        </LinearLayout>
+        <View style="@style/horizontalGrayLine"/>
+
+    </LinearLayout>
+</LinearLayout>

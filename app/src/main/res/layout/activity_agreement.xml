@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_primary_bar"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/tv_user_agreement"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:drawableRight="@mipmap/icon_arrow_right"
+        android:gravity="center_vertical"
+        android:text="用户协议"
+        android:textColor="@color/color_gray_F9F9F9"
+        android:textSize="15sp" />
+    <TextView
+        android:id="@+id/tv_private"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:drawableRight="@mipmap/icon_arrow_right"
+        android:gravity="center_vertical"
+        android:text="隐私协议"
+        android:textColor="@color/color_gray_F9F9F9"
+        android:textSize="15sp" />
+
+</LinearLayout>

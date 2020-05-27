@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="77dp"
+    android:background="@color/color_primary_bar"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="北京市"
+                android:textColor="@color/color_gray_F9F9F9"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="北京市海淀区北四环中路00号"
+                android:textColor="@color/alivc_common_font_gray_999"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/color_gray_999999"
+            android:text="300m" />
+    </RelativeLayout>
+
+    <View style="@style/horizontalGrayLine" />
+
+</LinearLayout>

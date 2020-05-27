@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_group"
+        android:background="@color/color_primary_bar"
+        android:textColor="@color/color_gray_F9F9F9"
+        android:textSize="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="科技"/>
+
+</LinearLayout>

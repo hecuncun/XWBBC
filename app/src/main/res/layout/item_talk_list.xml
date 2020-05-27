@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/icon_talk" />
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_marginLeft="2dp"
+            android:textColor="@color/color_gray_F9F9F9"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="五一去哪儿玩"/>
+        <TextView
+            android:id="@+id/tv_hot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:textColor="@color/color_gray_999999"
+            android:text="647万"/>
+    </LinearLayout>
+    <View style="@style/horizontalGrayLine"/>
+
+</LinearLayout>
