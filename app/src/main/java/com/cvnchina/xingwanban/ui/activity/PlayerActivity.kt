@@ -19,8 +19,10 @@ import kotlinx.android.synthetic.main.activity_player.*
 class PlayerActivity : BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_player
     private var workBean: WorksBean.ListBean? = null
+    private var show=""//0 不显示  1 显示
     override fun initData() {
         workBean = intent.getParcelableExtra<WorksBean.ListBean>("listBean")
+        show= intent.getStringExtra("show")!!
         if (workBean != null) {
             player.setUp(workBean!!.contDownUrl, "", JzvdStd.SCREEN_FULLSCREEN)
             Glide.with(this).load(workBean!!.overimageurl).into(player.thumbImageView)
@@ -97,6 +99,9 @@ class PlayerActivity : BaseActivity() {
 
         }
 
+        if (show=="1"){
+            tv_evaluate.performClick()
+        }
     }
 
     override fun onBackPressed() {

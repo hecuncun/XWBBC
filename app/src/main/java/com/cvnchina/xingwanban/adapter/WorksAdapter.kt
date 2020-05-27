@@ -10,7 +10,6 @@ import cn.jzvd.JzvdStd
 import com.aliyun.svideo.common.baseAdapter.BaseQuickAdapter
 import com.aliyun.svideo.common.baseAdapter.BaseViewHolder
 import com.cvnchina.xingwanban.R
-import com.cvnchina.xingwanban.application.App
 import com.cvnchina.xingwanban.bean.WorksBean
 import com.cvnchina.xingwanban.glide.GlideUtils
 
@@ -19,7 +18,6 @@ import com.cvnchina.xingwanban.glide.GlideUtils
  */
 class WorksAdapter :
     BaseQuickAdapter<WorksBean.ListBean, BaseViewHolder>(R.layout.item_works_list) {
-    val adapter2 = EvaluateAdapter()
     override fun convert(helper: BaseViewHolder, item: WorksBean.ListBean?) {
         item ?: return
         helper.setText(R.id.tv_zan, item.haszannums)
@@ -54,12 +52,15 @@ class WorksAdapter :
          helper.addOnClickListener(R.id.iv_share)
          helper.addOnClickListener(R.id.iv_move)
          helper.addOnClickListener(R.id.tv_cover)
+         helper.addOnClickListener(R.id.tv_more)
          helper.getView<ImageView>(R.id.iv_move).visibility= if (item.canDelete) View.VISIBLE else View.GONE
 
         val rv = helper.getView<RecyclerView>(R.id.recyclerView_evaluate)
+       helper.getView<TextView>(R.id.tv_more).visibility=if (item.commentnums.toInt()>3) View.VISIBLE else View.GONE
 
+        val adapter2 = EvaluateAdapter()
         rv.run {
-            layoutManager = LinearLayoutManager(App.context)
+            layoutManager = LinearLayoutManager(context)
             adapter = adapter2
         }
         if (item.hotComment != null) {
@@ -71,6 +72,7 @@ class WorksAdapter :
                     list2.add(item.hotComment[i])
                 }
                 adapter2.setNewData(list2)
+
             }
         }
 

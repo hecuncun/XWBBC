@@ -215,7 +215,7 @@ public interface Api {
      * 根据视频id获取评论
      */
     @POST("vms/appapi/video/getCommentsByVideoId")
-    Observable<BaseBean<EvaluateListBean>> evaluateListCall(@Query("videoId") int videoId, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+    Observable<EvaluateListBean> evaluateListCall(@Query("videoId") int videoId, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 
     /**
      * 回复评论

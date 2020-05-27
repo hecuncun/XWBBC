@@ -14,8 +14,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:id="@+id/iv_head_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@mipmap/head1" />
         <LinearLayout
             android:layout_toRightOf="@id/iv_head_photo"
@@ -40,5 +40,5 @@
                 android:text="这个有意思"/>
         </LinearLayout>
     </RelativeLayout>
-    <View style="@style/horizontalGrayLine"/>
+
 </LinearLayout>

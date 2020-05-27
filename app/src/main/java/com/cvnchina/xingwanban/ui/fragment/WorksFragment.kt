@@ -106,6 +106,7 @@ class WorksFragment : BaseFragment() {
                 R.id.tv_cover -> {
                     val intent = Intent(activity, PlayerActivity::class.java)
                     intent.putExtra("listBean", listBean)
+                    intent.putExtra("show","0")
                     startActivity(intent)
                 }
                 R.id.iv_share -> {
@@ -114,6 +115,12 @@ class WorksFragment : BaseFragment() {
                         SHARE_MEDIA.QQ,
                         SHARE_MEDIA.WEIXIN)
                         .setCallback(umShareListener).open();
+                }
+                R.id.tv_more->{
+                    val intent = Intent(activity, PlayerActivity::class.java)
+                    intent.putExtra("listBean", listBean)
+                    intent.putExtra("show","1")
+                    startActivity(intent)
                 }
                 R.id.iv_move -> {
                     //移除除视频
