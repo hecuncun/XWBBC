@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.aliyun.svideo.music.utils.NotchScreenUtil;
 import com.aliyun.qupai.import_core.AliyunIImport;
 import com.aliyun.qupai.import_core.AliyunImportCreator;
 import com.aliyun.svideo.editor.R;
@@ -21,6 +20,7 @@ import com.aliyun.svideo.editor.bean.AlivcEditOutputParam;
 import com.aliyun.svideo.editor.publish.PublishActivity;
 import com.aliyun.svideo.editor.view.AlivcEditView;
 import com.aliyun.svideo.media.MediaInfo;
+import com.aliyun.svideo.music.utils.NotchScreenUtil;
 import com.aliyun.svideo.sdk.external.struct.common.AliyunImageClip;
 import com.aliyun.svideo.sdk.external.struct.common.AliyunVideoClip;
 import com.aliyun.svideo.sdk.external.struct.common.AliyunVideoParam;
@@ -29,6 +29,7 @@ import com.aliyun.svideo.sdk.external.struct.common.VideoQuality;
 import com.aliyun.svideo.sdk.external.struct.encoder.VideoCodecs;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class EditorActivity extends FragmentActivity {
      */
     private AlivcEditInputParam mInputParam;
     private AliyunVideoParam mVideoParam;
+    private Serializable draftBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class EditorActivity extends FragmentActivity {
                 //传入视频比列
                 intent.putExtra(PublishActivity.KEY_PARAM_VIDEO_RATIO, outputParam.getVideoRatio());
                 intent.putExtra("videoParam", outputParam.getVideoParam());
+                intent.putExtra("draftBean", draftBean);
                 startActivity(intent);
             }
         });
@@ -90,6 +93,8 @@ public class EditorActivity extends FragmentActivity {
 
     private void initData() {
         Intent intent = getIntent();
+        draftBean = intent.getSerializableExtra("draftBean");
+
         int mFrameRate = intent.getIntExtra(AlivcEditInputParam.INTENT_KEY_FRAME, 30);
         int mGop = intent.getIntExtra(AlivcEditInputParam.INTENT_KEY_GOP, 250);
         int mRatio = intent.getIntExtra(AlivcEditInputParam.INTENT_KEY_RATION_MODE, AlivcEditInputParam.RATIO_MODE_9_16);

@@ -63,6 +63,7 @@ class DraftFragment : BaseFragment() {
                     val intent = Intent()
                     intent.setClassName(activity, "com.aliyun.svideo.editor.editor.EditorActivity")
                     intent.putParcelableArrayListExtra("mediaInfos", infoList)
+                    intent.putExtra("draftBean",draftBean)
                     activity?.startActivity(intent)
 
                 }

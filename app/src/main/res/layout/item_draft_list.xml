@@ -85,8 +85,9 @@
 
             <TextView
                 android:id="@+id/tv_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:text="编辑"

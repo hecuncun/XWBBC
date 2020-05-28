@@ -56,9 +56,15 @@ class PublishActivity : BaseActivity() {
     override fun attachLayoutRes(): Int {
         return R.layout.activity_publish
     }
-
+   private var  mDraftBean:DraftBean?=null
     override fun initData() {
         val intent = intent
+        val draftBean =intent.getSerializableExtra("draftBean")
+        if (draftBean!=null){
+            //初始化数据
+            mDraftBean=draftBean as DraftBean
+            initDraftData(draftBean as DraftBean)
+        }
         mConfigPath = intent.getStringExtra(KEY_PARAM_CONFIG)//配置文件
         mThumbnailPath = intent.getStringExtra(KEY_PARAM_THUMBNAIL)//封面路径
         Logger.e("传的封面地址==$mThumbnailPath")
@@ -73,6 +79,32 @@ class PublishActivity : BaseActivity() {
 
 
         startComposeF()
+    }
+
+    /**
+     * 初始化填写数据
+     */
+    private fun initDraftData(draftBean:DraftBean) {
+        title=draftBean.title//视频标题
+        description=draftBean.title
+        et_title.textString=title
+        columns=draftBean.columns
+        tv_content_sort.text =draftBean.colName
+        tv_content_sort.setTextColor(resources.getColor(R.color.color_primary_yellow))
+        tags =draftBean.tags
+        talk_name.text=tags
+        talk_name.setTextColor(resources.getColor(R.color.color_primary_yellow))
+        tv_location.text=draftBean.address
+        city=draftBean.city
+        lat=draftBean.lat
+        lng=draftBean.lng
+        isVisible=draftBean.isVisible
+        tv_visiable.text = if (isVisible=="0") "公开" else "秘密"
+
+        address=draftBean.address
+        tv_location.text = draftBean.addName
+
+
     }
 
     /**
@@ -139,6 +171,7 @@ class PublishActivity : BaseActivity() {
                                     EventBus.getDefault().post(RefreshWorksEvent())
                                     EventBus.getDefault().post(ChangeEvent())
                                     startActivity(Intent(this@PublishActivity,MainActivity::class.java))
+                                    mDraftBean?.delete()
                                 }
 
                                 override fun onFailed() {
@@ -164,8 +197,8 @@ class PublishActivity : BaseActivity() {
 //                    private var isVisible="0"
 //                    private var address=""
                     Logger.e("存储的封面地址==$mThumbnailPath")
-
-                    DraftBean(videoPath,title,tags,mThumbnailPath!!).save()
+                    mDraftBean?.delete()
+                    DraftBean(videoPath,title,tags,mThumbnailPath!!,columns,colName,city,lat,lng,address,isVisible,addName).save()
                     progressDialog?.dismiss()
                     EventBus.getDefault().post(RefreshDraftEvent())
                     EventBus.getDefault().post(ChangeEvent())
@@ -280,6 +313,7 @@ class PublishActivity : BaseActivity() {
     private var lng=""
     private var isVisible="0"
     private var address=""
+    private var addName=""//大地址
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -292,12 +326,14 @@ class PublishActivity : BaseActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getSortEvent(event: SortEvent) {
         columns=event.columnId
+        colName=event.name
         tv_content_sort.text = event.name
         tv_content_sort.setTextColor(resources.getColor(R.color.color_primary_yellow))
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getLocationEvent(event: LocationBean.DataBean) {
+        addName=event.name
         tv_location.text = event.name
         city=event.city
         lat=event.lat

@@ -121,4 +121,8 @@ public class LimitScrollEditText extends LinearLayout {
     public String getTextString() {
         return TextUtils.isEmpty(content.getText().toString())? "" : content.getText().toString().trim();
     }
+
+    public void setTextString(String str){
+        content.setText(str);
+    }
 }
