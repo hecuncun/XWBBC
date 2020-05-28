@@ -3,6 +3,7 @@ package com.cvnchina.xingwanban.utils
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.text.TextUtils
 import android.util.TypedValue
@@ -142,5 +143,21 @@ object CommonUtil {
             return false
         }
     }
+    fun getLocalVideoDuration(videoPath: String?): Long {
+        val duration: Long
+        duration = try {
+            val mmr = MediaMetadataRetriever()
+            mmr.setDataSource(videoPath)
+            mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION).toLong()
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            return 0
+        }
+
+
+        return duration
+    }
+
+
 
 }

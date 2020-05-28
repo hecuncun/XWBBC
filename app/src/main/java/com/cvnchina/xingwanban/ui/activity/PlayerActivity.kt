@@ -60,7 +60,7 @@ class PlayerActivity : BaseActivity() {
     }
 
     override fun initView() {
-
+        tv_nick_name.text=nickname
     }
 
     private var showContent = true

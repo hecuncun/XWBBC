@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/alivc_editor_dialog_effect_tittle_height"
-    android:background="@color/alivc_common_bg_black_alpha_70"
+    android:background="@color/alivc_common_bg_transparent"
     android:orientation="horizontal"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     >
-
+<!--android:background="@color/alivc_common_bg_black_alpha_70"-->
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="15dp"

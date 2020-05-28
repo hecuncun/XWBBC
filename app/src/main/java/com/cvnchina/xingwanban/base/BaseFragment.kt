@@ -31,6 +31,7 @@ abstract class BaseFragment :Fragment(){
      */
     protected var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
     protected var token: String by Preference(Constant.TOKEN, "")
+    protected var nickname: String by Preference(Constant.NAME, "")
 
 
     /**

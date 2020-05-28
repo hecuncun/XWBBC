@@ -9,7 +9,9 @@ import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.adapter.DraftAdapter
 import com.cvnchina.xingwanban.bean.DraftBean
 import com.cvnchina.xingwanban.event.RefreshDraftEvent
+import com.cvnchina.xingwanban.ext.showToast
 import com.cvnchina.xingwanban.ui.activity.PlayerActivity
+import com.cvnchina.xingwanban.widget.DeleteDialog
 import com.lhzw.bluetooth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_draft.*
 import org.greenrobot.eventbus.Subscribe
@@ -22,6 +24,7 @@ import java.util.*
  */
 class DraftFragment : BaseFragment() {
     override fun useEventBus(): Boolean=true
+    private var deleteDialog:DeleteDialog?=null
     companion object {
         fun getInstance(): DraftFragment = DraftFragment()
     }
@@ -32,6 +35,7 @@ class DraftFragment : BaseFragment() {
 
     private var list = mutableListOf<DraftBean>()
     override fun initView(view: View) {
+        deleteDialog= DeleteDialog(activity!!)
         initRv()
     }
 
@@ -39,9 +43,10 @@ class DraftFragment : BaseFragment() {
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
             val draftBean = adapter.getItem(position) as DraftBean
             when (view.id) {
-                R.id.iv_start -> {
+                R.id.iv_cover -> {
                     val intent = Intent(activity, PlayerActivity::class.java)
                     intent.putExtra("path",draftBean.path)
+                    intent.putExtra("show","0")
                     intent.putExtra("thumbnailPath",draftBean.thumbnailPath)
                     intent.putExtra("title",draftBean.title)
                     intent.putExtra("tags",draftBean.tags)
@@ -63,14 +68,20 @@ class DraftFragment : BaseFragment() {
                 }
                 R.id.iv_move->{
                     //移除除视频
-                    draftBean.delete()
-                    mAdapter.remove(position)
-                    list.remove(draftBean)
-                    if (list.isEmpty()){
-                        ll_empty_view.visibility=View.VISIBLE
-                    }else{
-                        ll_empty_view.visibility=View.GONE
-                    }
+                    deleteDialog?.show()
+                    deleteDialog?.setOnConfirmListener(View.OnClickListener {
+                        draftBean.delete()
+                        mAdapter.remove(position)
+                        list.remove(draftBean)
+                        deleteDialog?.dismiss()
+                        showToast("删除成功")
+                        if (list.isEmpty()){
+                            ll_empty_view.visibility=View.VISIBLE
+                        }else{
+                            ll_empty_view.visibility=View.GONE
+                        }
+                    })
+
                 }
             }
         }

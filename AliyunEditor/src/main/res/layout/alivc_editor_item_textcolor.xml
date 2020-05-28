@@ -23,7 +23,8 @@
         android:layout_gravity="center"
         android:id="@+id/selected"
         android:visibility="visible"
-        />
-        <!--android:background="@mipmap/aliyun_svideo_color_check"-->
+      android:background="@mipmap/icon_dui_checked"
+
+    />
 
 </FrameLayout>

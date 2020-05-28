@@ -109,6 +109,8 @@ public class ColorViewHolder extends ColorViewPagerAdapter.ViewHolder {
                     ColorItemViewMediator mediator = (ColorItemViewMediator) v.getTag();
                     ColorItem item = mediator.getData();
                     if (mItemClickListener != null) {
+//                        //todo 修改的
+//                        item.isStroke=!item.isStroke;
                         mItemClickListener.onItemClick(item);
                     }
                     mGridView.setItemChecked(position, true);

@@ -9,7 +9,6 @@ import com.aliyun.svideo.common.baseAdapter.BaseQuickAdapter
 import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.adapter.WorksAdapter
 import com.cvnchina.xingwanban.base.BaseNoDataBean
-import com.cvnchina.xingwanban.bean.DemoWorksBean
 import com.cvnchina.xingwanban.bean.WorksBean
 import com.cvnchina.xingwanban.event.RefreshWorksEvent
 import com.cvnchina.xingwanban.ext.showToast
@@ -18,7 +17,6 @@ import com.cvnchina.xingwanban.net.CallbackObserver
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
 import com.cvnchina.xingwanban.ui.activity.PlayerActivity
-import com.cvnchina.xingwanban.utils.BeanUtils
 import com.lhzw.bluetooth.base.BaseFragment
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareListener
@@ -149,31 +147,31 @@ class WorksFragment : BaseFragment() {
 
     override fun lazyLoad() {
         listWorks.clear()
-        //获取Demo
-        val demoWorksCall = SLMRetrofit.instance.api.demoWorksCall()
-        demoWorksCall.compose(ThreadSwitchTransformer())
-            .subscribe(object : CallbackListObserver<DemoWorksBean>() {
-                override fun onSucceed(t: DemoWorksBean) {
-                    if (t.msg == "1") {
-                        for (item in t.data) {
-                            val bean = BeanUtils.modelA2B(item, WorksBean.ListBean::class.java)
-                            bean.canDelete=true
-                            listWorks.add(bean)
-                        }
-                        worksAdapter.setNewData(listWorks)
-                        if (listWorks.isEmpty()) {
-                            ll_empty_view.visibility = View.VISIBLE
-                        } else {
-                            ll_empty_view.visibility = View.GONE
-                        }
-                    }
-                }
-
-                override fun onFailed() {
-
-                }
-
-            })
+        //获取Demo  TODO 新隐藏
+//        val demoWorksCall = SLMRetrofit.instance.api.demoWorksCall()
+//        demoWorksCall.compose(ThreadSwitchTransformer())
+//            .subscribe(object : CallbackListObserver<DemoWorksBean>() {
+//                override fun onSucceed(t: DemoWorksBean) {
+//                    if (t.msg == "1") {
+//                        for (item in t.data) {
+//                            val bean = BeanUtils.modelA2B(item, WorksBean.ListBean::class.java)
+//                            bean.canDelete=true
+//                            listWorks.add(bean)
+//                        }
+//                        worksAdapter.setNewData(listWorks)
+//                        if (listWorks.isEmpty()) {
+//                            ll_empty_view.visibility = View.VISIBLE
+//                        } else {
+//                            ll_empty_view.visibility = View.GONE
+//                        }
+//                    }
+//                }
+//
+//                override fun onFailed() {
+//
+//                }
+//
+//            })
         //获取视频列表
         val worksCall = SLMRetrofit.instance.api.worksCall(currentPage, pageSize)
         worksCall.compose(ThreadSwitchTransformer())

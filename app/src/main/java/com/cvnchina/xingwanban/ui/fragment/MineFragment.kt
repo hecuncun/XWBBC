@@ -151,6 +151,7 @@ class MineFragment : BaseFragment() {
         personalInfoBean=t
         GlideUtils.showCircle(iv_head_photo,t.headPic,R.mipmap.icon_def_head)
         tv_nick_name.text=t.nickName
+        nickname=t.nickName
         tv_id.text=t.id
         tv_sex.text=t.sex
         tv_age.text=t.age

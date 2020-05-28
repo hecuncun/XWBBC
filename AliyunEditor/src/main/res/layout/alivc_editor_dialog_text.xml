@@ -125,7 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                app:tabIndicatorColor="#EF4B81"
+                app:tabIndicatorColor="#F37E00"
                 app:tabIndicatorHeight="1dp"
                 app:tabSelectedTextColor="@color/alivc_common_font_white"
                 app:tabTextColor="#606E7C"

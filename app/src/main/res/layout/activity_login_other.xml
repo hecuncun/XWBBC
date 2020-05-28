@@ -125,10 +125,26 @@
             android:textColor="@color/color_gray_F9F9F9"/>
 
         <TextView
+            android:id="@+id/tv_ruler"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="《用户条款与隐私协议》"
+            android:text="用户条款"
+            android:textColor="@color/color_primary_yellow"
+            android:textSize="12sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="与"
+            android:textColor="@color/color_gray_F9F9F9"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_private"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="隐私协议"
             android:textColor="@color/color_primary_yellow"
             android:textSize="12sp" />
     </LinearLayout>

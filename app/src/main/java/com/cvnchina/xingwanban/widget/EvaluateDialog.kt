@@ -32,7 +32,7 @@ class EvaluateDialog(context: Context) : BottomSheetDialog(context), View.OnClic
     private var videoId = 0
     private var currentPage = 0
     private var total = 0
-    private var pageSize = 100
+    private var pageSize = 1000
 
     private var mAdapter: CommentExpandAdapter? = null
 

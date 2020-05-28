@@ -286,9 +286,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                                 }
                                 "upload" -> {
                                     if (isLogin) {
-                                        val recordParam = AlivcRecordInputParam.Builder()
+                                        val param = AlivcEditInputParam.Builder()
                                             .build()
-                                        AlivcSvideoRecordActivity.startRecord(context, recordParam)
+                                        EditorMediaActivity.startImport(context, param)
                                     } else {
                                         startActivity(Intent(activity, LoginActivity::class.java))
                                     }

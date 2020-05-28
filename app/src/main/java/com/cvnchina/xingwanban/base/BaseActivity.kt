@@ -41,6 +41,7 @@ abstract class BaseActivity :AppCompatActivity(){
     protected var isFirst: Boolean by Preference(Constant.IS_FIRST, true)
 
     protected var token: String by Preference(Constant.TOKEN, "")
+    protected var nickname: String by Preference(Constant.NAME, "")
 
     /**
      * 布局文件id

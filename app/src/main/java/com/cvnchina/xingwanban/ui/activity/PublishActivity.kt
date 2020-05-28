@@ -150,6 +150,16 @@ class PublishActivity : BaseActivity() {
                 }else{
                     progressDialog?.setText("存储成功")
                     //存数据库
+//                    private var title=""//视频标题
+//                    private var columns=""
+//                    private var colName=""
+//                    private var tags=""
+//                    private var city=""
+//                    private var lat=""
+//                    private var lng=""
+//                    private var isVisible="0"
+//                    private var address=""
+
                     DraftBean(videoPath,title,tags,mThumbnailPath!!).save()
                     progressDialog?.dismiss()
                     EventBus.getDefault().post(RefreshDraftEvent())
@@ -249,6 +259,7 @@ class PublishActivity : BaseActivity() {
     private var title=""//视频标题
     private var description=""
     private var columns=""
+    private var colName=""
     private var tags=""
     private var city=""
     private var lat=""

@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/color_gray_999999"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:layout_marginTop="5dp"
         android:layout_gravity="center_horizontal"
         android:text="为保障账户安全，请确保是本人操作"/>

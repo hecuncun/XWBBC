@@ -83,8 +83,8 @@ class App : MultiDexApplication() {
         PlatformConfig.setQQZone("101876978", "347bbe40406eb62c18b935f947fb39a2")
         //微博此处有坑  https://api.weibo.com/oauth2/default.html 必须和微博开放平台设置的认证回调地址一致  否则授权不成功
         PlatformConfig.setSinaWeibo("923520257", "7ffbb04094abc7e34a5da6af0ed12f51","https://api.weibo.com/oauth2/default.html")
-        // todo  替换
-        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0")
+        //
+        PlatformConfig.setWeixin("wx441a4e3b8d85f51d", "a3d071c7651beb2c247ef89946556d84")
         //BUGly初始化
        // CrashReport.initCrashReport(applicationContext, "6ed7ce60df", false)
     }

@@ -59,7 +59,7 @@
             android:id="@+id/tv_choose"
             android:layout_width="108dp"
             android:layout_height="40dp"
-            android:background="#4d000000"
+            android:background="#99000000"
             android:textColor="@color/color_gray_F9F9F9"
             android:gravity="center"
             android:layout_alignParentBottom="true"

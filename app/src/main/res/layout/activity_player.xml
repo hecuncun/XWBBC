@@ -32,7 +32,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:visibility="gone"
+                android:visibility="visible"
                 android:id="@+id/tv_nick_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -174,7 +174,7 @@ class PersonInfoActivity : BaseActivity() {
             setCanceledOnTouchOutside(true)
             setOnOptionPickListener(object : OnOptionPickListener() {
                 override fun onOptionPicked(index: Int, item: String) {
-                    showToast("index=$index, item=$item")
+                //    showToast("index=$index, item=$item")
                     tv_star.text = item
                     map["constellation"] = item
                 }
@@ -265,7 +265,7 @@ class PersonInfoActivity : BaseActivity() {
             setSelectedItem(2000, 1, 1)
             setResetWhileWheel(false)
             setOnDatePickListener(OnYearMonthDayPickListener { year, month, day ->
-                showToast("$year-$month-$day")
+              //  showToast("$year-$month-$day")
                 map["birthday"] = "$year-$month-$day"
                 var gen = ""
                 if (year[0] == '1') {
@@ -526,7 +526,7 @@ class PersonInfoActivity : BaseActivity() {
                 for (c in cityList) {
                     if (c.name == city!!.name) {
                         map["cityCode"] = c.code
-                        showToast(c.code)
+                   //     showToast(c.code)
                         Logger.e("所选城市的名称${city!!.name}===${c.code}")
                         return
                     }

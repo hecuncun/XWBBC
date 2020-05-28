@@ -404,7 +404,7 @@ public class AlivcSvideoRecordActivity extends AppCompatActivity {
                 intent.putExtra("mResolutionMode", mInputParam.getResolutionMode());
                 intent.putExtra("mVideoCodec", mInputParam.getVideoCodec());
                 intent.putExtra("canReplaceMusic", isUseMusic);
-                intent.putExtra("hasWaterMark", true);
+                intent.putExtra("hasWaterMark", false);
                 intent.putParcelableArrayListExtra("mediaInfos", infoList);
                 AlivcSvideoRecordActivity.this.startActivity(intent);
 

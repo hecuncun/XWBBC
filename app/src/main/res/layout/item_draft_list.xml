@@ -73,13 +73,15 @@
             android:layout_alignParentBottom="true"
             android:background="#99000000">
 
-            <ImageView
-                android:id="@+id/iv_start"
+            <TextView
+                android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:textColor="@color/color_gray_F9F9F9"
                 android:layout_marginLeft="15dp"
-                android:src="@mipmap/icon_play" />
+                android:text="06:00"/>
 
             <TextView
                 android:id="@+id/tv_edit"

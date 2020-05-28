@@ -104,7 +104,7 @@ public class AlivcEditInputParam {
     private boolean isMixRecorder;
 
     private ArrayList<MediaInfo> mediaInfos;
-    private boolean hasWaterMark = true;//默认显示视频水印
+    private boolean hasWaterMark = false;//默认显示视频水印
 
     private AlivcEditInputParam() {
         this.mediaInfos = new ArrayList<>();

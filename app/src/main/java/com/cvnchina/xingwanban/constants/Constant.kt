@@ -9,6 +9,7 @@ object Constant{
     const val LOGIN_KEY = "login"
     const val IS_FIRST = "isFirst"
     const val TOKEN = "token"
+    const val NAME = "name"
 //    const val UID = "uid"
 //    const val TEMP_UID = "tempUid"
 //    const val SCORE = "score"
