@@ -15,7 +15,6 @@ import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -40,7 +39,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aliyun.common.utils.StorageUtils;
 import com.aliyun.crop.AliyunCropCreator;
 import com.aliyun.crop.struct.CropParam;
 import com.aliyun.crop.supply.AliyunICrop;
@@ -58,7 +56,10 @@ import com.aliyun.qupai.editor.OnPasterRestored;
 import com.aliyun.qupai.editor.impl.AliyunEditorFactory;
 import com.aliyun.svideo.base.Constants;
 import com.aliyun.svideo.base.UIConfigManager;
+import com.aliyun.svideo.common.utils.DensityUtils;
+import com.aliyun.svideo.common.utils.FastClickUtil;
 import com.aliyun.svideo.common.utils.PermissionUtils;
+import com.aliyun.svideo.common.widget.AlivcCircleLoadingDialog;
 import com.aliyun.svideo.editor.R;
 import com.aliyun.svideo.editor.bean.AlivcEditOutputParam;
 import com.aliyun.svideo.editor.editor.AbstractPasterUISimpleImpl;
@@ -94,7 +95,6 @@ import com.aliyun.svideo.editor.util.ThreadUtil;
 import com.aliyun.svideo.editor.viewoperate.ViewOperator;
 import com.aliyun.svideo.editor.widget.AliyunPasterWithImageView;
 import com.aliyun.svideo.editor.widget.AliyunPasterWithTextView;
-import com.aliyun.svideo.common.widget.AlivcCircleLoadingDialog;
 import com.aliyun.svideo.sdk.external.struct.AliyunIClipConstructor;
 import com.aliyun.svideo.sdk.external.struct.common.AliyunClip;
 import com.aliyun.svideo.sdk.external.struct.common.AliyunVideoParam;
@@ -115,8 +115,6 @@ import com.aliyun.svideo.sdk.external.struct.effect.TransitionTranslate;
 import com.aliyun.svideo.sdk.external.struct.encoder.VideoCodecs;
 import com.aliyun.svideo.sdk.external.thumbnail.AliyunIThumbnailFetcher;
 import com.aliyun.svideo.sdk.external.thumbnail.AliyunThumbnailFetcherFactory;
-import com.aliyun.svideo.common.utils.DensityUtils;
-import com.aliyun.svideo.common.utils.FastClickUtil;
 import com.duanqu.transcode.NativeParser;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -282,7 +280,7 @@ public class AlivcEditView extends RelativeLayout
     /**
      * 封面保存路径
      */
-    private final String PATH_THUMBNAIL = Constants.SDCardConstants.getDir(getContext()) + File.separator + "thumbnail.jpg";
+    private final String PATH_THUMBNAIL = Constants.SDCardConstants.getDir(getContext()) + File.separator + System.currentTimeMillis()+"thumbnail.jpg";
     /**
      * 是否可以截图
      */

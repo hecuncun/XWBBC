@@ -90,6 +90,9 @@ class DraftFragment : BaseFragment() {
     override fun lazyLoad() {
         list.clear()
         list=LitePal.findAll(DraftBean::class.java)
+        for (item in list){
+            com.orhanobut.logger.Logger.e("${item.thumbnailPath}")
+        }
         mAdapter.setNewData(list)
         if (list.isEmpty()){
             ll_empty_view.visibility=View.VISIBLE

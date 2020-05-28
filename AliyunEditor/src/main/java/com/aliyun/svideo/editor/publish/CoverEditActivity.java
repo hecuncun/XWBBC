@@ -373,7 +373,7 @@ public class CoverEditActivity extends Activity {
             @Override
             public void onThumbnailReady(Bitmap bitmap, long l) {
                 if (bitmap != null && !bitmap.isRecycled()) {
-                    String path = getExternalFilesDir(null) + "thumbnail.jpeg";
+                    String path = getExternalFilesDir(null)+ "1"+ System.currentTimeMillis()+"thumbnail.jpeg";
                     FileOutputStream fileOutputStream = null;
                     try {
                         fileOutputStream = new FileOutputStream(path);

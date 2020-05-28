@@ -61,6 +61,7 @@ class PublishActivity : BaseActivity() {
         val intent = intent
         mConfigPath = intent.getStringExtra(KEY_PARAM_CONFIG)//配置文件
         mThumbnailPath = intent.getStringExtra(KEY_PARAM_THUMBNAIL)//封面路径
+        Logger.e("传的封面地址==$mThumbnailPath")
         videoRatio = intent.getFloatExtra(KEY_PARAM_VIDEO_RATIO, 0f)
         mVideoPram = intent.getSerializableExtra(KEY_PARAM_VIDEO_PARAM) as AliyunVideoParam
         ImageLoaderImpl().loadImage(
@@ -69,6 +70,9 @@ class PublishActivity : BaseActivity() {
             ImageLoaderOptions.Builder().skipMemoryCache().skipDiskCacheCache().build()
         )
             .into(iv_cover)
+
+
+        startComposeF()
     }
 
     /**
@@ -159,6 +163,7 @@ class PublishActivity : BaseActivity() {
 //                    private var lng=""
 //                    private var isVisible="0"
 //                    private var address=""
+                    Logger.e("存储的封面地址==$mThumbnailPath")
 
                     DraftBean(videoPath,title,tags,mThumbnailPath!!).save()
                     progressDialog?.dismiss()
@@ -176,6 +181,23 @@ class PublishActivity : BaseActivity() {
         })
     }
 
+    /**
+     * 先合成目标视频文件
+     */
+    private fun startComposeF() {
+        createAliyunCompose.compose(mConfigPath, videoPath, object : AliyunIComposeCallBack {
+            override fun onComposeProgress(p0: Int) {
+            }
+
+            override fun onComposeCompleted() {
+            }
+
+            override fun onComposeError(p0: Int) {
+            }
+        })
+    }
+
+
     private val createAliyunCompose = AliyunComposeFactory.createAliyunCompose()
     private var progressDialog:ProgressDialog?=null
     override fun initView() {
@@ -183,8 +205,8 @@ class PublishActivity : BaseActivity() {
         createAliyunCompose.init(this)
         initPath()
         progressDialog= ProgressDialog(this)
-    }
 
+    }
     /**
      * 初始化文件路径videoPath
      */
@@ -195,7 +217,6 @@ class PublishActivity : BaseActivity() {
         videoPath =
             Constants.SDCardConstants.getDir(this) + LittleVideoParamConfig.DIR_COMPOSE + videoName
     }
-
 
     override fun initListener() {
         iv_back.setOnClickListener {
@@ -217,7 +238,9 @@ class PublishActivity : BaseActivity() {
 
         }
         tv_choose.setOnClickListener {
-                  finish()
+            val intent = Intent(this, CoverEditActivity::class.java)
+            intent.putExtra(CoverEditActivity.KEY_PARAM_VIDEO, videoPath)
+            startActivityForResult(intent, 0)
         }
         tv_save.setOnClickListener {
             //1.发布上传 先检查填写的条件完整
@@ -233,15 +256,6 @@ class PublishActivity : BaseActivity() {
             }
 
         }
-
-//        iv_cover.setOnClickListener {
-//            val intent = Intent(this, AlivcLittlePreviewActivity::class.java)
-//            intent.putExtra(KEY_PARAM_CONFIG, mConfigPath)
-//            intent.putExtra(KEY_PARAM_VIDEO_PARAM, mVideoPram)
-//            //传入视频比列
-//            intent.putExtra(KEY_PARAM_VIDEO_RATIO, videoRatio)
-//            startActivity(intent)
-//        }
 
         ll_talk.setOnClickListener {
             startActivity(Intent(this, TalkActivity::class.java))
@@ -301,6 +315,7 @@ class PublishActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
             mThumbnailPath = data!!.getStringExtra(CoverEditActivity.KEY_PARAM_RESULT)
+            Logger.e("新封面==$mThumbnailPath")
             ImageLoaderImpl().loadImage(
                 this,
                 mThumbnailPath!!,
