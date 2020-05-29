@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+
 /**
  * Created by heCunCun on 2020/4/29
  */
@@ -95,6 +96,14 @@ class MineFragment : BaseFragment() {
                     startActivity(Intent(activity, SettingActivity::class.java))
                 }else{
                     //分享 https://developer.umeng.com/docs/128606/detail/129622
+//                    val web = UMWeb(Defaultcontent.url)
+//                    web.title = "This is music title" //标题
+//
+//                    web.setThumb(thumb) //缩略图
+//
+//                    web.description = "my description" //描述
+
+
                     ShareAction(activity).withText("hello").setDisplayList( SHARE_MEDIA.WEIXIN,
                         SHARE_MEDIA.WEIXIN_CIRCLE,
                         SHARE_MEDIA.SINA,

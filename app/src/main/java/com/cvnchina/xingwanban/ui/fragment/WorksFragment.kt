@@ -1,6 +1,7 @@
 package com.cvnchina.xingwanban.ui.fragment
 
 import android.content.Intent
+import android.graphics.Color
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
@@ -17,14 +18,18 @@ import com.cvnchina.xingwanban.net.CallbackObserver
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
 import com.cvnchina.xingwanban.ui.activity.PlayerActivity
+import com.flyco.dialog.widget.ActionSheetDialog
 import com.lhzw.bluetooth.base.BaseFragment
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
+import com.umeng.socialize.media.UMImage
+import com.umeng.socialize.media.UMVideo
 import kotlinx.android.synthetic.main.fragment_works.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+
 
 /**
  * Created by hecuncun on 2020-5-6
@@ -35,6 +40,8 @@ class WorksFragment : BaseFragment() {
     private var pageSize = 10
     private var listWorks = mutableListOf<WorksBean.ListBean>()
     override fun useEventBus(): Boolean=true
+
+    private var moreDialog: ActionSheetDialog? = null
     private val worksAdapter: WorksAdapter by lazy {
         WorksAdapter()
     }
@@ -49,6 +56,13 @@ class WorksFragment : BaseFragment() {
 
     override fun initView(view: View) {
         initRv()
+        moreDialog = ActionSheetDialog(activity, arrayOf("删除", "分享"), null)
+        moreDialog?.run {
+            isTitleShow(false)
+                .lvBgColor(Color.parseColor("#FFFFFF"))
+            itemTextColor(resources.getColor(R.color.color_primary_bar))
+            cancelText(resources.getColor(R.color.color_primary_bar))
+        }
     }
 
     private var isPlaying = false
@@ -109,14 +123,48 @@ class WorksFragment : BaseFragment() {
                     startActivity(intent)
                 }
                 R.id.iv_share -> {
-                    ShareAction(activity).withText("hello").setDisplayList(
-                        SHARE_MEDIA.WEIXIN,
-                        SHARE_MEDIA.WEIXIN_CIRCLE,
-                        SHARE_MEDIA.SINA,
-                        SHARE_MEDIA.QQ,
-                        SHARE_MEDIA.QZONE
-                     )
-                        .setCallback(umShareListener).open();
+                    moreDialog?.show()
+                    moreDialog?.setOnOperItemClickL { parent, view, position, id ->
+                        moreDialog!!.dismiss()
+                        if (position==0){//删除
+                            //移除除视频
+                            val removeVideoCall =
+                                SLMRetrofit.instance.api.deleteVideoCall(listBean.contId)
+                            removeVideoCall.compose(ThreadSwitchTransformer())
+                                .subscribe(object : CallbackListObserver<BaseNoDataBean>() {
+                                    override fun onSucceed(t: BaseNoDataBean) {
+                                        if (t.msg == "1") {
+                                            showToast("删除成功")
+                                            worksAdapter.remove(position)
+                                        } else {
+                                            showToast(t.msgCondition)
+                                        }
+                                    }
+
+                                    override fun onFailed() {
+
+                                    }
+                                })
+                        }else{//分享
+                            val video = UMVideo(listBean.contDownUrl)
+                            video.title = listBean.contSubTitle //视频的标题
+                            var thumb= UMImage(activity,listBean.overimageurl)
+                            video.setThumb(thumb) //视频的缩略图
+
+                            video.description = listBean.contSubTitle //视频的描述
+
+
+                            ShareAction(activity).withText(listBean.contSubTitle).withMedia(video).setDisplayList(
+                                SHARE_MEDIA.WEIXIN,
+                                SHARE_MEDIA.WEIXIN_CIRCLE,
+                                SHARE_MEDIA.SINA,
+                                SHARE_MEDIA.QQ,
+                                SHARE_MEDIA.QZONE
+                            )
+                                .setCallback(umShareListener).open();
+                        }
+                    }
+
                 }
                 R.id.tv_more->{
                     val intent = Intent(activity, PlayerActivity::class.java)
