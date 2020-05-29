@@ -30,6 +30,7 @@ import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.litepal.LitePal
 import java.io.File
 
 /**
@@ -76,8 +77,7 @@ class PublishActivity : BaseActivity() {
             ImageLoaderOptions.Builder().skipMemoryCache().skipDiskCacheCache().build()
         )
             .into(iv_cover)
-
-
+        tv_choose
         startComposeF()
     }
 
@@ -171,7 +171,7 @@ class PublishActivity : BaseActivity() {
                                     EventBus.getDefault().post(RefreshWorksEvent())
                                     EventBus.getDefault().post(ChangeEvent())
                                     startActivity(Intent(this@PublishActivity,MainActivity::class.java))
-                                    mDraftBean?.delete()
+                                    LitePal.delete(DraftBean::class.java,mDraftBean!!.id)
                                 }
 
                                 override fun onFailed() {
@@ -197,7 +197,8 @@ class PublishActivity : BaseActivity() {
 //                    private var isVisible="0"
 //                    private var address=""
                     Logger.e("存储的封面地址==$mThumbnailPath")
-                    mDraftBean?.delete()
+                    //mDraftBean?.delete()
+                    LitePal.delete(DraftBean::class.java,mDraftBean!!.id)
                     DraftBean(videoPath,title,tags,mThumbnailPath!!,columns,colName,city,lat,lng,address,isVisible,addName).save()
                     progressDialog?.dismiss()
                     EventBus.getDefault().post(RefreshDraftEvent())
@@ -223,6 +224,9 @@ class PublishActivity : BaseActivity() {
             }
 
             override fun onComposeCompleted() {
+                tv_choose.isEnabled=true
+                tv_save.isEnabled=true
+                tv_publish.isEnabled=true
             }
 
             override fun onComposeError(p0: Int) {
@@ -234,6 +238,9 @@ class PublishActivity : BaseActivity() {
     private val createAliyunCompose = AliyunComposeFactory.createAliyunCompose()
     private var progressDialog:ProgressDialog?=null
     override fun initView() {
+        tv_choose.isEnabled=false
+        tv_save.isEnabled=false
+        tv_publish.isEnabled=false
 //利用SDK提供的合成核心类AliyunIVodCompose，通过传入接收到的配置文件路径，调用其compose方法对编辑的视频进行合成。
         createAliyunCompose.init(this)
         initPath()

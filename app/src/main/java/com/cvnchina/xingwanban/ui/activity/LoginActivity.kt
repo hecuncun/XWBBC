@@ -145,7 +145,7 @@ class LoginActivity : BaseActivity() {
                 }
                 SHARE_MEDIA.WEIXIN -> {
                     type = 2
-                    //todo openId
+                    openId = map["openid"]
                 }
                 SHARE_MEDIA.SINA -> {
                     //todo openId
