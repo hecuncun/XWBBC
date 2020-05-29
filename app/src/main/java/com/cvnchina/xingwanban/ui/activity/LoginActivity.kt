@@ -186,10 +186,11 @@ class LoginActivity : BaseActivity() {
         otherLoginCall.compose(ThreadSwitchTransformer())
             .subscribe(object : CallbackListObserver<OtherLoginBean>() {
                 override fun onSucceed(t: OtherLoginBean) {
+
                     if (t.msg == "1") {
+                        token = t.token
                         if (t.isBindPhone == 1) {//已绑定手机号  直接进入主页面
                             isLogin=true
-                            token = t.token
                             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                             finish()
                         } else {//未绑定  跳绑定页

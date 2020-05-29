@@ -42,7 +42,7 @@
             android:paddingRight="@dimen/alivc_common_padding_5"
             android:layout_gravity="center_vertical"
             android:id="@+id/indiator"
-            android:src="@mipmap/aliyun_svideo_icon_cover_slide"/>
+            android:src="@mipmap/icon_line_r"/>
     </FrameLayout>
 
 </LinearLayout>

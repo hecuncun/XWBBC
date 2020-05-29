@@ -141,8 +141,8 @@ class PublishActivity : BaseActivity() {
                     uploadVideoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<UploadVideoBean>(){
                         override fun onSucceed(t: UploadVideoBean) {
                             //上传成功后再真个和接口上传视频
-                            Logger.e("视频上传成功")
-                            showToast("上传视频成功${t.videoId}")
+                          //  Logger.e("视频上传成功")
+                            showToast("上传视频成功")
                             if (t.msg!="1"){
                                 showToast(t.msgCondition)
                                 return

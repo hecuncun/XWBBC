@@ -112,7 +112,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:scaleType="center"
-        android:src="@drawable/icon_back" />
+        android:src="@mipmap/icon_my_back" />
 
 
 </RelativeLayout>
