@@ -91,7 +91,16 @@ class LoginActivity : BaseActivity() {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
-
+        tv_ruler.setOnClickListener {
+            val intent = Intent(this,WebViewActivity::class.java)
+            intent.putExtra("type",2)
+            startActivity(intent)
+        }
+        tv_private.setOnClickListener {
+            val intent = Intent(this,WebViewActivity::class.java)
+            intent.putExtra("type",3)
+            startActivity(intent)
+        }
         iv_qq.setOnClickListener {
             //QQ登录
             UMShareAPI.get(this@LoginActivity)

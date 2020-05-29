@@ -255,7 +255,7 @@
 
             <View
                 style="@style/horizontalGrayLine"
-                android:layout_marginTop="50dp" />
+                android:layout_marginTop="52dp" />
 
             <LinearLayout
                 android:id="@+id/rl_works"

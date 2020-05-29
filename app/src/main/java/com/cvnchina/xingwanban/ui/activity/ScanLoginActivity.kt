@@ -1,6 +1,7 @@
 package com.cvnchina.xingwanban.ui.activity
 
 import android.content.Intent
+import android.util.TypedValue
 import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.base.BaseActivity
 import com.cvnchina.xingwanban.bean.ScanLoginBean
@@ -36,10 +37,14 @@ class ScanLoginActivity : BaseActivity() {
         }
         if (state=="1"){
             tv_state_title.text="您的手机端账号和电视端不一致，是否同步？"
+            tv_state_title.setTextSize(TypedValue.COMPLEX_UNIT_SP,16f)
             tv_state.text="同步后，电视和手机可同屏互动"
+            tv_state.setTextSize(TypedValue.COMPLEX_UNIT_SP,16f)
         }else{
             tv_state_title.text="星顽半登录确认"
+            tv_state_title.setTextSize(TypedValue.COMPLEX_UNIT_SP,18f)
             tv_state.text="为保障账户安全，请确保是本人操作"
+            tv_state.setTextSize(TypedValue.COMPLEX_UNIT_SP,18f)
         }
     }
 

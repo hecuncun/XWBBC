@@ -17,6 +17,7 @@ import com.cvnchina.xingwanban.bean.NewPhotoBean;
 import com.cvnchina.xingwanban.bean.PersonalInfoBean;
 import com.cvnchina.xingwanban.bean.QABean;
 import com.cvnchina.xingwanban.bean.ScanLoginBean;
+import com.cvnchina.xingwanban.bean.ShareBean;
 import com.cvnchina.xingwanban.bean.TalksBean;
 import com.cvnchina.xingwanban.bean.TokenBean;
 import com.cvnchina.xingwanban.bean.UpdateAppBean;
@@ -232,6 +233,17 @@ public interface Api {
      */
     @POST("vms/appapi/sysMgr/scanLogin")
     Observable<ScanLoginBean> scanLoginCall2(@Query("imei") String imei);
+
+    /**
+     * 分享app
+     */
+    @POST("vms/appapi/sysMgr/share")
+    Observable<ShareBean> shareAppCall(@Query("platform") int platform,@Query("type") int type);
+    /**
+     * 分享视频
+     */
+    @POST("vms/appapi/sysMgr/share")
+    Observable<ShareBean> shareVideoCall(@Query("platform") int platform,@Query("type") int type,@Query("videoId") int videoId);
 //
 //    /**
 //     * 用户注册

@@ -1,25 +1,48 @@
 package com.cvnchina.xingwanban.ui.activity
 
+import android.graphics.drawable.ColorDrawable
 import android.view.View
 import cn.jzvd.JzvdStd
 import com.bumptech.glide.Glide
 import com.cvnchina.xingwanban.R
+import com.cvnchina.xingwanban.application.App
 import com.cvnchina.xingwanban.base.BaseActivity
+import com.cvnchina.xingwanban.bean.ShareBean
 import com.cvnchina.xingwanban.bean.WorksBean
-import com.cvnchina.xingwanban.ext.showToast
+import com.cvnchina.xingwanban.net.CallbackListObserver
+import com.cvnchina.xingwanban.net.SLMRetrofit
+import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
+import com.cvnchina.xingwanban.utils.StatusBarUtil
 import com.cvnchina.xingwanban.widget.EvaluateDialog
+import com.cvnchina.xingwanban.widget.ShareDialog
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
+import com.umeng.socialize.media.UMImage
+import com.umeng.socialize.media.UMVideo
 import kotlinx.android.synthetic.main.activity_player.*
+import kotlinx.android.synthetic.main.activity_player.tv_evaluate
+import kotlinx.android.synthetic.main.activity_player.tv_tag
+import kotlinx.android.synthetic.main.activity_player.tv_title
+import kotlinx.android.synthetic.main.activity_player.tv_zan
+import kotlinx.android.synthetic.main.item_works_list.*
 
 /**
  * Created by hecuncun on 2020-5-16
  */
 class PlayerActivity : BaseActivity() {
+    private var shareDialog: ShareDialog?=null
     override fun attachLayoutRes(): Int = R.layout.activity_player
     private var workBean: WorksBean.ListBean? = null
     private var show=""//0 不显示  1 显示
+
+    override fun initStateBarColor() {
+        val mThemeColor = App.context.resources.getColor(R.color.transparent)//设置状态栏颜色
+        StatusBarUtil.setColor(this, mThemeColor, 100)
+        if (this.supportActionBar != null) {
+            this.supportActionBar?.setBackgroundDrawable(ColorDrawable(mThemeColor))
+        }
+    }
     override fun initData() {
         workBean = intent.getParcelableExtra<WorksBean.ListBean>("listBean")
         show= intent.getStringExtra("show")!!
@@ -53,6 +76,7 @@ class PlayerActivity : BaseActivity() {
             player.fullscreenButton.visibility = View.INVISIBLE
             tv_zan.visibility =View.GONE
             tv_evaluate.visibility = View.GONE
+            iv_share.visibility=View.GONE
             tv_title.text = title
             tv_tag.text=tags
         }
@@ -60,7 +84,8 @@ class PlayerActivity : BaseActivity() {
     }
 
     override fun initView() {
-        tv_nick_name.text=nickname
+        tv_nick_name.text="@$nickname"
+        shareDialog= ShareDialog(this,false)
     }
 
     private var showContent = true
@@ -70,13 +95,32 @@ class PlayerActivity : BaseActivity() {
         }
 
         tv_share.setOnClickListener {
-            showToast("分享")
-            ShareAction(this).withText("hello").setDisplayList(
-                SHARE_MEDIA.SINA,
-                SHARE_MEDIA.QQ,
-                SHARE_MEDIA.WEIXIN
-            )
-                .setCallback(umShareListener).open()
+            shareDialog?.setOnChoseListener(object :ShareDialog.OnChoseListener{
+                override fun select(resId: Int) {
+                    when(resId){
+                        R.id.ll_wx->{
+                            requestShare(1,2,workBean!!.contId.toInt())
+                        }
+                        R.id.ll_wx_c->{
+                            requestShare(2,2,workBean!!.contId.toInt())
+                        }
+                        R.id.ll_wb->{
+                            requestShare(3,2,workBean!!.contId.toInt())
+                        }
+                        R.id.ll_qq->{
+                            requestShare(4,2,workBean!!.contId.toInt())
+                        }
+                        R.id.ll_qq_c->{
+                            requestShare(5,2,workBean!!.contId.toInt())
+                        }
+
+                    }
+
+                    shareDialog?.dismiss()
+                }
+            })
+
+            shareDialog?.show()
         }
         ll_content.setOnClickListener {
             showContent = !showContent
@@ -103,7 +147,46 @@ class PlayerActivity : BaseActivity() {
             tv_evaluate.performClick()
         }
     }
+    private fun requestShare(platform: Int, type: Int, videoId: Int) {
+        //分享到平台1-微信；2-朋友圈；3-微博；4-QQ好友；5.QQ空间  1-app分享 2-视频分享
+        val shareVideoCall = SLMRetrofit.instance.api.shareVideoCall(
+            platform,
+            type,
+            videoId
+        )
+        shareVideoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<ShareBean>(){
+            override fun onSucceed(t: ShareBean?) {
+                val video = UMVideo(t?.url)
+                video.title ="  " //视频的标题
+                var thumb= UMImage(this@PlayerActivity,workBean!!.overimageurl)
+                video.setThumb(thumb) //视频的缩略图
+                video.description = workBean?.contSubTitle //视频的描述
+                when(platform){
+                    1->{
+                        ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(video).setCallback(umShareListener).share()
+                    }
+                    2->{
+                        ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withMedia(video).setCallback(umShareListener).share()
+                    }
+                    3->{
+                        ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.SINA).withMedia(video).setCallback(umShareListener).share()
+                    }
+                    4->{
+                        ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.QQ).withMedia(video).setCallback(umShareListener).share()
+                    }
+                    5->{
+                        ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.QZONE).withMedia(video).setCallback(umShareListener).share()
+                    }
 
+                }
+
+            }
+
+            override fun onFailed() {
+
+            }
+        })
+    }
     override fun onBackPressed() {
         if (JzvdStd.backPress()) {
             return

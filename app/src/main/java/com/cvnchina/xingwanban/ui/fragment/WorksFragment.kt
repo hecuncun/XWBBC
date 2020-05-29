@@ -1,7 +1,6 @@
 package com.cvnchina.xingwanban.ui.fragment
 
 import android.content.Intent
-import android.graphics.Color
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
@@ -10,6 +9,7 @@ import com.aliyun.svideo.common.baseAdapter.BaseQuickAdapter
 import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.adapter.WorksAdapter
 import com.cvnchina.xingwanban.base.BaseNoDataBean
+import com.cvnchina.xingwanban.bean.ShareBean
 import com.cvnchina.xingwanban.bean.WorksBean
 import com.cvnchina.xingwanban.event.RefreshWorksEvent
 import com.cvnchina.xingwanban.ext.showToast
@@ -18,7 +18,7 @@ import com.cvnchina.xingwanban.net.CallbackObserver
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
 import com.cvnchina.xingwanban.ui.activity.PlayerActivity
-import com.flyco.dialog.widget.ActionSheetDialog
+import com.cvnchina.xingwanban.widget.ShareDialog
 import com.lhzw.bluetooth.base.BaseFragment
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareAPI
@@ -39,9 +39,11 @@ class WorksFragment : BaseFragment() {
     private var total = 0
     private var pageSize = 10
     private var listWorks = mutableListOf<WorksBean.ListBean>()
+
+    private var currentBean :WorksBean.ListBean?=null
     override fun useEventBus(): Boolean=true
 
-    private var moreDialog: ActionSheetDialog? = null
+    private var shareDialog:ShareDialog?=null
     private val worksAdapter: WorksAdapter by lazy {
         WorksAdapter()
     }
@@ -56,13 +58,7 @@ class WorksFragment : BaseFragment() {
 
     override fun initView(view: View) {
         initRv()
-        moreDialog = ActionSheetDialog(activity, arrayOf("删除", "分享"), null)
-        moreDialog?.run {
-            isTitleShow(false)
-                .lvBgColor(Color.parseColor("#FFFFFF"))
-            itemTextColor(resources.getColor(R.color.color_primary_bar))
-            cancelText(resources.getColor(R.color.color_primary_bar))
-        }
+        shareDialog= ShareDialog(activity!!,true)
     }
 
     private var isPlaying = false
@@ -99,8 +95,10 @@ class WorksFragment : BaseFragment() {
 
         }, rv_works)
 
+
         worksAdapter.setOnItemChildClickListener { adapter, view, position ->
             val listBean = adapter.getItem(position) as WorksBean.ListBean
+            currentBean=listBean
             val palyer = adapter.getViewByPosition(position, R.id.jz_player) as JzvdStd
             val ivStart = adapter.getViewByPosition(position, R.id.iv_start) as ImageView
             when (view.id) {
@@ -123,47 +121,54 @@ class WorksFragment : BaseFragment() {
                     startActivity(intent)
                 }
                 R.id.iv_share -> {
-                    moreDialog?.show()
-                    moreDialog?.setOnOperItemClickL { parent, view, position, id ->
-                        moreDialog!!.dismiss()
-                        if (position==0){//删除
-                            //移除除视频
-                            val removeVideoCall =
-                                SLMRetrofit.instance.api.deleteVideoCall(listBean.contId)
-                            removeVideoCall.compose(ThreadSwitchTransformer())
-                                .subscribe(object : CallbackListObserver<BaseNoDataBean>() {
-                                    override fun onSucceed(t: BaseNoDataBean) {
-                                        if (t.msg == "1") {
-                                            showToast("删除成功")
-                                            worksAdapter.remove(position)
-                                        } else {
-                                            showToast(t.msgCondition)
-                                        }
-                                    }
+                    shareDialog?.setOnChoseListener(object :ShareDialog.OnChoseListener{
+                        override fun select(resId: Int) {
+                            when(resId){
+                                R.id.ll_del_video->{
+                                    //删除视频
+                                    //移除除视频
+                                    val removeVideoCall =
+                                        SLMRetrofit.instance.api.deleteVideoCall(listBean.contId)
+                                    removeVideoCall.compose(ThreadSwitchTransformer())
+                                        .subscribe(object : CallbackListObserver<BaseNoDataBean>() {
+                                            override fun onSucceed(t: BaseNoDataBean) {
+                                                if (t.msg == "1") {
+                                                    showToast("删除成功")
+                                                    worksAdapter.remove(position)
+                                                } else {
+                                                    showToast(t.msgCondition)
+                                                }
+                                            }
 
-                                    override fun onFailed() {
+                                            override fun onFailed() {
 
-                                    }
-                                })
-                        }else{//分享
-                            val video = UMVideo(listBean.contDownUrl)
-                            video.title = listBean.contSubTitle //视频的标题
-                            var thumb= UMImage(activity,listBean.overimageurl)
-                            video.setThumb(thumb) //视频的缩略图
+                                            }
+                                        })
+                                }
 
-                            video.description = listBean.contSubTitle //视频的描述
+                                R.id.ll_wx->{
+                                    requestShare(1,2,listBean.contId.toInt())
+                                }
+                                R.id.ll_wx_c->{
+                                    requestShare(2,2,listBean.contId.toInt())
+                                }
+                                R.id.ll_wb->{
+                                    requestShare(3,2,listBean.contId.toInt())
+                                }
+                                R.id.ll_qq->{
+                                    requestShare(4,2,listBean.contId.toInt())
+                                }
+                                R.id.ll_qq_c->{
+                                    requestShare(5,2,listBean.contId.toInt())
+                                }
 
+                            }
 
-                            ShareAction(activity).withText(listBean.contSubTitle).withMedia(video).setDisplayList(
-                                SHARE_MEDIA.WEIXIN,
-                                SHARE_MEDIA.WEIXIN_CIRCLE,
-                                SHARE_MEDIA.SINA,
-                                SHARE_MEDIA.QQ,
-                                SHARE_MEDIA.QZONE
-                            )
-                                .setCallback(umShareListener).open();
+                            shareDialog?.dismiss()
                         }
-                    }
+                    })
+
+                    shareDialog?.show()
 
                 }
                 R.id.tv_more->{
@@ -195,6 +200,47 @@ class WorksFragment : BaseFragment() {
             }
 
         }
+    }
+
+    private fun requestShare(platform: Int, type: Int, videoId: Int) {
+        //分享到平台1-微信；2-朋友圈；3-微博；4-QQ好友；5.QQ空间  1-app分享 2-视频分享
+        val shareVideoCall = SLMRetrofit.instance.api.shareVideoCall(
+            platform,
+            type,
+            videoId
+        )
+        shareVideoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<ShareBean>(){
+            override fun onSucceed(t: ShareBean?) {
+                val video = UMVideo(t?.url)
+                video.title ="  " //视频的标题
+                var thumb= UMImage(activity,currentBean?.overimageurl)
+                video.setThumb(thumb) //视频的缩略图
+                video.description = currentBean?.contSubTitle //视频的描述
+           when(platform){
+               1->{
+                ShareAction(activity).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(video).setCallback(umShareListener).share()
+               }
+               2->{
+                   ShareAction(activity).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withMedia(video).setCallback(umShareListener).share()
+               }
+               3->{
+                   ShareAction(activity).setPlatform(SHARE_MEDIA.SINA).withMedia(video).setCallback(umShareListener).share()
+               }
+              4->{
+                  ShareAction(activity).setPlatform(SHARE_MEDIA.QQ).withMedia(video).setCallback(umShareListener).share()
+               }
+               5->{
+                   ShareAction(activity).setPlatform(SHARE_MEDIA.QZONE).withMedia(video).setCallback(umShareListener).share()
+               }
+
+           }
+
+     }
+
+            override fun onFailed() {
+
+            }
+        })
     }
 
     override fun lazyLoad() {
@@ -258,6 +304,7 @@ class WorksFragment : BaseFragment() {
          * @descrption 分享开始的回调
          */
         override fun onResult(p0: SHARE_MEDIA?) {//成功
+
 
         }
 

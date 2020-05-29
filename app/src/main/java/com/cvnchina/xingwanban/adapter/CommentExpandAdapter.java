@@ -91,7 +91,7 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         }
         GlideUtils.showCircle(groupHolder.logo,commentBeanList.get(groupPosition).getUserHeadPic(),R.mipmap.head1);
         groupHolder.tv_name.setText(commentBeanList.get(groupPosition).getUserNickName());
-        groupHolder.tv_content.setText(commentBeanList.get(groupPosition).getContent()+"  "+commentBeanList.get(groupPosition).getCreateDate());
+        groupHolder.tv_content.setText(commentBeanList.get(groupPosition).getContent()+"  "+commentBeanList.get(groupPosition).getCreateDate().split(" ")[0]);
         return convertView;
     }
 
@@ -112,6 +112,11 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
             childHolder.tv_name.setText(replyUser + ":");
         }else {
             childHolder.tv_name.setText("无名"+":");
+        }
+        if (childPosition==commentBeanList.get(groupPosition).getChildComment().size()-1){
+            childHolder.line.setVisibility(View.VISIBLE);
+        }else {
+            childHolder.line.setVisibility(View.GONE);
         }
 
         childHolder.tv_content.setText(commentBeanList.get(groupPosition).getChildComment().get(childPosition).getContent());
@@ -137,9 +142,11 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
 
     private class ChildHolder{
         private TextView tv_name, tv_content;
+        private View line;
         public ChildHolder(View view) {
             tv_name = (TextView) view.findViewById(R.id.tv_name);
             tv_content = (TextView) view.findViewById(R.id.tv_reply);
+            line = (View) view.findViewById(R.id.line);
         }
     }
 

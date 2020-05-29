@@ -11,33 +11,34 @@
         android:layout_width="88dp"
         android:layout_height="88dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="80dp"
         android:src="@mipmap/logo_2" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:text=""
-        android:textColor="@color/white"
-        android:textSize="30sp" />
+<!--    <TextView-->
+<!--        -->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:text=""-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="30sp" />-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:text=""
-        android:textColor="@color/white"
-        android:textSize="12sp" />
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:text=""-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="12sp" />-->
 
     <TextView
         android:id="@+id/tv_one_key_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="86dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/bg_yellow_btn"
         android:gravity="center"
@@ -51,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/bg_white_kuang"
         android:gravity="center"
@@ -75,10 +76,26 @@
         android:textSize="12sp" />
 
     <TextView
+        android:id="@+id/tv_ruler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="《用户条款与隐私协议》"
+        android:text="用户条款"
+        android:textColor="@color/color_primary_yellow"
+        android:textSize="12sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="和"
+        android:textColor="@color/color_gray_F9F9F9"
+        android:textSize="12sp" />
+    <TextView
+        android:id="@+id/tv_private"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="隐私协议"
         android:textColor="@color/color_primary_yellow"
         android:textSize="12sp" />
 </LinearLayout>
@@ -87,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="68dp"
         android:text="使用其它方式登录"
         android:textColor="@color/white"
         android:textSize="15sp" />
