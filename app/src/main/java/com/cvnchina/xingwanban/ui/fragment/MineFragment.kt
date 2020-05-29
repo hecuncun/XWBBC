@@ -15,6 +15,7 @@ import com.cvnchina.xingwanban.utils.CommonUtil
 import com.flyco.dialog.widget.ActionSheetDialog
 import com.lhzw.bluetooth.base.BaseFragment
 import com.umeng.socialize.ShareAction
+import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.fragment_mine.*
@@ -94,7 +95,11 @@ class MineFragment : BaseFragment() {
                     startActivity(Intent(activity, SettingActivity::class.java))
                 }else{
                     //分享 https://developer.umeng.com/docs/128606/detail/129622
-                    ShareAction(activity).withText("hello").setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN)
+                    ShareAction(activity).withText("hello").setDisplayList( SHARE_MEDIA.WEIXIN,
+                        SHARE_MEDIA.WEIXIN_CIRCLE,
+                        SHARE_MEDIA.SINA,
+                        SHARE_MEDIA.QQ,
+                        SHARE_MEDIA.QZONE)
                         .setCallback(umShareListener).open();
                 }
             }
@@ -171,4 +176,11 @@ class MineFragment : BaseFragment() {
     fun refreshPersonalInfo(event:RefreshPersonalInfoEvent){
         initPersonalInfo()
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        UMShareAPI.get(activity).onActivityResult(requestCode,resultCode,data)
+    }
+
+
 }

@@ -19,6 +19,7 @@ import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
 import com.cvnchina.xingwanban.ui.activity.PlayerActivity
 import com.lhzw.bluetooth.base.BaseFragment
 import com.umeng.socialize.ShareAction
+import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.fragment_works.*
@@ -109,9 +110,12 @@ class WorksFragment : BaseFragment() {
                 }
                 R.id.iv_share -> {
                     ShareAction(activity).withText("hello").setDisplayList(
+                        SHARE_MEDIA.WEIXIN,
+                        SHARE_MEDIA.WEIXIN_CIRCLE,
                         SHARE_MEDIA.SINA,
                         SHARE_MEDIA.QQ,
-                        SHARE_MEDIA.WEIXIN)
+                        SHARE_MEDIA.QZONE
+                     )
                         .setCallback(umShareListener).open();
                 }
                 R.id.tv_more->{
@@ -225,5 +229,10 @@ class WorksFragment : BaseFragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun refreshList(event:RefreshWorksEvent){
         lazyLoad()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        UMShareAPI.get(activity).onActivityResult(requestCode,resultCode,data)
     }
 }
