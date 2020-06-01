@@ -1,33 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_works"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"/>
-    <LinearLayout
-        android:id="@+id/ll_empty_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:layout_width="220dp"
-        android:layout_height="180dp"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/icon_empty"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="@color/color_gray_999999"
-            android:layout_gravity="center"
-            android:text="你还未创建作品"/>
-    </LinearLayout>
-  
-</RelativeLayout>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_works"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" />
+
+        <RelativeLayout
+            android:id="@+id/ll_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="40dp">
+
+            <ImageView
+                android:id="@+id/iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:scaleType="center"
+                android:src="@mipmap/icon_empty" />
+
+            <TextView
+                android:layout_below="@id/iv"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="你还未创建作品"
+                android:textColor="@color/color_gray_999999"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </FrameLayout>
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

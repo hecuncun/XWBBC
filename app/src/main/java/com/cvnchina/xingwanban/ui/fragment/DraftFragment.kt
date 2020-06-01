@@ -91,6 +91,7 @@ class DraftFragment : BaseFragment() {
     override fun lazyLoad() {
         list.clear()
         list=LitePal.findAll(DraftBean::class.java)
+        list.reverse()
         for (item in list){
             com.orhanobut.logger.Logger.e("${item.thumbnailPath}")
         }

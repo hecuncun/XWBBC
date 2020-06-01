@@ -20,6 +20,7 @@ import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
 import com.cvnchina.xingwanban.ui.activity.PlayerActivity
 import com.cvnchina.xingwanban.widget.ShareDialog
 import com.lhzw.bluetooth.base.BaseFragment
+import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.UMShareListener
@@ -35,7 +36,7 @@ import org.greenrobot.eventbus.ThreadMode
  * Created by hecuncun on 2020-5-6
  */
 class WorksFragment : BaseFragment() {
-    private var currentPage = 0
+    private var currentPage =1
     private var total = 0//总页数
     private var pageSize = 10
     private var listWorks = mutableListOf<WorksBean.ListBean>()
@@ -64,6 +65,16 @@ class WorksFragment : BaseFragment() {
     private var isPlaying = false
 
     override fun initListener() {
+
+        refreshLayout.setRefreshHeader(ClassicsHeader(activity))
+        refreshLayout.setDragRate(3f)
+           refreshLayout.setOnRefreshListener {
+               com.orhanobut.logger.Logger.e("刷新列表")
+               currentPage=1
+               total=0
+               refreshLayout.finishRefresh(2000)
+               lazyLoad()
+           }
         worksAdapter.disableLoadMoreIfNotFullPage(rv_works)
         worksAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
             if (total < 2) {
@@ -74,10 +85,12 @@ class WorksFragment : BaseFragment() {
             if (currentPage > total) {
                 return@RequestLoadMoreListener
             }
+
             val worksCall = SLMRetrofit.instance.api.worksCall(currentPage, pageSize)
             worksCall.compose(ThreadSwitchTransformer())
                 .subscribe(object : CallbackObserver<WorksBean>() {
                     override fun onSucceed(t: WorksBean, desc: String?) {
+                        com.orhanobut.logger.Logger.e("加载更多currentPage==$currentPage,${t.list.size}")
                         listWorks.addAll(t.list)
                         worksAdapter.setNewData(listWorks)
                         if (currentPage == total) {
@@ -277,6 +290,7 @@ class WorksFragment : BaseFragment() {
             .subscribe(object : CallbackObserver<WorksBean>() {
                 override fun onSucceed(t: WorksBean, desc: String?) {
                     total = t.pages
+                    com.orhanobut.logger.Logger.e("初始化currentPage==$currentPage,${t.list.size}")
                     listWorks.addAll(t.list)
                     worksAdapter.setNewData(listWorks)
                     if (listWorks.isEmpty()) {

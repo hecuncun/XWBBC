@@ -21,11 +21,6 @@ import com.umeng.socialize.bean.SHARE_MEDIA
 import com.umeng.socialize.media.UMImage
 import com.umeng.socialize.media.UMVideo
 import kotlinx.android.synthetic.main.activity_player.*
-import kotlinx.android.synthetic.main.activity_player.tv_evaluate
-import kotlinx.android.synthetic.main.activity_player.tv_tag
-import kotlinx.android.synthetic.main.activity_player.tv_title
-import kotlinx.android.synthetic.main.activity_player.tv_zan
-import kotlinx.android.synthetic.main.item_works_list.*
 
 /**
  * Created by hecuncun on 2020-5-16
@@ -76,7 +71,7 @@ class PlayerActivity : BaseActivity() {
             player.fullscreenButton.visibility = View.INVISIBLE
             tv_zan.visibility =View.GONE
             tv_evaluate.visibility = View.GONE
-            iv_share.visibility=View.GONE
+            tv_share.visibility=View.GONE
             tv_title.text = title
             tv_tag.text=tags
         }

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.toolbar.*
  * Created by hecuncun on 2020-5-10
  */
 class MsgActivity : BaseActivity() {
-    private var currentPage = 0
+    private var currentPage = 1
     private var total = 0
     private var pageSize = 10
     private var list = mutableListOf<MsgBean.RecordsBean>()
