@@ -341,6 +341,8 @@ class WorksFragment : BaseFragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun refreshList(event:RefreshWorksEvent){
+        currentPage=1
+        total=0
         lazyLoad()
     }
 

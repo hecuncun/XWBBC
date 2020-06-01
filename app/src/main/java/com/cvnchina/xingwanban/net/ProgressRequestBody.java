@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okio.Buffer;
 import okio.BufferedSink;
 
 /**
@@ -44,6 +45,9 @@ public class ProgressRequestBody extends RequestBody{
 
     @Override
     public void writeTo(BufferedSink sink) throws IOException {
+        if (sink instanceof Buffer){//解决进度跑两遍的问题   因为log RequestBody
+              return;
+        }
         long fileLength = mFile.length();
         byte[] buffer = new byte[mEachBufferSize];
         FileInputStream in = new FileInputStream(mFile);
@@ -78,4 +82,13 @@ public class ProgressRequestBody extends RequestBody{
             mListener.onProgressUpdate((int) (100 * mUploaded / mTotal));
         }
     }
+
+    public interface UploadCallbacks {
+        void onProgressUpdate(int percentage);
+
+        void onError();
+
+        void onFinish();
+    }
+
 }

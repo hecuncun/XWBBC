@@ -45,10 +45,6 @@ class MineFragment : BaseFragment() {
         return R.layout.fragment_mine
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        moreDialog?.dismiss()
-    }
 
     override fun initView(view: View) {
         toolbar_title.text = "个人中心"

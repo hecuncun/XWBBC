@@ -19,6 +19,8 @@ import com.cvnchina.xingwanban.bean.UploadVideoBean
 import com.cvnchina.xingwanban.event.*
 import com.cvnchina.xingwanban.ext.showToast
 import com.cvnchina.xingwanban.net.CallbackListObserver
+import com.cvnchina.xingwanban.net.ProgressRequestBody
+import com.cvnchina.xingwanban.net.ProgressRequestBody.UploadCallbacks
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
 import com.cvnchina.xingwanban.widget.ProgressDialog
@@ -113,7 +115,7 @@ class PublishActivity : BaseActivity() {
     private fun startCompose(upload: Boolean) {
         progressDialog?.show()
         if (upload) {
-            progressDialog?.setText("发布中...")
+            progressDialog?.setText("合成中...")
         } else {
             progressDialog?.setText("存草稿中...")
         }
@@ -132,8 +134,24 @@ class PublishActivity : BaseActivity() {
                     Logger.e("视频地址==$videoPath")
                     if (upload) {
                         progressDialog?.setText("上传中...")
-                        val requestFile: RequestBody =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), file)
+
+                  val  requestFile =ProgressRequestBody(file, "video/mp4",object :UploadCallbacks{
+                            override fun onFinish() {
+
+                            }
+
+                            override fun onProgressUpdate(percentage: Int) {
+                                progressDialog?.setProgress(percentage)
+                            }
+
+                            override fun onError() {
+                                showToast("上传视频失败")
+                            }
+                        })
+
+
+//                        val requestFile: RequestBody =
+//                            RequestBody.create(MediaType.parse("multipart/form-data"), file)
                         //retrofit 上传文件api加上 @Multipart注解,然后下面这是个重点 参数1：上传文件的key，参数2：上传的文件名，参数3 请求头
                         val body: MultipartBody.Part =
                             MultipartBody.Part.createFormData("video-file", file.name, requestFile)
@@ -143,7 +161,7 @@ class PublishActivity : BaseActivity() {
                                 override fun onSucceed(t: UploadVideoBean) {
                                     //上传成功后再真个和接口上传视频
                                     //  Logger.e("视频上传成功")
-                                    showToast("上传视频成功")
+
                                     if (t.msg != "1") {
                                         showToast(t.msgCondition)
                                         return
