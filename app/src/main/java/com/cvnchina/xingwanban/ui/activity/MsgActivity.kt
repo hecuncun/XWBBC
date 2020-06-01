@@ -52,6 +52,7 @@ class MsgActivity : BaseActivity() {
         msgAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
             if (total < 2) {
                 msgAdapter.setEnableLoadMore(false)
+                return@RequestLoadMoreListener
             }
             currentPage++
             if (currentPage > total) {

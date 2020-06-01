@@ -75,9 +75,8 @@ abstract class BaseFragment :Fragment(){
 
         isViewPrepare = true
         initView(view)
-        initListener()
-
         lazyLoadDataIfPrepared()
+        initListener()
     }
 
     private fun lazyLoadDataIfPrepared() {

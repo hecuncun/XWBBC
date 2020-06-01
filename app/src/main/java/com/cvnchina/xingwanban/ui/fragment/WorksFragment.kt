@@ -36,7 +36,7 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class WorksFragment : BaseFragment() {
     private var currentPage = 0
-    private var total = 0
+    private var total = 0//总页数
     private var pageSize = 10
     private var listWorks = mutableListOf<WorksBean.ListBean>()
 
@@ -68,6 +68,7 @@ class WorksFragment : BaseFragment() {
         worksAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
             if (total < 2) {
                 worksAdapter.setEnableLoadMore(false)
+                return@RequestLoadMoreListener
             }
             currentPage++
             if (currentPage > total) {

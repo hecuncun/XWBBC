@@ -57,13 +57,14 @@ class PublishActivity : BaseActivity() {
     override fun attachLayoutRes(): Int {
         return R.layout.activity_publish
     }
-   private var  mDraftBean:DraftBean?=null
+
+    private var mDraftBean: DraftBean? = null
     override fun initData() {
         val intent = intent
-        val draftBean =intent.getSerializableExtra("draftBean")
-        if (draftBean!=null){
+        val draftBean = intent.getSerializableExtra("draftBean")
+        if (draftBean != null) {
             //初始化数据
-            mDraftBean=draftBean as DraftBean
+            mDraftBean = draftBean as DraftBean
             initDraftData(draftBean as DraftBean)
         }
         mConfigPath = intent.getStringExtra(KEY_PARAM_CONFIG)//配置文件
@@ -77,31 +78,30 @@ class PublishActivity : BaseActivity() {
             ImageLoaderOptions.Builder().skipMemoryCache().skipDiskCacheCache().build()
         )
             .into(iv_cover)
-        tv_choose
         startComposeF()
     }
 
     /**
      * 初始化填写数据
      */
-    private fun initDraftData(draftBean:DraftBean) {
-        title=draftBean.title//视频标题
-        description=draftBean.title
-        et_title.textString=title
-        columns=draftBean.columns
-        tv_content_sort.text =draftBean.colName
+    private fun initDraftData(draftBean: DraftBean) {
+        title = draftBean.title//视频标题
+        description = draftBean.title
+        et_title.textString = title
+        columns = draftBean.columns
+        tv_content_sort.text = draftBean.colName
         tv_content_sort.setTextColor(resources.getColor(R.color.color_primary_yellow))
-        tags =draftBean.tags
-        talk_name.text=tags
+        tags = draftBean.tags
+        talk_name.text = tags
         talk_name.setTextColor(resources.getColor(R.color.color_primary_yellow))
-        tv_location.text=draftBean.address
-        city=draftBean.city
-        lat=draftBean.lat
-        lng=draftBean.lng
-        isVisible=draftBean.isVisible
-        tv_visiable.text = if (isVisible=="0") "公开" else "秘密"
+        tv_location.text = draftBean.address
+        city = draftBean.city
+        lat = draftBean.lat
+        lng = draftBean.lng
+        isVisible = draftBean.isVisible
+        tv_visiable.text = if (isVisible == "0") "公开" else "秘密"
 
-        address=draftBean.address
+        address = draftBean.address
         tv_location.text = draftBean.addName
 
 
@@ -110,11 +110,11 @@ class PublishActivity : BaseActivity() {
     /**
      * 先合成目标视频文件
      */
-    private fun startCompose(upload:Boolean) {
+    private fun startCompose(upload: Boolean) {
         progressDialog?.show()
-        if (upload){
+        if (upload) {
             progressDialog?.setText("发布中...")
-        }else{
+        } else {
             progressDialog?.setText("存草稿中...")
         }
 
@@ -127,84 +127,114 @@ class PublishActivity : BaseActivity() {
 
             override fun onComposeCompleted() {
                 //合成完成，上传接口
+                runOnUiThread {
+                    val file = File(videoPath)
+                    Logger.e("视频地址==$videoPath")
+                    if (upload) {
+                        progressDialog?.setText("上传中...")
+                        val requestFile: RequestBody =
+                            RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                        //retrofit 上传文件api加上 @Multipart注解,然后下面这是个重点 参数1：上传文件的key，参数2：上传的文件名，参数3 请求头
+                        val body: MultipartBody.Part =
+                            MultipartBody.Part.createFormData("video-file", file.name, requestFile)
+                        val uploadVideoCall = SLMRetrofit.instance.api.uploadVideoCall(body)
+                        uploadVideoCall.compose(ThreadSwitchTransformer())
+                            .subscribe(object : CallbackListObserver<UploadVideoBean>() {
+                                override fun onSucceed(t: UploadVideoBean) {
+                                    //上传成功后再真个和接口上传视频
+                                    //  Logger.e("视频上传成功")
+                                    showToast("上传视频成功")
+                                    if (t.msg != "1") {
+                                        showToast(t.msgCondition)
+                                        return
+                                    }
+                                    val file2 = File(mThumbnailPath)
+                                    val request: RequestBody =
+                                        RequestBody.create(
+                                            MediaType.parse("multipart/form-data"),
+                                            file2
+                                        )
+                                    val body2: MultipartBody.Part =
+                                        MultipartBody.Part.createFormData(
+                                            "image-file",
+                                            file2.name,
+                                            request
+                                        )
+                                    val saveVideoCall = SLMRetrofit.instance.api.saveVideoCall(
+                                        t.videoId,
+                                        body2,
+                                        title,
+                                        description,
+                                        columns,
+                                        tags,
+                                        city,
+                                        lat,
+                                        lng,
+                                        isVisible,
+                                        address
+                                    )
+                                    saveVideoCall.compose(ThreadSwitchTransformer())
+                                        .subscribe(object : CallbackListObserver<BaseNoDataBean>() {
+                                            override fun onSucceed(t: BaseNoDataBean) {
+                                                showToast(t.msgCondition)
+                                                progressDialog?.dismiss()
+                                                EventBus.getDefault().post(RefreshWorksEvent())
+                                                EventBus.getDefault().post(ChangeEvent())
+                                                startActivity(
+                                                    Intent(
+                                                        this@PublishActivity,
+                                                        MainActivity::class.java
+                                                    )
+                                                )
+                                                if (mDraftBean!=null){
+                                                    LitePal.delete(
+                                                        DraftBean::class.java,
+                                                        mDraftBean!!.id
+                                                    )
+                                                }
 
-                val file = File(videoPath)
-                Logger.e("视频地址==$videoPath")
-                if (upload){
-                    progressDialog?.setText("上传中...")
-                    val requestFile: RequestBody =
-                        RequestBody.create(MediaType.parse("multipart/form-data"), file)
-                    //retrofit 上传文件api加上 @Multipart注解,然后下面这是个重点 参数1：上传文件的key，参数2：上传的文件名，参数3 请求头
-                    val body: MultipartBody.Part =
-                        MultipartBody.Part.createFormData("video-file", file.name, requestFile)
-                    val uploadVideoCall = SLMRetrofit.instance.api.uploadVideoCall(body)
-                    uploadVideoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<UploadVideoBean>(){
-                        override fun onSucceed(t: UploadVideoBean) {
-                            //上传成功后再真个和接口上传视频
-                          //  Logger.e("视频上传成功")
-                            showToast("上传视频成功")
-                            if (t.msg!="1"){
-                                showToast(t.msgCondition)
-                                return
-                            }
-                            val file2 = File(mThumbnailPath)
-                            val request: RequestBody =
-                                RequestBody.create(MediaType.parse("multipart/form-data"), file2)
-                            val body2: MultipartBody.Part = MultipartBody.Part.createFormData("image-file", file2.name, request)
-                            val saveVideoCall = SLMRetrofit.instance.api.saveVideoCall(
-                                t.videoId,
-                                body2,
-                                title,
-                                description,
-                                columns,
-                                tags,
-                                city,
-                                lat,
-                                lng,
-                                isVisible,
-                                address
-                            )
-                            saveVideoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<BaseNoDataBean>(){
-                                override fun onSucceed(t: BaseNoDataBean) {
-                                    showToast(t.msgCondition)
-                                    progressDialog?.dismiss()
-                                    EventBus.getDefault().post(RefreshWorksEvent())
-                                    EventBus.getDefault().post(ChangeEvent())
-                                    startActivity(Intent(this@PublishActivity,MainActivity::class.java))
-                                    LitePal.delete(DraftBean::class.java,mDraftBean!!.id)
+                                            }
+
+                                            override fun onFailed() {
+                                                progressDialog?.dismiss()
+                                            }
+                                        })
                                 }
 
                                 override fun onFailed() {
                                     progressDialog?.dismiss()
                                 }
                             })
+                    } else {
+                            progressDialog?.setText("存储成功")
+                            Logger.e("存储的封面地址==$mThumbnailPath")
+                            if (mDraftBean!=null){
+                                LitePal.delete(DraftBean::class.java, mDraftBean!!.id)
+                            }
+
+                            DraftBean(
+                                videoPath,
+                                title,
+                                tags,
+                                mThumbnailPath!!,
+                                columns,
+                                colName,
+                                city,
+                                lat,
+                                lng,
+                                address,
+                                isVisible,
+                                addName
+                            ).save()
+                            progressDialog?.dismiss()
+                            EventBus.getDefault().post(RefreshDraftEvent())
+                            EventBus.getDefault().post(ChangeEvent())
+                            startActivity(Intent(this@PublishActivity, MainActivity::class.java))
+
                         }
 
-                        override fun onFailed() {
-                            progressDialog?.dismiss()
-                        }
-                    })
-                }else{
-                    progressDialog?.setText("存储成功")
-                    //存数据库
-//                    private var title=""//视频标题
-//                    private var columns=""
-//                    private var colName=""
-//                    private var tags=""
-//                    private var city=""
-//                    private var lat=""
-//                    private var lng=""
-//                    private var isVisible="0"
-//                    private var address=""
-                    Logger.e("存储的封面地址==$mThumbnailPath")
-                    //mDraftBean?.delete()
-                    LitePal.delete(DraftBean::class.java,mDraftBean!!.id)
-                    DraftBean(videoPath,title,tags,mThumbnailPath!!,columns,colName,city,lat,lng,address,isVisible,addName).save()
-                    progressDialog?.dismiss()
-                    EventBus.getDefault().post(RefreshDraftEvent())
-                    EventBus.getDefault().post(ChangeEvent())
-                    startActivity(Intent(this@PublishActivity,MainActivity::class.java))
                 }
+
 
             }
 
@@ -224,9 +254,14 @@ class PublishActivity : BaseActivity() {
             }
 
             override fun onComposeCompleted() {
-                tv_choose.isEnabled=true
-                tv_save.isEnabled=true
-                tv_publish.isEnabled=true
+                Logger.e("线程==${Thread.currentThread().name}")
+                Logger.e("按钮可用")
+                runOnUiThread {
+                    tv_choose.isEnabled = true
+                    tv_save.isEnabled = true
+                    tv_publish.isEnabled = true
+                }
+
             }
 
             override fun onComposeError(p0: Int) {
@@ -236,17 +271,19 @@ class PublishActivity : BaseActivity() {
 
 
     private val createAliyunCompose = AliyunComposeFactory.createAliyunCompose()
-    private var progressDialog:ProgressDialog?=null
+    private var progressDialog: ProgressDialog? = null
     override fun initView() {
-        tv_choose.isEnabled=false
-        tv_save.isEnabled=false
-        tv_publish.isEnabled=false
+        tv_choose.isEnabled = false
+        tv_save.isEnabled = false
+        tv_publish.isEnabled = false
+        Logger.e("按钮不可用")
 //利用SDK提供的合成核心类AliyunIVodCompose，通过传入接收到的配置文件路径，调用其compose方法对编辑的视频进行合成。
         createAliyunCompose.init(this)
         initPath()
-        progressDialog= ProgressDialog(this)
+        progressDialog = ProgressDialog(this)
 
     }
+
     /**
      * 初始化文件路径videoPath
      */
@@ -264,14 +301,14 @@ class PublishActivity : BaseActivity() {
         }
         tv_publish.setOnClickListener {
             //1.发布上传 先检查填写的条件完整
-            title=et_title.textString
-            description=et_title.textString
-            if(title.isNotEmpty() && columns.isNotEmpty() && tags.isNotEmpty() && city.isNotEmpty() &&lat.isNotEmpty()&&lng.isNotEmpty()&&isVisible.isNotEmpty()&&address.isNotEmpty()){
+            title = et_title.textString
+            description = et_title.textString
+            if (title.isNotEmpty() && columns.isNotEmpty() && tags.isNotEmpty() && city.isNotEmpty() && lat.isNotEmpty() && lng.isNotEmpty() && isVisible.isNotEmpty() && address.isNotEmpty()) {
                 //2.根据mConfigPath合成文件
                 startCompose(true)
                 //3.上传视频文件
                 //4.创建视频
-            }else{
+            } else {
                 showToast("请把信息填写完成")
             }
 
@@ -284,14 +321,14 @@ class PublishActivity : BaseActivity() {
         }
         tv_save.setOnClickListener {
             //1.发布上传 先检查填写的条件完整
-            title=et_title.textString
-            description=et_title.textString
-            if(title.isNotEmpty() && columns.isNotEmpty() && tags.isNotEmpty() && city.isNotEmpty() &&lat.isNotEmpty()&&lng.isNotEmpty()&&isVisible.isNotEmpty()&&address.isNotEmpty()){
+            title = et_title.textString
+            description = et_title.textString
+            if (title.isNotEmpty() && columns.isNotEmpty() && tags.isNotEmpty() && city.isNotEmpty() && lat.isNotEmpty() && lng.isNotEmpty() && isVisible.isNotEmpty() && address.isNotEmpty()) {
                 //2.根据mConfigPath合成文件
                 startCompose(false)
                 //3.上传视频文件
                 //4.创建视频
-            }else{
+            } else {
                 showToast("请把信息填写完成")
             }
 
@@ -310,48 +347,49 @@ class PublishActivity : BaseActivity() {
             startActivity(Intent(this, CanShowActivity::class.java))
         }
     }
-    private var title=""//视频标题
-    private var description=""
-    private var columns=""
-    private var colName=""
-    private var tags=""
-    private var city=""
-    private var lat=""
-    private var lng=""
-    private var isVisible="0"
-    private var address=""
-    private var addName=""//大地址
+
+    private var title = ""//视频标题
+    private var description = ""
+    private var columns = ""
+    private var colName = ""
+    private var tags = ""
+    private var city = ""
+    private var lat = ""
+    private var lng = ""
+    private var isVisible = "0"
+    private var address = ""
+    private var addName = ""//大地址
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getTalkEvent(event: TalkEvent) {
         talk_name.text = event.name
-        tags=event.name
+        tags = event.name
         talk_name.setTextColor(resources.getColor(R.color.color_primary_yellow))
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getSortEvent(event: SortEvent) {
-        columns=event.columnId
-        colName=event.name
+        columns = event.columnId
+        colName = event.name
         tv_content_sort.text = event.name
         tv_content_sort.setTextColor(resources.getColor(R.color.color_primary_yellow))
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getLocationEvent(event: LocationBean.DataBean) {
-        addName=event.name
+        addName = event.name
         tv_location.text = event.name
-        city=event.city
-        lat=event.lat
-        lng=event.lng
-        address=event.address
+        city = event.city
+        lat = event.lat
+        lng = event.lng
+        address = event.address
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getVisiableEvent(event: VisiableEvent) {
         tv_visiable.text = if (event.visiable) "公开" else "秘密"
-        isVisible= if (event.visiable) "0" else "1"
+        isVisible = if (event.visiable) "0" else "1"
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
