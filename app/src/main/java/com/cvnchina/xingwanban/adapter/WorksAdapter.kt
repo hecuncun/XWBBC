@@ -29,7 +29,11 @@ class WorksAdapter :
             helper.setText(R.id.tv_tag, item.contTags[0].tagName)//显示一个标签
         }
         val tvState = helper.getView<TextView>(R.id.tv_state)
+        val tvZan = helper.getView<TextView>(R.id.tv_zan)
+        val tvEvaluate = helper.getView<TextView>(R.id.tv_evaluate)
         tvState.visibility = if (item.ischeck == "y") View.GONE else View.VISIBLE
+        tvZan.visibility = if (item.ischeck == "y") View.VISIBLE else View.GONE
+        tvEvaluate.visibility = if (item.ischeck == "y") View.VISIBLE else View.GONE
         if (item.ischeck == "r") {
             tvState.text = "审核中"
         } else if (item.ischeck == "n") {

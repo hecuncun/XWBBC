@@ -2,6 +2,7 @@ package com.cvnchina.xingwanban.ui.activity
 
 import android.graphics.drawable.ColorDrawable
 import android.view.View
+import android.widget.RelativeLayout
 import cn.jzvd.JzvdStd
 import com.bumptech.glide.Glide
 import com.cvnchina.xingwanban.R
@@ -30,6 +31,8 @@ class PlayerActivity : BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_player
     private var workBean: WorksBean.ListBean? = null
     private var show=""//0 不显示  1 显示
+    private var title=""
+    private var tags=""
 
     override fun initStateBarColor() {
         val mThemeColor = App.context.resources.getColor(R.color.transparent)//设置状态栏颜色
@@ -41,6 +44,8 @@ class PlayerActivity : BaseActivity() {
     override fun initData() {
         workBean = intent.getParcelableExtra<WorksBean.ListBean>("listBean")
         show= intent.getStringExtra("show")!!
+        JzvdStd.setVideoImageDisplayType(JzvdStd.VIDEO_IMAGE_DISPLAY_TYPE_FILL_PARENT)
+        (player.titleTextView.parent as RelativeLayout).background=null
         if (workBean != null) {
             player.setUp(workBean!!.contDownUrl, "", JzvdStd.SCREEN_FULLSCREEN)
             Glide.with(this).load(workBean!!.overimageurl).into(player.thumbImageView)
@@ -52,16 +57,18 @@ class PlayerActivity : BaseActivity() {
             tv_zan.text = workBean!!.haszannums
             tv_evaluate.text = workBean!!.commentnums
             tv_title.text = workBean!!.contSubTitle
+            title=workBean!!.contSubTitle
             // tv_nick_name.text=
             if (workBean!!.contTags.size > 0) {
                 tv_tag.text = workBean!!.contTags[0].tagName
+                tags=workBean!!.contTags[0].tagName
             }
         }
 
         val path = intent.getStringExtra("path")
         val pathImg = intent.getStringExtra("thumbnailPath")
-        val title = intent.getStringExtra("title")
-        val tags = intent.getStringExtra("tags")
+        val titlex = intent.getStringExtra("title")
+        val tag = intent.getStringExtra("tags")
         if (path!=null){
             player.setUp(path,"",JzvdStd.SCREEN_FULLSCREEN)
             Glide.with(this).load(pathImg).into(player.thumbImageView)
@@ -72,11 +79,14 @@ class PlayerActivity : BaseActivity() {
             tv_zan.visibility =View.GONE
             tv_evaluate.visibility = View.GONE
             tv_share.visibility=View.GONE
-            tv_title.text = title
-            tv_tag.text=tags
+            tv_title.text = titlex
+            tv_tag.text=tag
+            tags=tag
+            title=titlex
         }
 
     }
+
 
     override fun initView() {
         tv_nick_name.text="@$nickname"
@@ -108,6 +118,9 @@ class PlayerActivity : BaseActivity() {
                         R.id.ll_qq_c->{
                             requestShare(5,2,workBean!!.contId.toInt())
                         }
+                        else->{
+
+                        }
 
                     }
 
@@ -120,14 +133,17 @@ class PlayerActivity : BaseActivity() {
         ll_content.setOnClickListener {
             showContent = !showContent
             if (showContent) {
-                tv_title.text = workBean!!.contSubTitle
+                tv_title.text = title
+                tv_nick_name.text="@$nickname"
                 // tv_nick_name.text=
-                if (workBean!!.contTags.size > 0) {
-                    tv_tag.text = workBean!!.contTags[0].tagName
-                }
+                    tv_tag.text = tags
+                    tv_tag.background= resources.getDrawable(R.drawable.bg_gray_26ffffff_r4)
+
             } else {
+                tv_nick_name.text=""
                 tv_title.text = ""
                 tv_tag.text = ""
+                tv_tag.background=null
             }
         }
 

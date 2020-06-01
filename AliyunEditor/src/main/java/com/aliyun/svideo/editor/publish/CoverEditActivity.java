@@ -80,7 +80,7 @@ public class CoverEditActivity extends Activity {
 
         title.setText(R.string.alivc_editor_cover_tittle);
 //        mIvLeft.setImageResource(R.drawable.aliyun_svideo_crop_icon_cancel);
-        mIvLeft.setImageResource(R.mipmap.icon_close);
+        mIvLeft.setImageResource(R.mipmap.my_edit_icon_close);
         mIvRight.setImageResource(R.mipmap.icon_confirm);
         mIvLeft.setOnClickListener(mOnClickListener);
         mIvRight.setOnClickListener(mOnClickListener);

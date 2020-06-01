@@ -1,11 +1,13 @@
 package com.cvnchina.xingwanban.ui.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Environment
 import android.support.v7.widget.GridLayoutManager
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import com.cvnchina.xingwanban.R
@@ -16,7 +18,6 @@ import com.cvnchina.xingwanban.application.App
 import com.cvnchina.xingwanban.base.BaseActivity
 import com.cvnchina.xingwanban.base.BaseNoDataBean
 import com.cvnchina.xingwanban.ext.showToast
-import com.cvnchina.xingwanban.glide.GlideUtils
 import com.cvnchina.xingwanban.net.CallbackListObserver
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
@@ -30,6 +31,7 @@ import com.luck.picture.lib.entity.LocalMedia
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_feedback.*
 import kotlinx.android.synthetic.main.toolbar.*
+import me.xfans.lib.voicewaveview.WaveMode
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -118,6 +120,31 @@ class FeedBackActivity : BaseActivity() {
         }
         //初始化音频播放器
         mediaPlayer = MediaPlayer()
+
+        voiceWaveView?.apply {
+            showGravity = Gravity.CENTER
+            waveMode = WaveMode.UP_DOWN
+            lineWidth = 30f
+            lineSpace = 15f
+            duration = 500
+            lineColor = Color.parseColor("#F56B00")
+            addHeader(4)
+            addHeader(14)
+            addBody(27)
+            addBody(17)
+            addBody(38)
+            addBody(66)
+            addBody(38)
+            addBody(24)
+            addBody(8)
+            addBody(60)
+            addBody(38)
+            addBody(14)
+            addBody(8)
+            addFooter(4)
+            addFooter(2)
+            start()
+        }
     }
 
     private var voicePath = ""//录音文件
@@ -130,7 +157,7 @@ class FeedBackActivity : BaseActivity() {
                     MotionEvent.ACTION_DOWN -> {
                         AudioRecordManager.getInstance(App.context).startRecord()
                         ll_recording.visibility = View.VISIBLE
-                        GlideUtils.loadGif(iv_wave,R.drawable.icon_wave)
+                       // GlideUtils.loadGif(iv_wave,R.drawable.icon_wave)
                         ll_recorded.visibility = View.GONE
                         tv_delete.visibility = View.GONE
                     }

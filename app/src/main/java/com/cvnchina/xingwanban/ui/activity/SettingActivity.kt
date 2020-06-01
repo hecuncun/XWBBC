@@ -89,6 +89,7 @@ private var updateAppBean:UpdateAppBean?=null
             token=""
             startActivity(Intent(this@SettingActivity,LoginActivity::class.java))
             EventBus.getDefault().post(LogoutEvent())
+            finish()
         }
 
         rl_common_problem.setOnClickListener {

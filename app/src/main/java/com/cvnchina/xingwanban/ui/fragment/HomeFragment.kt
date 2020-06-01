@@ -16,10 +16,7 @@ import com.cvnchina.xingwanban.ext.showToast
 import com.cvnchina.xingwanban.net.CallbackListObserver
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
-import com.cvnchina.xingwanban.ui.activity.LoginActivity
-import com.cvnchina.xingwanban.ui.activity.MsgActivity
-import com.cvnchina.xingwanban.ui.activity.ScanLoginActivity
-import com.cvnchina.xingwanban.ui.activity.WebViewActivity
+import com.cvnchina.xingwanban.ui.activity.*
 import com.lhzw.bluetooth.base.BaseFragment
 import com.orhanobut.logger.Logger
 import com.uuzuche.lib_zxing.activity.CaptureActivity
@@ -72,6 +69,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 startActivity(Intent(activity, MsgActivity::class.java))
             } else {
                 startActivity(Intent(activity, LoginActivity::class.java))
+                (activity!!as MainActivity).finish()
             }
 
         }
@@ -83,6 +81,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 EditorMediaActivity.startImport(context, param)
             } else {
                 startActivity(Intent(activity, LoginActivity::class.java))
+                (activity!!as MainActivity).finish()
             }
 
         }
@@ -93,6 +92,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 AlivcSvideoRecordActivity.startRecord(context, recordParam)
             } else {
                 startActivity(Intent(activity, LoginActivity::class.java))
+                (activity!!as MainActivity).finish()
             }
 
         }
@@ -102,6 +102,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 jumpToScannerActivity()
             } else {
                 startActivity(Intent(activity, LoginActivity::class.java))
+                (activity!!as MainActivity).finish()
             }
         }
         ll_edit_container.setOnClickListener {
@@ -111,6 +112,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 EditorMediaActivity.startImport(context, param)
             } else {
                 startActivity(Intent(activity, LoginActivity::class.java))
+                (activity!!as MainActivity).finish()
             }
         }
     }
@@ -186,6 +188,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             R.id.rl_draft -> {
                 if (!isLogin) {
                     startActivity(Intent(activity, LoginActivity::class.java))
+                    (activity!!as MainActivity).finish()
                     return
                 }
                 tv_draft.setTextColor(resources.getColor(R.color.color_gray_F9F9F9))
@@ -291,6 +294,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                                         EditorMediaActivity.startImport(context, param)
                                     } else {
                                         startActivity(Intent(activity, LoginActivity::class.java))
+                                        (activity!!as MainActivity).finish()
                                     }
                                 }
                                 else -> {

@@ -1,5 +1,6 @@
 package com.cvnchina.xingwanban.ui.activity
 
+import android.content.Intent
 import android.os.Environment
 import android.support.v4.app.FragmentTransaction
 import android.view.KeyEvent
@@ -36,6 +37,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initData() {
+        Logger.e("MainActivity启动")
         if (checkPermissions(
                 arrayOf(
                     android.Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -141,6 +143,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 transaction.show(homeFragment!!)
             }
             R.id.tv_mine -> {
+                if (!isLogin){
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    return
+                }
                 tv_mine.setTextColor(resources.getColor(R.color.color_gray_F9F9F9))
                 tv_home.setTextColor(resources.getColor(R.color.color_gray_999999))
                 if (mineFragment == null) {
@@ -180,6 +186,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun logout(event: LogoutEvent) {
+        Logger.e("销毁主页")
         finish()
     }
     override fun onBackPressed() {
@@ -201,6 +208,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
+        Logger.e("MainActivity销毁")
         JzvdStd.releaseAllVideos()
     }
 

@@ -45,11 +45,16 @@ class MineFragment : BaseFragment() {
         return R.layout.fragment_mine
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        moreDialog?.dismiss()
+    }
+
     override fun initView(view: View) {
         toolbar_title.text = "个人中心"
         toolbar_right_img.setImageResource(R.mipmap.icon_more)
         toolbar_right_img.visibility = View.VISIBLE
-        moreDialog = ActionSheetDialog(activity, arrayOf("设置", "分享"), null)
+        moreDialog = ActionSheetDialog(activity!!, arrayOf("设置", "分享"), null)
         moreDialog?.run {
             isTitleShow(false)
                 .lvBgColor(Color.parseColor("#FFFFFF"))
@@ -95,41 +100,43 @@ class MineFragment : BaseFragment() {
         }
         toolbar_right_img.setOnClickListener {
             //更多
-            moreDialog?.show()
-            moreDialog?.setOnOperItemClickL { parent, view, position, id ->
-                moreDialog!!.dismiss()
-                if (position == 0) {
-                    //设置
-                    startActivity(Intent(activity, SettingActivity::class.java))
-                } else {
-                    shareDialog?.setOnChoseListener(object : ShareDialog.OnChoseListener {
-                        override fun select(resId: Int) {
-                            when (resId) {
-                                R.id.ll_wx -> {
-                                    requestShare(1, 1)
-                                }
-                                R.id.ll_wx_c -> {
-                                    requestShare(2, 1)
-                                }
-                                R.id.ll_wb -> {
-                                    requestShare(3, 1)
-                                }
-                                R.id.ll_qq -> {
-                                    requestShare(4, 1)
-                                }
-                                R.id.ll_qq_c -> {
-                                    requestShare(5, 1)
+                moreDialog?.show()
+                moreDialog?.setOnOperItemClickL { parent, view, position, id ->
+                    moreDialog!!.dismiss()
+                    if (position == 0) {
+                        //设置
+                        startActivity(Intent(activity, SettingActivity::class.java))
+                    } else {
+                        shareDialog?.setOnChoseListener(object : ShareDialog.OnChoseListener {
+                            override fun select(resId: Int) {
+                                when (resId) {
+                                    R.id.ll_wx -> {
+                                        requestShare(1, 1)
+                                    }
+                                    R.id.ll_wx_c -> {
+                                        requestShare(2, 1)
+                                    }
+                                    R.id.ll_wb -> {
+                                        requestShare(3, 1)
+                                    }
+                                    R.id.ll_qq -> {
+                                        requestShare(4, 1)
+                                    }
+                                    R.id.ll_qq_c -> {
+                                        requestShare(5, 1)
+                                    }
+
                                 }
 
+                                shareDialog?.dismiss()
                             }
+                        })
 
-                            shareDialog?.dismiss()
-                        }
-                    })
-
-                    shareDialog?.show()
+                        shareDialog?.show()
+                    }
                 }
-            }
+
+
         }
 
     }

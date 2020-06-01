@@ -285,25 +285,28 @@ class WorksFragment : BaseFragment() {
 //
 //            })
         //获取视频列表
-        val worksCall = SLMRetrofit.instance.api.worksCall(currentPage, pageSize)
-        worksCall.compose(ThreadSwitchTransformer())
-            .subscribe(object : CallbackObserver<WorksBean>() {
-                override fun onSucceed(t: WorksBean, desc: String?) {
-                    total = t.pages
-                    com.orhanobut.logger.Logger.e("初始化currentPage==$currentPage,${t.list.size}")
-                    listWorks.addAll(t.list)
-                    worksAdapter.setNewData(listWorks)
-                    if (listWorks.isEmpty()) {
-                        ll_empty_view.visibility = View.VISIBLE
-                    } else {
-                        ll_empty_view.visibility = View.GONE
+        if (isLogin){
+            val worksCall = SLMRetrofit.instance.api.worksCall(currentPage, pageSize)
+            worksCall.compose(ThreadSwitchTransformer())
+                .subscribe(object : CallbackObserver<WorksBean>() {
+                    override fun onSucceed(t: WorksBean, desc: String?) {
+                        total = t.pages
+                        com.orhanobut.logger.Logger.e("初始化currentPage==$currentPage,${t.list.size}")
+                        listWorks.addAll(t.list)
+                        worksAdapter.setNewData(listWorks)
+                        if (listWorks.isEmpty()) {
+                            ll_empty_view.visibility = View.VISIBLE
+                        } else {
+                            ll_empty_view.visibility = View.GONE
+                        }
                     }
-                }
 
-                override fun onFailed() {
+                    override fun onFailed() {
 
-                }
-            })
+                    }
+                })
+        }
+
 
     }
 

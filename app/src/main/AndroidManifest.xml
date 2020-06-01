@@ -143,6 +143,7 @@
         <activity android:name=".ui.activity.CommonProblemActivity" />
         <activity android:name=".ui.activity.ProblemDetailActivity" />
         <activity android:name=".ui.activity.PlayerActivity"
+            android:theme="@style/AppTheme.FullScreen"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>

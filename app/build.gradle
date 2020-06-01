@@ -106,6 +106,8 @@ dependencies {
     implementation 'com.lqr.audio:library:1.0.0'
     //友盟第三方分享库
     implementation project(':UMLibrary')
+    //
+    implementation 'com.github.xfans:VoiceWaveView:1.0.2'
     //阿里云视频相关
     implementation project(':AliyunFileDownLoader')
     implementation project(':AliyunSVideoBase')
