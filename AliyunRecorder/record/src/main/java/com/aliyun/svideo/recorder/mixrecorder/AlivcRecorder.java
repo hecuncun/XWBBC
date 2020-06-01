@@ -36,7 +36,7 @@ public class AlivcRecorder implements AlivcIMixRecorderInterface {
     //视频分辨率
     private int mResolutionMode = AliyunSnapVideoParam.RESOLUTION_540P;
     //视频比例
-    private int mRatioMode = AliyunSnapVideoParam.RATIO_MODE_3_4;
+    private int mRatioMode = AliyunSnapVideoParam.RATIO_MODE_9_16;
 
     public AlivcRecorder(Context mContext) {
         this.mContext = mContext;

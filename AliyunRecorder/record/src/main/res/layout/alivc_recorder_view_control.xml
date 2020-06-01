@@ -57,7 +57,7 @@
     </FrameLayout>
     <LinearLayout
         android:id="@+id/alivc_music"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/alivc_record_title_view"
         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/alivc_record_effect_filter"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/alivc_music"
         android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/alivc_record_change_aspect_ratio_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/alivc_record_effect_filter"
         android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/alivc_record_anim_filter"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/alivc_record_change_aspect_ratio_layout"
         android:layout_height="wrap_content"
@@ -169,12 +169,12 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/alivc_record_take_photo"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/alivc_record_anim_filter"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_marginRight="19dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="@dimen/alivc_common_margin_25"
         android:orientation="vertical">
         <ImageView
