@@ -465,7 +465,7 @@ class PersonInfoActivity : BaseActivity() {
         }
         //星座选择
         ll_star.setOnClickListener {
-            pickerStart?.show()
+           // pickerStart?.show()
         }
         //性别选择
         ll_sex.setOnClickListener {

@@ -242,10 +242,10 @@ class MineFragment : BaseFragment() {
         tv_nick_name.text = t.nickName
         nickname = t.nickName
         tv_id.text = t.id
-        tv_sex.text = t.sex
-        tv_age.text = t.age
-        tv_star.text = t.constellation
-        tv_city.text = t.location
+        tv_sex.text = if (t.sex.isNullOrEmpty()) "性别" else t.sex
+        tv_age.text =if (t.age.isNullOrEmpty()) "年龄" else t.age
+        tv_star.text = if (t.constellation.isNullOrEmpty()) "星座" else t.constellation
+        tv_city.text =if (t.location.isNullOrEmpty()) "城市" else t.location
         if (t.signature.isEmpty()) {
             ll_person_info.visibility = View.VISIBLE
             tv_info_des.visibility = View.GONE

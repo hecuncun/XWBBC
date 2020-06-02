@@ -63,7 +63,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         val updateAppCall = SLMRetrofit.instance.api.updateAppCall()
         updateAppCall.compose(ThreadSwitchTransformer()).subscribe(object :
             CallbackObserver<UpdateAppBean>(){
-            override fun onSucceed(updateAppBean: UpdateAppBean, desc: String?) {
+            override fun onSucceed(updateAppBean: UpdateAppBean?, desc: String?) {
                 if (updateAppBean!=null){
                     if (PackageUtils.getVersionCode(this@MainActivity)<updateAppBean.appVersion.toInt()){
                         // 更新配置
