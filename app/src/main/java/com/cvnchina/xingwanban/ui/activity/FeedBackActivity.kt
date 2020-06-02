@@ -124,25 +124,25 @@ class FeedBackActivity : BaseActivity() {
         voiceWaveView?.apply {
             showGravity = Gravity.CENTER
             waveMode = WaveMode.UP_DOWN
-            lineWidth = 30f
+            lineWidth = 20f
             lineSpace = 15f
             duration = 500
             lineColor = Color.parseColor("#F56B00")
             addHeader(4)
             addHeader(14)
             addBody(27)
-            addBody(17)
-            addBody(38)
             addBody(66)
             addBody(38)
             addBody(24)
-            addBody(8)
-            addBody(60)
-            addBody(38)
-            addBody(14)
-            addBody(8)
-            addFooter(4)
-            addFooter(2)
+//            addBody(38)
+//            addBody(24)
+//            addBody(8)
+//            addBody(60)
+//            addBody(38)
+//            addBody(14)
+//            addBody(8)
+//            addFooter(4)
+           // addFooter(2)
             start()
         }
     }

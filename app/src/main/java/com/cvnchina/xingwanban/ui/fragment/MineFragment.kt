@@ -121,6 +121,12 @@ class MineFragment : BaseFragment() {
                                     R.id.ll_qq_c -> {
                                         requestShare(5, 1)
                                     }
+                                    R.id.tv_finish->{
+
+                                    }
+                                    else->{
+
+                                    }
 
                                 }
 

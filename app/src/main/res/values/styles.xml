@@ -41,5 +41,13 @@
             <attr name="ringColor" format="color"/>
         </declare-styleable>
 
+<!--    默认情况下直接弹出BottomSheetDialogFragment背景会变暗，需求是不能变暗。可以通过设置style解决问题。-->
+    <style name="TransBottomSheetDialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 
 </resources>

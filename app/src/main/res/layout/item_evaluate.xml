@@ -20,11 +20,13 @@
         android:textSize="12sp"
         android:text="123："/>
     <TextView
+        android:maxLines="2"
+        android:ellipsize="end"
         android:id="@+id/tv_content"
         android:layout_marginLeft="7dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/color_gray_CCCCCC"
         android:textSize="12sp"
-        android:text="123dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"/>
+        android:text="123ddddddddddddddssssssssssssssssssssssssssssssssssssssssssssssssdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"/>
 </LinearLayout>

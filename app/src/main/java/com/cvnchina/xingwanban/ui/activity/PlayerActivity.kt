@@ -118,6 +118,9 @@ class PlayerActivity : BaseActivity() {
                         R.id.ll_qq_c->{
                             requestShare(5,2,workBean!!.contId.toInt())
                         }
+                       R.id.tv_finish->{
+
+                       }
                         else->{
 
                         }

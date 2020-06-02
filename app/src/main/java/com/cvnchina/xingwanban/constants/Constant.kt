@@ -6,6 +6,7 @@ package com.cvnchina.xingwanban.constants
 object Constant{
     const val SUCCESSED_CODE="1"
     const val BASE_URL="http://10.1.17.75:8055"
+   // const val BASE_URL="http://www.xingwanban.com"
     const val LOGIN_KEY = "login"
     const val IS_FIRST = "isFirst"
     const val TOKEN = "token"

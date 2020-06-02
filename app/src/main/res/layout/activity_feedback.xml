@@ -84,7 +84,7 @@
             <me.xfans.lib.voicewaveview.VoiceWaveView
                 android:id="@+id/voiceWaveView"
                 android:layout_marginLeft="15dp"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 app:lineColor="@color/color_primary_yellow"
                 app:waveMode="left_right"

@@ -22,6 +22,7 @@ class ShareDialog(context: Context,showDel:Boolean) : BottomSheetDialog(context)
         ll_wx.setOnClickListener(this)
         ll_wx_c.setOnClickListener(this)
         ll_del_video.setOnClickListener(this)
+        tv_finish.setOnClickListener(this)
 
         ll_del_video.visibility=if (showDel) View.VISIBLE else View.GONE
     }
