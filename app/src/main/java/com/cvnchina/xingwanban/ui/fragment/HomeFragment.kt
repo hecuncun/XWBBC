@@ -67,6 +67,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         tv_msg.setOnClickListener {
             if (isLogin) {
                 startActivity(Intent(activity, MsgActivity::class.java))
+                tv_msg.visibility=View.GONE
             } else {
                 startActivity(Intent(activity, LoginActivity::class.java))
                 (activity!!as MainActivity).finish()

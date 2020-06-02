@@ -15,7 +15,7 @@ class MsgAdapter : BaseQuickAdapter<MsgBean.RecordsBean, BaseViewHolder>(R.layou
         item ?: return
         helper.setText(R.id.tv_nick_name, item.nickName)
             .setText(R.id.tv_content, item.content)
-            .setText(R.id.tv_date, item.createTime)
+            .setText(R.id.tv_date, item.createTime.split("T")[0])
         val ivVideo = helper.getView<ImageView>(R.id.iv_video)
         GlideUtils.showAnimation(ivVideo, item.videoPic, R.mipmap.ic_launcher)
         //1,点赞 2,评论；3，视频审核通过 4视频审核不通过

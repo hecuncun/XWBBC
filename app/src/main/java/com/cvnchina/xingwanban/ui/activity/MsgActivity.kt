@@ -1,5 +1,6 @@
 package com.cvnchina.xingwanban.ui.activity
 
+import android.support.v7.widget.LinearLayoutManager
 import com.aliyun.svideo.common.baseAdapter.BaseQuickAdapter
 import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.adapter.MsgAdapter
@@ -45,6 +46,14 @@ class MsgActivity : BaseActivity() {
 
     override fun initView() {
         toolbar_title.text = "消息"
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        recyclerView.run {
+            layoutManager=LinearLayoutManager(this@MsgActivity)
+            adapter=msgAdapter
+        }
     }
 
     override fun initListener() {
