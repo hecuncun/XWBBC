@@ -67,6 +67,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 if (updateAppBean!=null){
                     if (PackageUtils.getVersionCode(this@MainActivity)<updateAppBean.appVersion.toInt()){
                         // 更新配置
+
                         val updateConfig = UpdateConfig().apply {
                             force = updateAppBean.isForcedUpdate=="1"
                             checkWifi = true
