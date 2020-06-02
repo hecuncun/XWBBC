@@ -1,7 +1,6 @@
 package com.cvnchina.xingwanban.widget
 
 import android.content.Context
-import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
 import android.view.LayoutInflater
 import android.view.View
@@ -22,8 +21,9 @@ import kotlinx.android.synthetic.main.dialog_evaluate.*
 
 /**
  * Created by hecuncun on 2020-5-16
+ * 去掉阴影
  */
-class EvaluateDialog(context: Context) : BottomSheetDialog(context), View.OnClickListener {
+class EvaluateDialog(context: Context) : BottomSheetDialog(context,R.style.TransBottomSheetDialogStyle), View.OnClickListener {
     init {
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_evaluate, null)
         setContentView(view)
@@ -33,15 +33,12 @@ class EvaluateDialog(context: Context) : BottomSheetDialog(context), View.OnClic
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     private var videoId = 0
     private var currentPage =1
     private var total = 0
-    private var pageSize = 1000
+    private var pageSize = 3000000
+
 
     private var mAdapter: CommentExpandAdapter? = null
 
