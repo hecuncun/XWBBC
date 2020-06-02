@@ -16,6 +16,7 @@ import com.cvnchina.xingwanban.bean.MsgCountBean;
 import com.cvnchina.xingwanban.bean.NewPhotoBean;
 import com.cvnchina.xingwanban.bean.PersonalInfoBean;
 import com.cvnchina.xingwanban.bean.QABean;
+import com.cvnchina.xingwanban.bean.ReplyListBean;
 import com.cvnchina.xingwanban.bean.ScanLoginBean;
 import com.cvnchina.xingwanban.bean.ShareBean;
 import com.cvnchina.xingwanban.bean.TalksBean;
@@ -225,10 +226,18 @@ public interface Api {
     Observable<BaseNoDataBean> replayCall(@Query("commentId") int commentId, @Query("content") String content);
 
     /**
+     * 根据评论ID获取回复
+     */
+    @POST("vms/appapi/video/getCommentsReplyByCommentId")
+    Observable<ReplyListBean> replayListCall(@Query("commentId") int commentId, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+
+    /**
      * 扫码登录
      */
     @POST("vms/appapi/sysMgr/scanLogin")
-    Observable<ScanLoginBean> scanLoginCall(@Query("imei") String imei, @Query("isSyn") int isSyn); /**
+    Observable<ScanLoginBean> scanLoginCall(@Query("imei") String imei, @Query("isSyn") int isSyn);
+
+    /**
      * 扫码登录
      */
     @POST("vms/appapi/sysMgr/scanLogin")
@@ -238,12 +247,13 @@ public interface Api {
      * 分享app
      */
     @POST("vms/appapi/sysMgr/share")
-    Observable<ShareBean> shareAppCall(@Query("platform") int platform,@Query("type") int type);
+    Observable<ShareBean> shareAppCall(@Query("platform") int platform, @Query("type") int type);
+
     /**
      * 分享视频
      */
     @POST("vms/appapi/sysMgr/share")
-    Observable<ShareBean> shareVideoCall(@Query("platform") int platform,@Query("type") int type,@Query("videoId") int videoId);
+    Observable<ShareBean> shareVideoCall(@Query("platform") int platform, @Query("type") int type, @Query("videoId") int videoId);
 //
 //    /**
 //     * 用户注册

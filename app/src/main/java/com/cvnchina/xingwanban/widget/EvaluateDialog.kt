@@ -10,10 +10,12 @@ import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.adapter.CommentExpandAdapter
 import com.cvnchina.xingwanban.base.BaseNoDataBean
 import com.cvnchina.xingwanban.bean.EvaluateListBean
+import com.cvnchina.xingwanban.bean.ReplyListBean
 import com.cvnchina.xingwanban.ext.showToast
 import com.cvnchina.xingwanban.net.CallbackListObserver
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
+import com.cvnchina.xingwanban.utils.BeanUtils
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.dialog_evaluate.*
 
@@ -97,11 +99,41 @@ class EvaluateDialog(context: Context) : BottomSheetDialog(context), View.OnClic
                                 childPosition: Int,
                                 id: Long
                             ): Boolean {
-                                commentId = list[groupPosition].childComment[childPosition].id
                                 Logger.e("点击了回复$childPosition")
+                                if (childPosition==1){
+                                    val replayListCall = SLMRetrofit.instance.api.replayListCall(
+                                        list[groupPosition].id,
+                                        1,
+                                        list[groupPosition].childCommentCount
+                                    )
+                                    replayListCall.compose(ThreadSwitchTransformer()).subscribe(object :
+                                        CallbackListObserver<ReplyListBean>(){
+
+                                        override fun onFailed() {
+
+                                        }
+
+                                        override fun onSucceed(t: ReplyListBean) {
+                                            if (t.msg=="1"){
+                                                var list =t.data.items
+                                                var listReply= mutableListOf<EvaluateListBean.DataBean.ItemsBean.ChildCommentBean>()
+                                                for ( item in list){
+                                                    val bean = BeanUtils.modelA2B(
+                                                        item,
+                                                        EvaluateListBean.DataBean.ItemsBean.ChildCommentBean::class.java
+                                                    )
+                                                    listReply.add(bean)
+                                                }
+                                                mAdapter?.addReplyList(listReply,groupPosition)
+                                            }
+
+                                        }
+                                    })
+                                }
                                 return true
                             }
                         })
+
 
 
                     }
@@ -113,7 +145,6 @@ class EvaluateDialog(context: Context) : BottomSheetDialog(context), View.OnClic
 
                 }
             })
-
     }
 
     private var commentId = -1

@@ -22,18 +22,18 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/tv_reply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="评论"
-            android:textColor="@color/color_gray_999999"
-            android:textSize="14sp" />
+        android:id="@+id/tv_reply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="评论评论评论评论评论评论评论评论评论评论评论评论评论评论"
+        android:textColor="@color/color_gray_999999"
+        android:textSize="14sp" />
 
     </LinearLayout>
     <TextView
         android:id="@+id/more_evaluate"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"

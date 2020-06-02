@@ -81,6 +81,16 @@ public class EvaluateListBean {
             private String userNickName;
             private String content;
             private String createDate;
+
+            public int getChildCommentCount() {
+                return childCommentCount;
+            }
+
+            public void setChildCommentCount(int childCommentCount) {
+                this.childCommentCount = childCommentCount;
+            }
+
+            private int childCommentCount;
             private List<ChildCommentBean> childComment;
 
             public int getId() {
