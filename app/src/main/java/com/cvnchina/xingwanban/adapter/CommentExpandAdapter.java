@@ -44,10 +44,15 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int i) {
-        if(commentBeanList.get(i).getChildComment()== null){
+        if(commentBeanList.get(i).getChildComment()== null ||commentBeanList.get(i).getChildComment().size()==0){
             return 0;
         }else {
-            return commentBeanList.get(i).getChildComment().size()>0 ? commentBeanList.get(i).getChildComment().size():0;
+            if(commentBeanList.get(i).getChildComment().size()>2){
+                return 2;
+            }else {
+                return commentBeanList.get(i).getChildComment().size();
+            }
+
         }
 
     }
@@ -106,18 +111,40 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         else {
             childHolder = (ChildHolder) convertView.getTag();
         }
+        int size = commentBeanList.get(groupPosition).getChildComment().size();
+        childHolder.tv_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                childHolder.tv_more.setVisibility(View.GONE);
+                if (childPosition==commentBeanList.get(groupPosition).getChildComment().size()-1){
+                    childHolder.line.setVisibility(View.VISIBLE);
+                }else {
+                    childHolder.line.setVisibility(View.GONE);
+                }
+                addReplyList(commentBeanList.get(groupPosition).getChildComment().subList(2,size),groupPosition);
+            }
+        });
 
+        childHolder.tv_more.setText("共"+size+"条回复");
+        if (size>2 && childPosition==1){
+            childHolder.tv_more.setVisibility(View.VISIBLE);
+            childHolder.line.setVisibility(View.VISIBLE);
+        }else {
+            childHolder.tv_more.setVisibility(View.GONE);
+            if (size==1 && childPosition==0){
+                childHolder.line.setVisibility(View.VISIBLE);
+            }else if(size==2 && childPosition==1){
+                childHolder.line.setVisibility(View.VISIBLE);
+            }
+
+        }
         String replyUser = commentBeanList.get(groupPosition).getChildComment().get(childPosition).getUserNickName();
         if(!TextUtils.isEmpty(replyUser)){
             childHolder.tv_name.setText(replyUser + ":");
         }else {
             childHolder.tv_name.setText("无名"+":");
         }
-        if (childPosition==commentBeanList.get(groupPosition).getChildComment().size()-1){
-            childHolder.line.setVisibility(View.VISIBLE);
-        }else {
-            childHolder.line.setVisibility(View.GONE);
-        }
+
 
         childHolder.tv_content.setText(commentBeanList.get(groupPosition).getChildComment().get(childPosition).getContent());
 
@@ -141,11 +168,12 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
     }
 
     private class ChildHolder{
-        private TextView tv_name, tv_content;
+        private TextView tv_name, tv_more,tv_content;
         private View line;
         public ChildHolder(View view) {
             tv_name = (TextView) view.findViewById(R.id.tv_name);
             tv_content = (TextView) view.findViewById(R.id.tv_reply);
+            tv_more = (TextView) view.findViewById(R.id.more_evaluate);
             line = (View) view.findViewById(R.id.line);
         }
     }

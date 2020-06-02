@@ -8,8 +8,10 @@
     <ImageView
         android:id="@+id/iv_left"
         style="?android:attr/actionButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="15dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"

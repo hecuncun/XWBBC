@@ -359,7 +359,7 @@ public class AlivcEditView extends RelativeLayout
         mActionBar.setBackgroundDrawable(null);
         mIvLeft = (ImageView) findViewById(R.id.iv_left);
         mTvRight = findViewById(R.id.tv_right);
-        mIvLeft.setImageResource(R.mipmap.aliyun_svideo_back);
+        mIvLeft.setImageResource(R.mipmap.back);
         //uiConfig中的属性
         //UIConfigManager.setImageResourceConfig(mTvRight, R.attr.finishImage, R.mipmap.aliyun_svideo_complete_red);
         mIvLeft.setVisibility(View.VISIBLE);
