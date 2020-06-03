@@ -36,6 +36,7 @@
 <!--        android:scrollbars="none" />-->
     <ExpandableListView
         android:id="@+id/listview"
+        android:background="@color/color_gray_151516"
         android:layout_width="match_parent"
         android:layout_height="420dp"
         android:layout_weight="1"/>

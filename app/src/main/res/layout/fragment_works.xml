@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/refreshLayout"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -28,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="你还未创建作品"
+                android:paddingBottom="500dp"
                 android:textColor="@color/color_gray_999999"
                 android:textSize="15sp" />
         </RelativeLayout>
