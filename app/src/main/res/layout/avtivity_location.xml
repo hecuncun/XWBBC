@@ -8,14 +8,14 @@
     <include layout="@layout/toolbar" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="15dp"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/et_location"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textColor="@color/color_gray_F9F9F9"
             android:layout_weight="1"
             android:background="@drawable/bg_gray_151516_r5"

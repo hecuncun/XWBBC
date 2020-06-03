@@ -58,6 +58,17 @@ class PlayerActivity : BaseActivity() {
             tv_evaluate.text = workBean!!.commentnums
             tv_title.text = workBean!!.contSubTitle
             title=workBean!!.contSubTitle
+
+            if (workBean!!.ischeck == "y"){
+                tv_zan.visibility =View.VISIBLE
+                tv_evaluate.visibility = View.VISIBLE
+                tv_share.visibility=View.VISIBLE
+            }else{
+                tv_zan.visibility =View.GONE
+                tv_evaluate.visibility = View.GONE
+                tv_share.visibility=View.GONE
+            }
+
             // tv_nick_name.text=
             if (workBean!!.contTags.size > 0) {
                 tv_tag.text = workBean!!.contTags[0].tagName
@@ -220,6 +231,7 @@ class PlayerActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        JzvdStd.setVideoImageDisplayType(JzvdStd.VIDEO_IMAGE_DISPLAY_TYPE_ADAPTER)
         JzvdStd.releaseAllVideos()
     }
 

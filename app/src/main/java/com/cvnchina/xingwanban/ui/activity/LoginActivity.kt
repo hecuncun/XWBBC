@@ -7,10 +7,12 @@ import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.application.App
 import com.cvnchina.xingwanban.base.BaseActivity
 import com.cvnchina.xingwanban.base.OtherLoginBean
+import com.cvnchina.xingwanban.constants.Constant
 import com.cvnchina.xingwanban.ext.showToast
 import com.cvnchina.xingwanban.net.CallbackListObserver
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
+import com.cvnchina.xingwanban.utils.Preference
 import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper
 import com.mobile.auth.gatewayauth.TokenResultListener
 import com.mobile.auth.gatewayauth.model.TokenRet
@@ -25,12 +27,41 @@ import kotlinx.android.synthetic.main.toolbar.*
  * Created by hecuncun on 2020/4/25
  */
 class LoginActivity : BaseActivity() {
+    private var lastLoginType: Int by Preference(Constant.LAST_TYPE, 0)
     override fun attachLayoutRes(): Int {
         return R.layout.activity_login
     }
 
     override fun initData() {
+       when(lastLoginType) {//1-QQ,2微信,3微博,4阿里一键登录
+           1->{
+               tv_last_qq.visibility=View.VISIBLE
+               tv_last_wx.visibility=View.GONE
+               tv_last_wb.visibility=View.GONE
 
+           }
+           2->{
+               tv_last_qq.visibility=View.GONE
+               tv_last_wx.visibility=View.VISIBLE
+               tv_last_wb.visibility=View.GONE
+           }
+           3->{
+               tv_last_qq.visibility=View.GONE
+               tv_last_wx.visibility=View.GONE
+               tv_last_wb.visibility=View.VISIBLE
+           }
+           4->{
+               tv_last_qq.visibility=View.GONE
+               tv_last_wx.visibility=View.GONE
+               tv_last_wb.visibility=View.GONE
+           }
+           else->{
+               tv_last_qq.visibility=View.GONE
+               tv_last_wx.visibility=View.GONE
+               tv_last_wb.visibility=View.GONE
+           }
+
+       }
     }
 
     override fun initView() {
@@ -161,6 +192,7 @@ class LoginActivity : BaseActivity() {
                     type = 3
                 }
             }
+            lastLoginType=type
             Logger.e("三方登录成功type==>$type<==openId==>$openId")
             //调用三方成功拿到openId
             doLoginAction()

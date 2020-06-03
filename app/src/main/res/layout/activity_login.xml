@@ -134,6 +134,8 @@
                 android:src="@mipmap/wx" />
 
             <TextView
+                android:id="@+id/tv_last_wx"
+                android:visibility="gone"
                 android:layout_width="60dp"
                 android:layout_height="18dp"
                 android:layout_centerHorizontal="true"
@@ -170,6 +172,7 @@
                 android:src="@mipmap/qq" />
 
             <TextView
+                android:id="@+id/tv_last_qq"
                 android:visibility="gone"
                 android:layout_width="60dp"
                 android:layout_height="18dp"
@@ -207,6 +210,7 @@
                 android:src="@mipmap/wb" />
 
             <TextView
+                android:id="@+id/tv_last_wb"
                 android:visibility="gone"
                 android:layout_width="60dp"
                 android:layout_height="18dp"

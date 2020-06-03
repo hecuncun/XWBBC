@@ -123,7 +123,12 @@ class PublishActivity : BaseActivity() {
         createAliyunCompose.compose(mConfigPath, videoPath, object : AliyunIComposeCallBack {
             override fun onComposeProgress(p0: Int) {
                 //合成进度
-                progressDialog?.setProgress(p0)
+                if (upload){
+                    progressDialog?.setProgress(p0/2)
+                }else{
+                    progressDialog?.setProgress(p0)
+                }
+
                 Logger.e("合成进度$p0")
             }
 
@@ -141,7 +146,7 @@ class PublishActivity : BaseActivity() {
                             }
 
                             override fun onProgressUpdate(percentage: Int) {
-                                progressDialog?.setProgress(percentage)
+                                progressDialog?.setProgress(percentage/2+50)
                             }
 
                             override fun onError() {
@@ -195,6 +200,17 @@ class PublishActivity : BaseActivity() {
                                         .subscribe(object : CallbackListObserver<BaseNoDataBean>() {
                                             override fun onSucceed(t: BaseNoDataBean) {
                                                 showToast(t.msgCondition)
+                                                if (mDraftBean!=null){
+                                                    val delete = LitePal.delete(
+                                                        DraftBean::class.java,
+                                                        mDraftBean!!.id
+                                                    )
+                                                    EventBus.getDefault().post(RefreshDraftEvent())
+                                                    Logger.e("草稿存在,删除$delete")
+                                                }else{
+                                                    Logger.e("草稿不存在")
+                                                }
+
                                                 progressDialog?.dismiss()
                                                 EventBus.getDefault().post(RefreshWorksEvent())
                                                 EventBus.getDefault().post(ChangeEvent())
@@ -204,12 +220,7 @@ class PublishActivity : BaseActivity() {
                                                         MainActivity::class.java
                                                     )
                                                 )
-                                                if (mDraftBean!=null){
-                                                    LitePal.delete(
-                                                        DraftBean::class.java,
-                                                        mDraftBean!!.id
-                                                    )
-                                                }
+
 
                                             }
 

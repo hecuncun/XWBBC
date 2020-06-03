@@ -149,6 +149,11 @@ class WorksFragment : BaseFragment() {
                                                 if (t.msg == "1") {
                                                     showToast("删除成功")
                                                     worksAdapter.remove(position)
+                                                    if (worksAdapter.data.size==0){
+                                                        ll_empty_view.visibility = View.VISIBLE
+                                                    }else{
+                                                        ll_empty_view.visibility = View.GONE
+                                                    }
                                                 } else {
                                                     showToast(t.msgCondition)
                                                 }
@@ -201,6 +206,11 @@ class WorksFragment : BaseFragment() {
                                 if (t.msg == "1") {
                                     showToast("删除成功")
                                     worksAdapter.remove(position)
+                                    if (worksAdapter.data.size==0){
+                                        ll_empty_view.visibility = View.VISIBLE
+                                    }else{
+                                        ll_empty_view.visibility = View.GONE
+                                    }
                                 } else {
                                     showToast(t.msgCondition)
                                 }

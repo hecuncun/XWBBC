@@ -9,6 +9,7 @@ object Constant{
     const val BASE_URL="http://www.xingwanban.com"
     const val LOGIN_KEY = "login"
     const val IS_FIRST = "isFirst"
+    const val LAST_TYPE = "last_type"
     const val TOKEN = "token"
     const val NAME = "name"
 //    const val UID = "uid"
