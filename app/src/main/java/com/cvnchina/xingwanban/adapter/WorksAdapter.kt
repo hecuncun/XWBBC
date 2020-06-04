@@ -42,7 +42,7 @@ class WorksAdapter :
 
          val player = helper.getView<JzvdStd>(R.id.jz_player)
          player.setUp(item.contDownUrl,"",JzvdStd.SCREEN_FULLSCREEN)
-        JzvdStd.setVideoImageDisplayType(JzvdStd.VIDEO_IMAGE_DISPLAY_TYPE_ADAPTER)
+       // JzvdStd.setVideoImageDisplayType(JzvdStd.VIDEO_IMAGE_DISPLAY_TYPE_ADAPTER)
          player.backButton.visibility = View.INVISIBLE
          player.startButton.visibility=View.GONE
          (player.titleTextView.parent as RelativeLayout).background=null

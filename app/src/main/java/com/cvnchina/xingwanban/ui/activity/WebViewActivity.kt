@@ -12,6 +12,7 @@ import com.cvnchina.xingwanban.bean.AgreementBean
 import com.cvnchina.xingwanban.net.CallbackObserver
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
+import com.cvnchina.xingwanban.utils.AndroidBug5497Workaround
 import com.cvnchina.xingwanban.widget.MyWebView
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -60,6 +61,7 @@ class WebViewActivity : BaseActivity() {
     }
 
     override fun initView() {
+        AndroidBug5497Workaround.assistActivity(this);
         mWebView=findViewById(R.id.webView)
         type = intent.extras!!.getInt("type")
         when(type){

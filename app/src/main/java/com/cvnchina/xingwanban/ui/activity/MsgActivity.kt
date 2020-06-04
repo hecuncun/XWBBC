@@ -57,6 +57,13 @@ class MsgActivity : BaseActivity() {
     }
 
     override fun initListener() {
+        msgAdapter.setOnItemClickListener { adapter, view, position ->
+
+//            val intent = Intent(this, PlayerActivity::class.java)
+//            intent.putExtra("listBean", listBean)
+//            intent.putExtra("show","0")
+//            startActivity(intent)
+        }
         msgAdapter.disableLoadMoreIfNotFullPage(recyclerView)
         msgAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
             if (total < 2) {

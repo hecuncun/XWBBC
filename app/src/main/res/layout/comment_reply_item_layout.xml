@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_gray_151516"
     android:orientation="vertical">
 
     <LinearLayout
@@ -17,18 +16,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
-            android:text="昵称 : "
+            android:text="222昵称222222昵称昵称昵称昵称昵称昵称昵称昵称昵称昵称昵称昵称昵称222222222222222222222222ggggggggggggggggggggggggggggggggggggggggggggggggggg"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
-        <TextView
-        android:id="@+id/tv_reply"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="评论评论评论评论评论评论评论评论评论评论评论评论评论评论"
-        android:textColor="@color/color_gray_999999"
-        android:textSize="14sp" />
+<!--        <TextView-->
+<!--        android:id="@+id/tv_reply"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:text="评论评论评论评论评论评论评论评论评论评论评论评论评论评论"-->
+<!--        android:textColor="@color/color_gray_999999"-->
+<!--        android:textSize="14sp" />-->
 
     </LinearLayout>
     <TextView

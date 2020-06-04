@@ -90,6 +90,11 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         }else {
             groupHolder = (GroupHolder) convertView.getTag();
         }
+        if ( commentBeanList.get(groupPosition).getChildCommentCount()==0){
+            groupHolder.line.setVisibility(View.VISIBLE);
+        }else {
+            groupHolder.line.setVisibility(View.GONE);
+        }
         GlideUtils.showCircle(groupHolder.logo,commentBeanList.get(groupPosition).getUserHeadPic(),R.mipmap.head1);
         groupHolder.tv_name.setText(commentBeanList.get(groupPosition).getUserNickName());
         String strMsg = commentBeanList.get(groupPosition).getContent()+"  <font><small>"+commentBeanList.get(groupPosition).getCreateDate().split(" ")[0]+"</small></font>";
@@ -142,13 +147,16 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
 
         String replyUser = commentBeanList.get(groupPosition).getChildComment().get(childPosition).getUserNickName();
         if(!TextUtils.isEmpty(replyUser)){
-            childHolder.tv_name.setText(replyUser + ":");
+            String str ="<font color=\"#FFFFFF\">"+replyUser+"：</font>"+"<font color=\"#999999\">"+commentBeanList.get(groupPosition).getChildComment().get(childPosition).getContent()+"</font>";
+            //childHolder.tv_name.setText(replyUser + ":");
+            childHolder.tv_name.setText(Html.fromHtml(str));
         }else {
-            childHolder.tv_name.setText("无名"+":");
+            String str ="<font color=\"#FFFFFF\">"+"无名"+"：</font>"+"<font color=\"#999999\">"+commentBeanList.get(groupPosition).getChildComment().get(childPosition).getContent()+"</font>";
+            childHolder.tv_name.setText(Html.fromHtml(str));
         }
 
 
-        childHolder.tv_content.setText(commentBeanList.get(groupPosition).getChildComment().get(childPosition).getContent());
+       // childHolder.tv_content.setText(commentBeanList.get(groupPosition).getChildComment().get(childPosition).getContent());
 
         return convertView;
     }
@@ -162,10 +170,12 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         private ImageView logo;
         private TextView tv_name, tv_content, tv_time;
         private ImageView iv_like;
+        private View line;
         public GroupHolder(View view) {
             logo = (ImageView) view.findViewById(R.id.iv_head_photo);
             tv_content = (TextView) view.findViewById(R.id.tv_content);
             tv_name = (TextView) view.findViewById(R.id.tv_nick_name);
+             line = (View) view.findViewById(R.id.line);
         }
     }
 
@@ -173,8 +183,8 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         private TextView tv_name, tv_more,tv_content;
         private View line;
         public ChildHolder(View view) {
-            tv_name = (TextView) view.findViewById(R.id.tv_name);
-            tv_content = (TextView) view.findViewById(R.id.tv_reply);
+           tv_name = (TextView) view.findViewById(R.id.tv_name);
+         //   tv_content = (TextView) view.findViewById(R.id.tv_reply);
             tv_more = (TextView) view.findViewById(R.id.more_evaluate);
             line = (View) view.findViewById(R.id.line);
         }

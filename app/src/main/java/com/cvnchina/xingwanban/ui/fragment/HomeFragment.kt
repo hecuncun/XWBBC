@@ -10,6 +10,7 @@ import com.aliyun.svideo.recorder.activity.AlivcSvideoRecordActivity
 import com.aliyun.svideo.recorder.bean.AlivcRecordInputParam
 import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.bean.MsgCountBean
+import com.cvnchina.xingwanban.event.LogoutEvent
 import com.cvnchina.xingwanban.event.RefreshDraftEvent
 import com.cvnchina.xingwanban.event.RefreshWorksEvent
 import com.cvnchina.xingwanban.ext.showToast
@@ -22,6 +23,7 @@ import com.orhanobut.logger.Logger
 import com.uuzuche.lib_zxing.activity.CaptureActivity
 import com.uuzuche.lib_zxing.activity.CodeUtils
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -156,7 +158,12 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                                 tv_msg.visibility = View.GONE
                             } else tv_msg.visibility = View.VISIBLE
                             tv_msg.text = "您有${t.count}条新消息"
-                        } else {
+                        } else if (t.msg=="-100"){//token过期
+                            isLogin=false
+                            token=""
+                            startActivity(Intent(activity,LoginActivity::class.java))
+                            EventBus.getDefault().post(LogoutEvent())
+                        }else{
                             showToast(t.msgCondition)
                         }
 
@@ -243,7 +250,24 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                                             str1.indexOf("&token=") + 7,
                                             str1.indexOf("&imei=")
                                         )
+
                                         Logger.e("username==$username")
+                                        if (username.isEmpty()&&locToken.isEmpty()){//userName为空
+                                            val locUrl =
+                                                str1.replace("username=&token=&", "")
+                                            val imei = result.substring(
+                                                result.indexOf("&imei=") + 6,
+                                                result.indexOf("&video_id=")
+                                            )
+                                            val intent = Intent(activity, ScanLoginActivity::class.java)
+                                            intent.putExtra("state", "2")
+                                            intent.putExtra("locUrl", locUrl)
+                                            intent.putExtra("imei",imei)
+                                            startActivity(intent)
+                                            return
+
+                                        }
+
                                         if (username == token) {//用户相同  跳H5
                                             val url = str1
                                             val intent =
@@ -266,9 +290,14 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                                             startActivity(intent)
                                         }
                                     } else {//没有userName字段
+                                        val imei = result.substring(
+                                            result.indexOf("&imei=") + 6,
+                                            result.indexOf("&video_id=")
+                                        )
                                         val intent = Intent(activity, ScanLoginActivity::class.java)
                                         intent.putExtra("state", "2")
                                         intent.putExtra("locUrl", str1)
+                                        intent.putExtra("imei",imei)
                                         startActivity(intent)
                                     }
 //                                    val imei=result.substring(result.indexOf("&imei=")+6,result.indexOf("&video_id="))

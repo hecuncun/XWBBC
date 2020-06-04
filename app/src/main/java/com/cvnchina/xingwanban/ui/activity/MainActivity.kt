@@ -18,6 +18,7 @@ import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
 import com.cvnchina.xingwanban.ui.fragment.HomeFragment
 import com.cvnchina.xingwanban.ui.fragment.MineFragment
 import com.cvnchina.xingwanban.utils.PackageUtils
+import com.cvnchina.xingwanban.widget.AgreementDialog
 import com.cvnchina.xingwanban.widget.FullScreenDialog
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,6 +33,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     private var mineFragment: MineFragment? = null
     private var dialog: FullScreenDialog? = null
     override fun useEventBus(): Boolean = true
+
+    private var agreementDialog:AgreementDialog?=null
     override fun attachLayoutRes(): Int {
         return R.layout.activity_main
     }
@@ -118,6 +121,18 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun initView() {
         dialog = FullScreenDialog(this)
+        agreementDialog= AgreementDialog(this)
+        agreementDialog?.setCanceledOnTouchOutside(false)
+        agreementDialog?.setCancelable(false)
+        if (!isAgree){//还未同意
+            agreementDialog?.show()
+            agreementDialog?.setOnConfirmListener(View.OnClickListener {
+                //不同意
+                agreementDialog?.dismiss()
+                finish()
+            })
+        }
+
     }
 
     override fun initListener() {

@@ -115,7 +115,7 @@ class PersonInfoActivity : BaseActivity() {
     private fun initPersonalInfo(t: PersonalInfoBean) {
         GlideUtils.showCircle(iv_head_photo, t.headPic, R.mipmap.icon_def_head)
         tv_nick_name.text = t.nickName
-        tv_id.text = t.id ?: "未知"
+        tv_id.text = "用户ID: ${t.accountId}"
         tv_sex.text = t.sex ?: "未知"
         iv_sex.setImageResource(if (t.sex == "男") R.mipmap.icon_man else R.mipmap.icon_women)
         sexCode = if ((t.sex == "男")) 1 else 2

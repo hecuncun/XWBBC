@@ -1,6 +1,7 @@
 package com.cvnchina.xingwanban.ui.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.view.View
 import com.alibaba.fastjson.JSON
 import com.cvnchina.xingwanban.R
@@ -13,6 +14,7 @@ import com.cvnchina.xingwanban.net.CallbackListObserver
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
 import com.cvnchina.xingwanban.utils.Preference
+import com.mobile.auth.gatewayauth.AuthUIConfig
 import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper
 import com.mobile.auth.gatewayauth.TokenResultListener
 import com.mobile.auth.gatewayauth.model.TokenRet
@@ -101,8 +103,10 @@ class LoginActivity : BaseActivity() {
         }
 
         mAlicomAuthHelper = PhoneNumberAuthHelper.getInstance(App.context, tokenListener)
+
         mAlicomAuthHelper?.setAuthSDKInfo("pR5Qe8a9GOZy8h2GB0eglyRHIHQv+XKrc/0ChzuXT4MHXgnAZiNTzFam1QDur0TmsbQ7mbCrCvYCVbQtntSlZ9fjDgqbN6HNC6UOBMjW1S/Wg5FtcACCzMenXgrBCzFEJ4ynntHEsxCS/T40TUg/Apy2KyzUHjm/D27C75DJEZ0WSuAAowD2CaMWbU2+JGCO/RxrFKeZYN2iNaDzRvlsGDvvlRL39mwaLuAZIECQWEZkejOG5iWqJCg6q76ZKCg1Zft7TRe2CIj1fKmom8DtXpGiE2VKE3EdfAVCcq7U5MY=")
         mAlicomAuthHelper?.setLoggerEnable(true)
+        mAlicomAuthHelper?.setAuthUIConfig(AuthUIConfig.Builder().setStatusBarColor(Color.parseColor("#026ED2")).create())
     }
 
     override fun initListener() {
@@ -190,6 +194,7 @@ class LoginActivity : BaseActivity() {
                 SHARE_MEDIA.SINA -> {
                     //todo openId
                     type = 3
+                    openId = map["openid"]
                 }
             }
             lastLoginType=type

@@ -44,7 +44,7 @@ class PlayerActivity : BaseActivity() {
     override fun initData() {
         workBean = intent.getParcelableExtra<WorksBean.ListBean>("listBean")
         show= intent.getStringExtra("show")!!
-        JzvdStd.setVideoImageDisplayType(JzvdStd.VIDEO_IMAGE_DISPLAY_TYPE_FILL_PARENT)
+        //JzvdStd.setVideoImageDisplayType(JzvdStd.VIDEO_IMAGE_DISPLAY_TYPE_ORIGINAL)
         (player.titleTextView.parent as RelativeLayout).background=null
         if (workBean != null) {
             player.setUp(workBean!!.contDownUrl, "", JzvdStd.SCREEN_FULLSCREEN)
@@ -231,7 +231,7 @@ class PlayerActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        JzvdStd.setVideoImageDisplayType(JzvdStd.VIDEO_IMAGE_DISPLAY_TYPE_ADAPTER)
+       // JzvdStd.setVideoImageDisplayType(JzvdStd.VIDEO_IMAGE_DISPLAY_TYPE_ADAPTER)
         JzvdStd.releaseAllVideos()
     }
 

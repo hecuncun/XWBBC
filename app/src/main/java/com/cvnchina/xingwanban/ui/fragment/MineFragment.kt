@@ -241,7 +241,7 @@ class MineFragment : BaseFragment() {
         GlideUtils.showCircle(iv_head_photo, t.headPic, R.mipmap.icon_def_head)
         tv_nick_name.text = t.nickName
         nickname = t.nickName
-        tv_id.text = t.id
+        tv_id.text = "用户ID: ${t.accountId}"
         tv_sex.text = if (t.sex.isNullOrEmpty()) "性别" else t.sex
         tv_age.text =if (t.age.isNullOrEmpty()) "年龄" else t.age
         tv_star.text = if (t.constellation.isNullOrEmpty()) "星座" else t.constellation

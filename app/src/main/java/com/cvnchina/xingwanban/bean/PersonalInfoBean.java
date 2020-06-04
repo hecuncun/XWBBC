@@ -10,12 +10,27 @@ public class PersonalInfoBean implements Parcelable {
 
     private String id;
     private String headPic;
+
+    public PersonalInfoBean(String id, String headPic, String age, String constellation, String nickName, String sex, String signature, String location, String accountId) {
+        this.id = id;
+        this.headPic = headPic;
+        this.age = age;
+        this.constellation = constellation;
+        this.nickName = nickName;
+        this.sex = sex;
+        this.signature = signature;
+        this.location = location;
+        this.accountId = accountId;
+    }
+
     private String age;
+
+    public PersonalInfoBean() {
+    }
+
     private String constellation;
     private String nickName;
     private String sex;
-    private String signature;
-    private String location;
 
     public String getId() {
         return id;
@@ -81,6 +96,19 @@ public class PersonalInfoBean implements Parcelable {
         this.location = location;
     }
 
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    private String signature;
+    private String location;
+    private String accountId;
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -96,9 +124,7 @@ public class PersonalInfoBean implements Parcelable {
         dest.writeString(this.sex);
         dest.writeString(this.signature);
         dest.writeString(this.location);
-    }
-
-    public PersonalInfoBean() {
+        dest.writeString(this.accountId);
     }
 
     protected PersonalInfoBean(Parcel in) {
@@ -110,6 +136,7 @@ public class PersonalInfoBean implements Parcelable {
         this.sex = in.readString();
         this.signature = in.readString();
         this.location = in.readString();
+        this.accountId = in.readString();
     }
 
     public static final Parcelable.Creator<PersonalInfoBean> CREATOR = new Parcelable.Creator<PersonalInfoBean>() {

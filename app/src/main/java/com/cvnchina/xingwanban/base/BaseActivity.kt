@@ -27,7 +27,6 @@ import com.cvnchina.xingwanban.utils.Preference
 import com.cvnchina.xingwanban.utils.StatusBarUtil
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
-
 import java.util.*
 
 /**
@@ -38,10 +37,12 @@ abstract class BaseActivity :AppCompatActivity(){
      * check login
      */
     protected var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
+    protected var isAgree: Boolean by Preference(Constant.IS_AGREE, false)
     protected var isFirst: Boolean by Preference(Constant.IS_FIRST, true)
 
     protected var token: String by Preference(Constant.TOKEN, "")
     protected var nickname: String by Preference(Constant.NAME, "")
+
 
     /**
      * 布局文件id
@@ -73,6 +74,12 @@ abstract class BaseActivity :AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(attachLayoutRes())
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT//使activity都竖屏
+        //设置虚拟导肮栏颜色
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.navigationBarColor = resources.getColor(R.color.color_primary_bar);
+
+        }
         if (useEventBus()){
          EventBus.getDefault().register(this)
         }

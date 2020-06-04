@@ -29,11 +29,13 @@ class ScanLoginActivity : BaseActivity() {
         if (state!="3"){
             locUrl=intent.getStringExtra("locUrl")!!
         }
-        if (state=="1"){
 
+           imei = intent.getStringExtra("imei")!!
+
+
+        if (state=="1"){
             locToken=intent.getStringExtra("locToken")!!
             username=intent.getStringExtra("username")!!
-            imei = intent.getStringExtra("imei")!!
         }
         if (state=="1"){
             tv_state_title.text="您的手机端账号和电视端不一致，是否同步？"
@@ -85,11 +87,9 @@ private var tvToken=""
                                     intent.putExtra("url", url)
                                     startActivity(intent)
                                     finish()
-                                }else if(state=="3"){
-                                    locUrl.split("?")[0]+"username=&$"
-
                                 }else{
-                                    val url =locUrl+"&token=${t.tvToken}&username=&$token"
+                                    val url =locUrl+"&token=${t.tvToken}&username=$token"
+                                    Logger.e("新url==$url")
                                     val intent = Intent(this@ScanLoginActivity, WebViewActivity::class.java)
                                     intent.putExtra("type", 5)
                                     intent.putExtra("url", url)
@@ -129,7 +129,8 @@ private var tvToken=""
                                     startActivity(intent)
                                     finish()
                                 }else{
-                                    val url =locUrl+"&token=${t.tvToken}&username=&$token"
+                                    val url =locUrl+"&token=${t.tvToken}&username=$token"
+                                    Logger.e("新url==$url")
                                     val intent = Intent(this@ScanLoginActivity, WebViewActivity::class.java)
                                     intent.putExtra("type", 5)
                                     intent.putExtra("url", url)
