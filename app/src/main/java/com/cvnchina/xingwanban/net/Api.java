@@ -254,6 +254,12 @@ public interface Api {
      */
     @POST("vms/appapi/sysMgr/share")
     Observable<ShareBean> shareVideoCall(@Query("platform") int platform, @Query("type") int type, @Query("videoId") int videoId);
+
+    /**
+     * 根据视频id获取详情
+     */
+    @POST("vms/appapi/video/get")
+    Observable<BaseBean<WorksBean.ListBean>> videoDetailCall(@Query("videoId") int videoId);
 //
 //    /**
 //     * 用户注册

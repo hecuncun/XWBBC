@@ -1,11 +1,13 @@
 package com.cvnchina.xingwanban.ui.activity
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import com.aliyun.svideo.common.baseAdapter.BaseQuickAdapter
 import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.adapter.MsgAdapter
 import com.cvnchina.xingwanban.base.BaseActivity
 import com.cvnchina.xingwanban.bean.MsgBean
+import com.cvnchina.xingwanban.bean.WorksBean
 import com.cvnchina.xingwanban.net.CallbackObserver
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
@@ -32,7 +34,7 @@ class MsgActivity : BaseActivity() {
         msgListCall.compose(ThreadSwitchTransformer())
             .subscribe(object : CallbackObserver<MsgBean>() {
                 override fun onSucceed(t: MsgBean, desc: String?) {
-                    total=t.pages
+                    total = t.pages
                     list.addAll(t.records)
                     msgAdapter.setNewData(list)
                 }
@@ -51,18 +53,32 @@ class MsgActivity : BaseActivity() {
 
     private fun initRecyclerView() {
         recyclerView.run {
-            layoutManager=LinearLayoutManager(this@MsgActivity)
-            adapter=msgAdapter
+            layoutManager = LinearLayoutManager(this@MsgActivity)
+            adapter = msgAdapter
         }
     }
 
     override fun initListener() {
         msgAdapter.setOnItemClickListener { adapter, view, position ->
 
-//            val intent = Intent(this, PlayerActivity::class.java)
-//            intent.putExtra("listBean", listBean)
-//            intent.putExtra("show","0")
-//            startActivity(intent)
+            //获取视频详情
+            val videoDetailCall = SLMRetrofit.instance.api.videoDetailCall(list[position].videoId)
+            videoDetailCall.compose(ThreadSwitchTransformer())
+                .subscribe(object : CallbackObserver<WorksBean.ListBean>() {
+                    override fun onSucceed(t: WorksBean.ListBean?, desc: String?) {
+                        if (t != null) {
+                            val intent = Intent(this@MsgActivity, PlayerActivity::class.java)
+                            intent.putExtra("listBean", t)
+                            intent.putExtra("show", "0")
+                            startActivity(intent)
+                        }
+                    }
+
+                    override fun onFailed() {
+
+                    }
+                })
+
         }
         msgAdapter.disableLoadMoreIfNotFullPage(recyclerView)
         msgAdapter.setOnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener {
@@ -81,10 +97,10 @@ class MsgActivity : BaseActivity() {
                     override fun onSucceed(t: MsgBean, desc: String?) {
                         list.addAll(t.records)
                         msgAdapter.setNewData(list)
-                        if (currentPage==total){
+                        if (currentPage == total) {
                             msgAdapter.loadMoreEnd()
                             msgAdapter.setEnableLoadMore(false)
-                        }else{
+                        } else {
                             msgAdapter.setEnableLoadMore(true)
                             msgAdapter.loadMoreComplete()
                         }
