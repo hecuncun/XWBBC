@@ -101,7 +101,7 @@ class PlayerActivity : BaseActivity() {
 
     override fun initView() {
         tv_nick_name.text="@$nickname"
-        shareDialog= ShareDialog(this,false)
+        shareDialog= ShareDialog(this,false,true)
     }
 
     private var showContent = true

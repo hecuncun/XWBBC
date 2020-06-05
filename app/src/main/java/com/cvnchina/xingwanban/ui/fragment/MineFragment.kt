@@ -57,7 +57,7 @@ class MineFragment : BaseFragment() {
             itemTextColor(resources.getColor(R.color.color_primary_bar))
             cancelText(resources.getColor(R.color.color_primary_bar))
         }
-        shareDialog = ShareDialog(activity!!, false)
+        shareDialog = ShareDialog(activity!!, false,true)
     }
 
     override fun initListener() {

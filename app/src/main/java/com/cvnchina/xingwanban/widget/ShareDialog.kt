@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.dialog_share_video.*
 /**
  * Created by hecuncun on 2020-5-29
  */
-class ShareDialog(context: Context,showDel:Boolean) : BottomSheetDialog(context), View.OnClickListener {
+class ShareDialog(context: Context,showDel:Boolean,showShare:Boolean) : BottomSheetDialog(context), View.OnClickListener {
     init {
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_share_video, null)
         setContentView(view)
@@ -25,6 +25,7 @@ class ShareDialog(context: Context,showDel:Boolean) : BottomSheetDialog(context)
         tv_finish.setOnClickListener(this)
 
         ll_del_video.visibility=if (showDel) View.VISIBLE else View.GONE
+        ll_share_container.visibility=if (showShare) View.VISIBLE else View.GONE
     }
 
 

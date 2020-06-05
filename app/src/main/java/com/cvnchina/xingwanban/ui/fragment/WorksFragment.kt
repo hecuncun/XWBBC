@@ -59,7 +59,7 @@ class WorksFragment : BaseFragment() {
 
     override fun initView(view: View) {
         initRv()
-        shareDialog= ShareDialog(activity!!,true)
+
     }
 
     private var isPlaying = false
@@ -135,6 +135,7 @@ class WorksFragment : BaseFragment() {
                     startActivity(intent)
                 }
                 R.id.iv_share -> {
+                    shareDialog= ShareDialog(activity!!,true,listBean.ischeck=="y")
                     shareDialog?.setOnChoseListener(object :ShareDialog.OnChoseListener{
                         override fun select(resId: Int) {
                             when(resId){

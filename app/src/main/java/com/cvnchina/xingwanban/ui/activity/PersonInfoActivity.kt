@@ -359,6 +359,7 @@ class PersonInfoActivity : BaseActivity() {
                     }
                     R.id.iv_def1 -> {
                         if (list.size<4){
+                            showToast("服务器默认头像未配置")
                             return
                         }
                       GlideUtils.showCircle(iv_head_photo,list[0].headPic,R.mipmap.head1)
@@ -367,7 +368,7 @@ class PersonInfoActivity : BaseActivity() {
                         changeDefaultHeadPhotoCall.compose(ThreadSwitchTransformer())
                             .subscribe(object : CallbackObserver<NewPhotoBean>() {
                                 override fun onSucceed(t: NewPhotoBean?, desc: String?) {
-
+                                    EventBus.getDefault().post(RefreshPersonalInfoEvent())
 
                                 }
 
@@ -377,6 +378,10 @@ class PersonInfoActivity : BaseActivity() {
                             })
                     }
                     R.id.iv_def2 -> {
+                        if (list.size<4){
+                            showToast("服务器默认头像未配置")
+                            return
+                        }
                         GlideUtils.showCircle(iv_head_photo,list[1].headPic,R.mipmap.head1)
                         val changeDefaultHeadPhotoCall =
                             SLMRetrofit.instance.api.changeDefaultHeadPhotoCall(list[1].id.toInt())
@@ -384,7 +389,7 @@ class PersonInfoActivity : BaseActivity() {
                             .subscribe(object : CallbackObserver<NewPhotoBean>() {
                                 override fun onSucceed(t: NewPhotoBean?, desc: String?) {
 
-
+                                    EventBus.getDefault().post(RefreshPersonalInfoEvent())
                                 }
 
                                 override fun onFailed() {
@@ -393,13 +398,17 @@ class PersonInfoActivity : BaseActivity() {
                             })
                     }
                     R.id.iv_def3 -> {
+                        if (list.size<4){
+                            showToast("服务器默认头像未配置")
+                            return
+                        }
                         GlideUtils.showCircle(iv_head_photo,list[2].headPic,R.mipmap.head1)
                         val changeDefaultHeadPhotoCall =
                             SLMRetrofit.instance.api.changeDefaultHeadPhotoCall(list[2].id.toInt())
                         changeDefaultHeadPhotoCall.compose(ThreadSwitchTransformer())
                             .subscribe(object : CallbackObserver<NewPhotoBean>() {
                                 override fun onSucceed(t: NewPhotoBean?, desc: String?) {
-
+                                    EventBus.getDefault().post(RefreshPersonalInfoEvent())
 
                                 }
 
@@ -409,13 +418,17 @@ class PersonInfoActivity : BaseActivity() {
                             })
                     }
                     R.id.iv_def4 -> {
+                        if (list.size<4){
+                            showToast("服务器默认头像未配置")
+                            return
+                        }
                         GlideUtils.showCircle(iv_head_photo,list[3].headPic,R.mipmap.head1)
                         val changeDefaultHeadPhotoCall =
                             SLMRetrofit.instance.api.changeDefaultHeadPhotoCall(list[3].id.toInt())
                         changeDefaultHeadPhotoCall.compose(ThreadSwitchTransformer())
                             .subscribe(object : CallbackObserver<NewPhotoBean>() {
                                 override fun onSucceed(t: NewPhotoBean?, desc: String?) {
-
+                                    EventBus.getDefault().post(RefreshPersonalInfoEvent())
 
                                 }
 
@@ -572,6 +585,7 @@ class PersonInfoActivity : BaseActivity() {
                                 override fun onSucceed(t: NewPhotoBean, desc: String) {
                                     Logger.e("${t.headPic}")
                                     showToast(desc)
+                                    EventBus.getDefault().post(RefreshPersonalInfoEvent())
                                 }
 
                                 override fun onFailed() {
