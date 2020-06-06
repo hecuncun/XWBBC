@@ -141,6 +141,8 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
                 childHolder.line.setVisibility(View.VISIBLE);
             }else if(size==2 && childPosition==1){
                 childHolder.line.setVisibility(View.VISIBLE);
+            }else {
+                childHolder.line.setVisibility(View.GONE);
             }
 
         }

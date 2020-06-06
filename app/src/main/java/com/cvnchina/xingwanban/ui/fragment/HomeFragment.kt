@@ -10,11 +10,13 @@ import com.aliyun.svideo.recorder.activity.AlivcSvideoRecordActivity
 import com.aliyun.svideo.recorder.bean.AlivcRecordInputParam
 import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.bean.MsgCountBean
+import com.cvnchina.xingwanban.bean.PersonalInfoBean
 import com.cvnchina.xingwanban.event.LogoutEvent
 import com.cvnchina.xingwanban.event.RefreshDraftEvent
 import com.cvnchina.xingwanban.event.RefreshWorksEvent
 import com.cvnchina.xingwanban.ext.showToast
 import com.cvnchina.xingwanban.net.CallbackListObserver
+import com.cvnchina.xingwanban.net.CallbackObserver
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
 import com.cvnchina.xingwanban.ui.activity.*
@@ -120,7 +122,20 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
+    private fun initPersonalInfo() {
+        //请求个人信息
+        val personalInfoCall = SLMRetrofit.instance.api.personalInfoCall()
+        personalInfoCall.compose(ThreadSwitchTransformer()).subscribe(object :
+            CallbackObserver<PersonalInfoBean>() {
+            override fun onSucceed(t: PersonalInfoBean, desc: String) {
+                //初始化个人信息
+                nickname = t.nickName
+            }
 
+            override fun onFailed() {
+            }
+        })
+    }
     private fun jumpToScannerActivity() {// Manifest.permission.VIBRATE允许访问振动设备
         if (checkPermissions(arrayOf(Manifest.permission.CAMERA, Manifest.permission.VIBRATE))) {
             val intent = Intent(activity, CaptureActivity::class.java)
@@ -173,6 +188,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
                     }
                 })
+
+            initPersonalInfo()
         }
 
     }
