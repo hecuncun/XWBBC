@@ -51,28 +51,28 @@
             android:layout_width="0dp"
             android:layout_height="58dp"
             android:layout_weight="1"
-            android:src="@mipmap/head1" />
+            android:src="@mipmap/icon_def_head" />
 
         <ImageView
             android:id="@+id/iv_def2"
             android:layout_width="0dp"
             android:layout_height="58dp"
             android:layout_weight="1"
-            android:src="@mipmap/head2" />
+            android:src="@mipmap/icon_def_head" />
 
         <ImageView
             android:id="@+id/iv_def3"
             android:layout_width="0dp"
             android:layout_height="58dp"
             android:layout_weight="1"
-            android:src="@mipmap/head3" />
+            android:src="@mipmap/icon_def_head" />
 
         <ImageView
             android:id="@+id/iv_def4"
             android:layout_width="0dp"
             android:layout_height="58dp"
             android:layout_weight="1"
-            android:src="@mipmap/head4" />
+            android:src="@mipmap/icon_def_head" />
     </LinearLayout>
 
     <View

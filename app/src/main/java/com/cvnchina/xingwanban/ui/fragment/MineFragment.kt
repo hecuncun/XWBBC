@@ -4,8 +4,10 @@ import android.content.Intent
 import android.graphics.Color
 import android.view.View
 import com.cvnchina.xingwanban.R
+import com.cvnchina.xingwanban.bean.MsgCountBean
 import com.cvnchina.xingwanban.bean.PersonalInfoBean
 import com.cvnchina.xingwanban.bean.ShareBean
+import com.cvnchina.xingwanban.event.LogoutEvent
 import com.cvnchina.xingwanban.event.RefreshPersonalInfoEvent
 import com.cvnchina.xingwanban.glide.GlideUtils
 import com.cvnchina.xingwanban.net.CallbackListObserver
@@ -17,6 +19,7 @@ import com.cvnchina.xingwanban.utils.CommonUtil
 import com.cvnchina.xingwanban.widget.ShareDialog
 import com.flyco.dialog.widget.ActionSheetDialog
 import com.lhzw.bluetooth.base.BaseFragment
+import com.orhanobut.logger.Logger
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.UMShareListener
@@ -25,6 +28,7 @@ import com.umeng.socialize.media.UMImage
 import com.umeng.socialize.media.UMWeb
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -44,7 +48,35 @@ class MineFragment : BaseFragment() {
     override fun attachLayoutRes(): Int {
         return R.layout.fragment_mine
     }
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden){
+            Logger.e("判断token")
+            //显示   判断Token
+            val msgCountCall = SLMRetrofit.instance.api.msgCountCall()
+            msgCountCall.compose(ThreadSwitchTransformer())
+                .subscribe(object : CallbackListObserver<MsgCountBean>() {
+                    override fun onSucceed(t: MsgCountBean) {
+                        if (t.msg == "1") {
 
+                        } else if (t.msg=="-100"){//token过期
+                            isLogin=false
+                            token=""
+                            nickname=""
+                            startActivity(Intent(activity,LoginActivity::class.java))
+                            EventBus.getDefault().post(LogoutEvent())
+                        }else{
+                           // showToast(t.msgCondition)
+                        }
+
+                    }
+
+                    override fun onFailed() {
+
+                    }
+                })
+        }
+    }
 
     override fun initView(view: View) {
         toolbar_title.text = "个人中心"
@@ -214,6 +246,7 @@ class MineFragment : BaseFragment() {
     override fun lazyLoad() {
         initPersonalInfo()
     }
+
 
     private fun initPersonalInfo() {
         //请求个人信息

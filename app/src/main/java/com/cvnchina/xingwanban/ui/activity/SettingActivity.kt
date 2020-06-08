@@ -90,6 +90,7 @@ private var updateAppBean:UpdateAppBean?=null
         rl_logout.setOnClickListener { //退出登录
             isLogin=false
             token=""
+            nickname=""
             startActivity(Intent(this@SettingActivity,LoginActivity::class.java))
             EventBus.getDefault().post(LogoutEvent())
             finish()

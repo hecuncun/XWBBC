@@ -41,7 +41,7 @@ class SelectHeadPhotoDialog(context: Context) : BottomSheetDialog(context), View
     }
 
     fun setImageData(list: MutableList<DefaultHeadPhotoBean.DataBean>) {
-        if (list.size>4){
+        if (list.size==4){
             GlideUtils.showCircle(iv_def1,list[0].headPic,R.mipmap.head1)
             GlideUtils.showCircle(iv_def2,list[1].headPic,R.mipmap.head2)
             GlideUtils.showCircle(iv_def3,list[2].headPic,R.mipmap.head3)

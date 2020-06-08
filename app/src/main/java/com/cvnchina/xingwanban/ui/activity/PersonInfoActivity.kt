@@ -314,7 +314,7 @@ class PersonInfoActivity : BaseActivity() {
             .subscribe(object : CallbackListObserver<DefaultHeadPhotoBean>() {
                 override fun onSucceed(t: DefaultHeadPhotoBean) {
                     if (t.msg == "1") {
-                        Logger.e("默认头像size==${t.data}")
+                        Logger.e("默认头像size==${t.data.size}")
                         list = t.data
                     } else {
                         showToast(t.msgCondition)
