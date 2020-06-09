@@ -18,6 +18,8 @@ class MsgAdapter : BaseQuickAdapter<MsgBean.RecordsBean, BaseViewHolder>(R.layou
             .setText(R.id.tv_date, item.createTime.split("T")[0])
         val ivVideo = helper.getView<ImageView>(R.id.iv_video)
         GlideUtils.showAnimation(ivVideo, item.videoPic, R.mipmap.ic_launcher)
+       val ivHead = helper.getView<ImageView>(R.id.iv_head_photo)
+        GlideUtils.showCircle(ivHead,item.headPic,R.mipmap.icon_sys)
         //1,点赞 2,评论；3，视频审核通过 4视频审核不通过
         var desc=""
         when(item.type){

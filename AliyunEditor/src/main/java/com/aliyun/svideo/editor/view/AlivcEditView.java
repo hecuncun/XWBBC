@@ -346,6 +346,8 @@ public class AlivcEditView extends RelativeLayout
         if (PermissionUtils.checkPermissionsGroup(getContext(), PermissionUtils.PERMISSION_STORAGE)) {
             copyAssets();
         }
+
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -397,6 +399,7 @@ public class AlivcEditView extends RelativeLayout
                 hideBottomEditorView();
             }
         });
+
 
     }
 
@@ -581,7 +584,6 @@ public class AlivcEditView extends RelativeLayout
         mTabGroup.addView(findViewById(R.id.tab_effect_transition));
         mTabGroup.addView(findViewById(R.id.tab_paint));
         mTabGroup.addView(findViewById(R.id.tab_cover));
-
     }
 
     private void add2Control() {
@@ -589,7 +591,9 @@ public class AlivcEditView extends RelativeLayout
         tabViewStackBinding.setViewStack(mViewStack);
         mTabGroup.setOnCheckedChangeListener(tabViewStackBinding);
         mTabGroup.setOnTabChangeListener(this);
+
     }
+
 
     private void initEditor() {
         //设置onTextureRender能够回调
@@ -1447,6 +1451,7 @@ public class AlivcEditView extends RelativeLayout
         return isMixRecord;
     }
 
+
     public static class AlivcEditThread implements ThreadFactory {
         @Override
         public Thread newThread(Runnable r) {
@@ -1743,9 +1748,10 @@ public class AlivcEditView extends RelativeLayout
         } .execute(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
+
     @Override
     public void onTabChange() {
-        Log.d(TAG, "onTabChange: ");
+        Log.e("HCC", "onTabChange: "+mTabGroup.getCheckedIndex());
         UIEditorPage page = UIEditorPage.get(mTabGroup.getCheckedIndex());
         switch (page) {
         case AUDIO_MIX:
@@ -2602,7 +2608,26 @@ public class AlivcEditView extends RelativeLayout
             mViewStack.setVisibleStatus(true);
         }
     }
+    //TODO 设置选中功能
+    public void setCheckedType(int type) {
+        // //0滤镜  1音乐  2动图 3字幕 4mv 5音效  6特效 7变速 8专场 9涂鸦 10封面
+        if (type<0){
+            return;
+        }
+        mTabGroup.setCheckedIndex(type);
+//        switch (type){
+//            case 0:
+//            case 1:
+//            case 4:
+//            case 5:
+//                mTabGroup.setCheckedIndex(type);
+//            default:
+//
+//        }
 
+
+
+    }
     public void onResume() {
         mTvRight.setEnabled(true);
         if (isNeedResume) {

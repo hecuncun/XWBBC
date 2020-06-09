@@ -71,7 +71,6 @@ public class EditorActivity extends FragmentActivity {
         editView.setReplaceMusic(isReplaceMusic);
         editView.setHasRecordMusic(isReplaceMusic);
         editView.setIsMixRecord(isMixRecorder);
-
         editView.setmOnFinishListener(new AlivcEditView.OnFinishListener() {
             @Override
             public void onComplete(AlivcEditOutputParam outputParam) {
@@ -89,10 +88,13 @@ public class EditorActivity extends FragmentActivity {
                 startActivity(intent);
             }
         });
-    }
 
+      // editView.setCheckedType(type);
+    }
+    private int type ;
     private void initData() {
         Intent intent = getIntent();
+        type = intent.getIntExtra("type", -1);
         draftBean = intent.getSerializableExtra("draftBean");
 
         int mFrameRate = intent.getIntExtra(AlivcEditInputParam.INTENT_KEY_FRAME, 30);
@@ -146,7 +148,10 @@ public class EditorActivity extends FragmentActivity {
         super.onResume();
         if (editView != null) {
             editView.onResume();
+            editView.setCheckedType(type);
         }
+
+
     }
 
     @Override
@@ -233,11 +238,12 @@ public class EditorActivity extends FragmentActivity {
         return projectConfigure;
     }
 
-    public static void startEdit(Context context, AlivcEditInputParam param) {
+    public static void startEdit(Context context, AlivcEditInputParam param,int type) {
         if (param == null || param.getMediaInfos() == null || param.getMediaInfos().size() == 0) {
             return;
         }
         Intent intent = new Intent(context, EditorActivity.class);
+        intent.putExtra("type",type);
         intent.putExtra(AlivcEditInputParam.INTENT_KEY_FRAME, param.getFrameRate());
         intent.putExtra(AlivcEditInputParam.INTENT_KEY_GOP, param.getGop());
         intent.putExtra(AlivcEditInputParam.INTENT_KEY_RATION_MODE, param.getRatio());

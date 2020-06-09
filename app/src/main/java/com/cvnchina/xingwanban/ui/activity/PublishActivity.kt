@@ -2,6 +2,7 @@ package com.cvnchina.xingwanban.ui.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.text.Html
 import com.aliyun.apsara.alivclittlevideo.constants.LittleVideoParamConfig
 import com.aliyun.qupai.editor.AliyunIComposeCallBack
 import com.aliyun.qupai.editor.impl.AliyunComposeFactory
@@ -23,6 +24,7 @@ import com.cvnchina.xingwanban.net.ProgressRequestBody
 import com.cvnchina.xingwanban.net.ProgressRequestBody.UploadCallbacks
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
+import com.cvnchina.xingwanban.utils.FileUtils
 import com.cvnchina.xingwanban.widget.ProgressDialog
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_publish.*
@@ -211,6 +213,12 @@ class PublishActivity : BaseActivity() {
                                                     Logger.e("草稿不存在")
                                                 }
 
+                                                if (saveLoc){
+                                                    showToast("视频保存在$videoPath")
+                                                }else{
+                                                    FileUtils.DeleteFolder(videoPath)
+                                                }
+
                                                 progressDialog?.dismiss()
                                                 EventBus.getDefault().post(RefreshWorksEvent())
                                                 EventBus.getDefault().post(ChangeEvent())
@@ -310,7 +318,10 @@ class PublishActivity : BaseActivity() {
         createAliyunCompose.init(this)
         initPath()
         progressDialog = ProgressDialog(this)
-
+        var talk= "<font>参与话题</font><font color=\'#999999\'><small>    \t发布时必填</small></font>"
+        talk_name.text=Html.fromHtml(talk)
+        var content= "<font>内容分类</font><font color=\'#999999\'><small>    \t发布时必填</small></font>"
+        tv_content_sort.text=Html.fromHtml(content)
     }
 
     /**
@@ -323,8 +334,12 @@ class PublishActivity : BaseActivity() {
         videoPath =
             Constants.SDCardConstants.getDir(this) + LittleVideoParamConfig.DIR_COMPOSE + videoName
     }
-
+private var saveLoc=false
     override fun initListener() {
+        iv_save.setOnClickListener {
+            saveLoc=!saveLoc
+            iv_save.setImageResource(if (saveLoc) R.mipmap.icon_save else R.mipmap.icon_unsave)
+        }
         iv_back.setOnClickListener {
             finish()
         }
@@ -352,14 +367,15 @@ class PublishActivity : BaseActivity() {
             //1.发布上传 先检查填写的条件完整
             title = et_title.textString
             description = et_title.textString
-            if (title.isNotEmpty() && columns.isNotEmpty() && tags.isNotEmpty() && city.isNotEmpty() && lat.isNotEmpty() && lng.isNotEmpty() && isVisible.isNotEmpty() && address.isNotEmpty()) {
-                //2.根据mConfigPath合成文件
-                startCompose(false)
-                //3.上传视频文件
-                //4.创建视频
-            } else {
-                showToast("请把信息填写完成")
-            }
+            startCompose(false)
+//            if (title.isNotEmpty() && columns.isNotEmpty() && tags.isNotEmpty() && city.isNotEmpty() && lat.isNotEmpty() && lng.isNotEmpty() && isVisible.isNotEmpty() && address.isNotEmpty()) {
+//                //2.根据mConfigPath合成文件
+//
+//                //3.上传视频文件
+//                //4.创建视频
+//            } else {
+//                showToast("请把信息填写完成")
+//            }
 
         }
 

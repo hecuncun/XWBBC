@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -23,21 +22,21 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.aliyun.common.utils.StorageUtils;
+import com.aliyun.svideo.base.widget.ProgressDialog;
+import com.aliyun.svideo.common.utils.PermissionUtils;
 import com.aliyun.svideo.common.utils.ThreadUtils;
 import com.aliyun.svideo.common.utils.ToastUtils;
 import com.aliyun.svideo.common.utils.UriUtils;
+import com.aliyun.svideo.media.MediaInfo;
 import com.aliyun.svideo.record.R;
 import com.aliyun.svideo.recorder.bean.AlivcRecordInputParam;
 import com.aliyun.svideo.recorder.bean.RenderingMode;
 import com.aliyun.svideo.recorder.mixrecorder.AlivcRecorderFactory;
-import com.aliyun.svideo.recorder.util.RecordCommon;
 import com.aliyun.svideo.recorder.util.FixedToastUtils;
 import com.aliyun.svideo.recorder.util.NotchScreenUtil;
+import com.aliyun.svideo.recorder.util.RecordCommon;
 import com.aliyun.svideo.recorder.util.voice.PhoneStateManger;
 import com.aliyun.svideo.recorder.view.AliyunSVideoRecordView;
-import com.aliyun.svideo.base.widget.ProgressDialog;
-import com.aliyun.svideo.common.utils.PermissionUtils;
-import com.aliyun.svideo.media.MediaInfo;
 import com.aliyun.svideo.sdk.external.struct.common.AliyunVideoParam;
 import com.aliyun.svideo.sdk.external.struct.common.VideoDisplayMode;
 import com.aliyun.svideo.sdk.external.struct.common.VideoQuality;
@@ -47,7 +46,6 @@ import com.aliyun.svideo.sdk.external.struct.snap.AliyunSnapVideoParam;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 3.10.5 合拍展示界面
@@ -66,7 +64,7 @@ public class AlivcSvideoMixRecordActivity extends AppCompatActivity {
     private int mGop;
     private VideoQuality mVideoQuality = VideoQuality.HD;
     private VideoCodecs mVideoCodec = VideoCodecs.H264_HARDWARE;
-    private int mRatioMode = AliyunSnapVideoParam.RATIO_MODE_3_4;
+    private int mRatioMode = AliyunSnapVideoParam.RATIO_MODE_9_16;
     private RenderingMode renderingMode = RenderingMode.Race;
     private String mVideoPath;
     private AliyunVideoParam mVideoParam;
@@ -174,7 +172,7 @@ public class AlivcSvideoMixRecordActivity extends AppCompatActivity {
      */
     private void getData() {
         mResolutionMode = getIntent().getIntExtra(AliyunSnapVideoParam.VIDEO_RESOLUTION, AliyunSnapVideoParam.RESOLUTION_540P);
-        mRatioMode = getIntent().getIntExtra(AliyunSnapVideoParam.VIDEO_RATIO, AliyunSnapVideoParam.RATIO_MODE_3_4);
+        mRatioMode = getIntent().getIntExtra(AliyunSnapVideoParam.VIDEO_RATIO, AliyunSnapVideoParam.RATIO_MODE_9_16);
         mGop = getIntent().getIntExtra(AliyunSnapVideoParam.VIDEO_GOP, 250);
         mVideoQuality = (VideoQuality) getIntent().getSerializableExtra(AliyunSnapVideoParam.VIDEO_QUALITY);
         mVideoPath = getIntent().getStringExtra(KEY_PARAM_VIDEO);

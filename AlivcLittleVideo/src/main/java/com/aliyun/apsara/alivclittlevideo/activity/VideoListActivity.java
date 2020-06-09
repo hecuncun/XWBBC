@@ -765,7 +765,7 @@ public class VideoListActivity extends AppCompatActivity {
         .setFrameRate(LittleVideoParamConfig.Editor.VIDEO_FRAMERATE)
         .setGop(LittleVideoParamConfig.Editor.VIDEO_GOP)
         .build();
-        EditorMediaActivity.startImport(this, param);
+        EditorMediaActivity.startImport(this, param,-1);
     }
 
     /**

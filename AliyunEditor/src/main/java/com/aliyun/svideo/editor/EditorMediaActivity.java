@@ -82,9 +82,10 @@ public class EditorMediaActivity extends Activity {
         initData();
         init();
     }
-
+    private int type;
     private void initData() {
         Intent intent = getIntent();
+        type = intent.getIntExtra("type", -1);
         int mFrameRate = intent.getIntExtra(AlivcEditInputParam.INTENT_KEY_FRAME, 30);
         int mGop = intent.getIntExtra(AlivcEditInputParam.INTENT_KEY_GOP, 250 );
         mRatio = intent.getIntExtra(AlivcEditInputParam.INTENT_KEY_RATION_MODE, AlivcEditInputParam.RATIO_MODE_9_16);
@@ -168,7 +169,7 @@ public class EditorMediaActivity extends Activity {
                     progressDialog.dismiss();
                 }
                 mInputParam.setMediaInfos((ArrayList<MediaInfo>)resultVideos);
-                EditorActivity.startEdit(EditorMediaActivity.this, mInputParam  );
+                EditorActivity.startEdit(EditorMediaActivity.this, mInputParam,type);
             }
 
             @Override
@@ -466,11 +467,12 @@ public class EditorMediaActivity extends Activity {
         }
     }
 
-    public static void startImport(Context context, AlivcEditInputParam param) {
+    public static void startImport(Context context, AlivcEditInputParam param,int type) {
         if (param == null) {
             return;
         }
         Intent intent = new Intent(context, EditorMediaActivity.class);
+        intent.putExtra("type",type);
         intent.putExtra(AlivcEditInputParam.INTENT_KEY_FRAME, param.getFrameRate());
         intent.putExtra(AlivcEditInputParam.INTENT_KEY_GOP, param.getGop());
         intent.putExtra(AlivcEditInputParam.INTENT_KEY_RATION_MODE, param.getRatio());

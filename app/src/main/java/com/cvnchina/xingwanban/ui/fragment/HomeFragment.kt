@@ -83,7 +83,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             if (isLogin) {
                 val param = AlivcEditInputParam.Builder()
                     .build()
-                EditorMediaActivity.startImport(context, param)
+                EditorMediaActivity.startImport(context, param,-1)
             } else {
                 startActivity(Intent(activity, LoginActivity::class.java))
                 (activity!!as MainActivity).finish()
@@ -110,11 +110,88 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 (activity!!as MainActivity).finish()
             }
         }
-        ll_edit_container.setOnClickListener {
+
+
+        initTypeListener()
+
+    }
+
+    private fun initTypeListener() {
+        tv_0.setOnClickListener {
             if (isLogin) {
                 val param = AlivcEditInputParam.Builder()
                     .build()
-                EditorMediaActivity.startImport(context, param)
+                EditorMediaActivity.startImport(context, param,0)
+            } else {
+                startActivity(Intent(activity, LoginActivity::class.java))
+                (activity!!as MainActivity).finish()
+            }
+        }
+        tv_1.setOnClickListener {
+            if (isLogin) {
+                val param = AlivcEditInputParam.Builder()
+                    .build()
+                EditorMediaActivity.startImport(context, param,1)
+            } else {
+                startActivity(Intent(activity, LoginActivity::class.java))
+                (activity!!as MainActivity).finish()
+            }
+        }
+        tv_2.setOnClickListener {
+            if (isLogin) {
+                val param = AlivcEditInputParam.Builder()
+                    .build()
+                EditorMediaActivity.startImport(context, param,2)
+            } else {
+                startActivity(Intent(activity, LoginActivity::class.java))
+                (activity!!as MainActivity).finish()
+            }
+        }
+        tv_3.setOnClickListener {
+            if (isLogin) {
+                val param = AlivcEditInputParam.Builder()
+                    .build()
+                EditorMediaActivity.startImport(context, param,3)
+            } else {
+                startActivity(Intent(activity, LoginActivity::class.java))
+                (activity!!as MainActivity).finish()
+            }
+        }
+        tv_4.setOnClickListener {
+            if (isLogin) {
+                val param = AlivcEditInputParam.Builder()
+                    .build()
+                EditorMediaActivity.startImport(context, param,4)
+            } else {
+                startActivity(Intent(activity, LoginActivity::class.java))
+                (activity!!as MainActivity).finish()
+            }
+        }
+        tv_5.setOnClickListener {
+            if (isLogin) {
+                val param = AlivcEditInputParam.Builder()
+                    .build()
+                EditorMediaActivity.startImport(context, param,5)
+            } else {
+                startActivity(Intent(activity, LoginActivity::class.java))
+                (activity!!as MainActivity).finish()
+            }
+        }
+        tv_6.setOnClickListener {
+            if (isLogin) {
+                val param = AlivcEditInputParam.Builder()
+                    .build()
+                EditorMediaActivity.startImport(context, param,6)
+            } else {
+                startActivity(Intent(activity, LoginActivity::class.java))
+                (activity!!as MainActivity).finish()
+            }
+        }
+        tv_9.setOnClickListener {
+            if (isLogin) {
+                val param = AlivcEditInputParam.Builder()
+                    .build()
+                EditorMediaActivity.startImport(context, param,9)
             } else {
                 startActivity(Intent(activity, LoginActivity::class.java))
                 (activity!!as MainActivity).finish()
@@ -286,7 +363,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                                         }
 
                                         if (username == token) {//用户相同  跳H5
-                                            val url = str1
+                                            val url = str1+"&platForm=app"
                                             val intent =
                                                 Intent(activity, WebViewActivity::class.java)
                                             intent.putExtra("type", 5)
@@ -338,7 +415,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                                     if (isLogin) {
                                         val param = AlivcEditInputParam.Builder()
                                             .build()
-                                        EditorMediaActivity.startImport(context, param)
+                                        EditorMediaActivity.startImport(context, param,-1)
                                     } else {
                                         startActivity(Intent(activity, LoginActivity::class.java))
                                         (activity!!as MainActivity).finish()

@@ -70,7 +70,9 @@
     <View
         style="@style/horizontalGrayLine"
         android:layout_marginTop="10dp" />
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
     <com.cvnchina.xingwanban.widget.LimitScrollEditText
         android:id="@+id/et_title"
         android:layout_width="match_parent"
@@ -81,7 +83,18 @@
         app:hintTextColor="@color/color_gray_CCCCCC"
         app:textColor="@color/white"
         app:maxLength="80"
-        app:hint="描述一下你的作品吧" />
+        app:hint="描述一下你的作品吧~" />
+    <TextView
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="57dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_gray_999999"
+        android:textSize="14sp"
+        android:text="发布时必填"/>
+</RelativeLayout>
+
 
     <View
         style="@style/horizontalGrayLine"
@@ -106,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:layout_weight="1"
-            android:text="参与话题"
+            android:text="参与话题（发布时必填）"
             android:textColor="@color/color_gray_F9F9F9"
             android:textSize="15dp" />
 
@@ -213,5 +226,30 @@
             android:src="@mipmap/icon_arrow_right" />
     </LinearLayout>
     <View style="@style/horizontalGrayLine" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_save_loc"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="15dp"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:textColor="#CCCCCC"
+            android:textSize="15sp"
+            android:text="保存本地"/>
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_save"
+            android:paddingRight="10dp"
+            android:layout_toLeftOf="@+id/tv_save_loc"
+            android:src="@mipmap/icon_unsave"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        </ImageView>
+    </RelativeLayout>
 
 </LinearLayout>

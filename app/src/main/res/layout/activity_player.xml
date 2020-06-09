@@ -21,6 +21,11 @@
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_gravity="bottom"
+            android:src="@mipmap/icon_bg"/>
         <LinearLayout
             android:id="@+id/ll_content"
             android:layout_width="260dp"

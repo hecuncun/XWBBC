@@ -38,9 +38,10 @@ class ScanLoginActivity : BaseActivity() {
             username=intent.getStringExtra("username")!!
         }
         if (state=="1"){
-            tv_state_title.text="您的手机端账号和电视端不一致，是否同步？"
+            tv_state_title.text="您的手机端账号和电视登录账号不一致，\n" +
+                    "是否同步为手机账号？"
             tv_state_title.setTextSize(TypedValue.COMPLEX_UNIT_SP,16f)
-            tv_state.text="同步后，电视和手机可同屏互动"
+            tv_state.text="同步后电视和手机可双屏互动"
             tv_state.setTextSize(TypedValue.COMPLEX_UNIT_SP,16f)
         }else{
             tv_state_title.text="星顽半登录确认"
@@ -80,7 +81,7 @@ private var tvToken=""
                                 tvToken=t.tvToken
                                 //替换后跳转H5
                                 if (state=="1"){
-                                    val url =locUrl.replace(username,token).replace(locToken,  t.tvToken)
+                                    val url =locUrl.replace(username,token).replace(locToken,  t.tvToken)+"&platForm=app"
                                     Logger.e("locUrl==$locUrl<===>新url==$url")
                                     val intent = Intent(this@ScanLoginActivity, WebViewActivity::class.java)
                                     intent.putExtra("type", 5)
@@ -88,7 +89,7 @@ private var tvToken=""
                                     startActivity(intent)
                                     finish()
                                 }else{
-                                    val url =locUrl+"&token=${t.tvToken}&username=$token"
+                                    val url =locUrl+"&token=${t.tvToken}&username=$token"+"&platForm=app"
                                     Logger.e("新url==$url")
                                     val intent = Intent(this@ScanLoginActivity, WebViewActivity::class.java)
                                     intent.putExtra("type", 5)
@@ -121,7 +122,7 @@ private var tvToken=""
                                 tvToken=t.tvToken
                                 //替换后跳转H5
                                 if (state=="1"){
-                                    val url =locUrl.replace(username,token).replace(locToken,  t.tvToken)
+                                    val url =locUrl.replace(username,token).replace(locToken,  t.tvToken)+"&platForm=app"
                                     Logger.e("locUrl==$locUrl<===>新url==$url")
                                     val intent = Intent(this@ScanLoginActivity, WebViewActivity::class.java)
                                     intent.putExtra("type", 5)
@@ -129,7 +130,7 @@ private var tvToken=""
                                     startActivity(intent)
                                     finish()
                                 }else{
-                                    val url =locUrl+"&token=${t.tvToken}&username=$token"
+                                    val url =locUrl+"&token=${t.tvToken}&username=$token"+"&platForm=app"
                                     Logger.e("新url==$url")
                                     val intent = Intent(this@ScanLoginActivity, WebViewActivity::class.java)
                                     intent.putExtra("type", 5)

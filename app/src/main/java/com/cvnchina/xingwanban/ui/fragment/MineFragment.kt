@@ -1,6 +1,7 @@
 package com.cvnchina.xingwanban.ui.fragment
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.view.View
 import com.cvnchina.xingwanban.R
@@ -187,6 +188,7 @@ class MineFragment : BaseFragment() {
                     val web = UMWeb(t?.url)
                     web.title = "星顽半" //标题
                     var thumb = UMImage(activity, R.mipmap.logo)
+                    thumb.compressFormat = Bitmap.CompressFormat.PNG//去除图片底部黑边
                     web.setThumb(thumb) //缩略图
 
                     web.description = "@$nickname 我的新视界，想要与你一起分享~" //描述

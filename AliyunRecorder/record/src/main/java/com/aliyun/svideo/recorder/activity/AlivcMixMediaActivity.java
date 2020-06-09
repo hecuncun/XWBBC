@@ -129,7 +129,7 @@ public class AlivcMixMediaActivity extends AppCompatActivity {
     private void getData() {
         //录制参数
         int mResolutionMode = getIntent().getIntExtra(AlivcRecordInputParam.INTENT_KEY_RESOLUTION_MODE, AliyunSnapVideoParam.RESOLUTION_540P);
-        int mRatioMode = getIntent().getIntExtra(AlivcRecordInputParam.INTENT_KEY_RATION_MODE, AliyunSnapVideoParam.RATIO_MODE_3_4);
+        int mRatioMode = getIntent().getIntExtra(AlivcRecordInputParam.INTENT_KEY_RATION_MODE, AliyunSnapVideoParam.RATIO_MODE_9_16);
         int mGop = getIntent().getIntExtra(AlivcRecordInputParam.INTENT_KEY_GOP, 250);
         VideoQuality mVideoQuality = (VideoQuality) getIntent().getSerializableExtra(AlivcRecordInputParam.INTENT_KEY_QUALITY);
         if (mVideoQuality == null) {

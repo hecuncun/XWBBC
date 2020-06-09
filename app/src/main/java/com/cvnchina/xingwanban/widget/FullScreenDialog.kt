@@ -44,7 +44,7 @@ class FullScreenDialog(context: Context) : Dialog(context) {
             if (isLogin) {
                 val param = AlivcEditInputParam.Builder()
                     .build()
-                EditorMediaActivity.startImport(context, param)
+                EditorMediaActivity.startImport(context, param,-1)
 
             } else {
                 context.startActivity(Intent(context, LoginActivity::class.java))

@@ -125,7 +125,6 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_marginTop="20dp"
-                    android:id="@+id/ll_edit_container"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_width="match_parent"
@@ -139,7 +138,9 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="horizontal">
+<!--  //0滤镜  1音乐  2动图 3字幕 4mv 5音效  6特效 7变速 8专场 9涂鸦 10封面                      -->
                         <TextView
+                            android:id="@+id/tv_0"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -150,6 +151,7 @@
                             android:textColor="@color/color_gray_CCCCCC"
                             android:text="滤镜"/>
                         <TextView
+                            android:id="@+id/tv_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -160,6 +162,7 @@
                             android:textColor="@color/color_gray_CCCCCC"
                             android:text="音乐"/>
                         <TextView
+                            android:id="@+id/tv_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -170,6 +173,7 @@
                             android:textColor="@color/color_gray_CCCCCC"
                             android:text="动图"/>
                         <TextView
+                            android:id="@+id/tv_3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -188,6 +192,7 @@
                         android:gravity="center"
                         android:orientation="horizontal">
                         <TextView
+                            android:id="@+id/tv_6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -198,6 +203,7 @@
                             android:textColor="@color/color_gray_CCCCCC"
                             android:text="特效"/>
                         <TextView
+                            android:id="@+id/tv_4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -208,6 +214,7 @@
                             android:textColor="@color/color_gray_CCCCCC"
                             android:text="MV"/>
                         <TextView
+                            android:id="@+id/tv_5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -218,6 +225,7 @@
                             android:textColor="@color/color_gray_CCCCCC"
                             android:text="音效"/>
                         <TextView
+                            android:id="@+id/tv_9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
