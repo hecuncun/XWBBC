@@ -44,8 +44,7 @@ private var updateAppBean:UpdateAppBean?=null
                 if (t!=null){
                     updateAppBean=t
                     tv_version.text=t.appVersion
-                    val versionCode = PackageUtils.getVersionCode(this@SettingActivity)
-                    if (t.appVersion.toInt()>versionCode){
+                    if (t.appVersion!=PackageUtils.getVersionName(this@SettingActivity)){
                         tv_dot.visibility=View.VISIBLE
                     }else{
                         tv_dot.visibility=View.GONE

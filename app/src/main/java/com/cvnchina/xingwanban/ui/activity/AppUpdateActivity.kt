@@ -24,7 +24,7 @@ class AppUpdateActivity:BaseActivity() {
         if (bean!=null){
             tv_desc.text=bean!!.updateDesc
             tv_app_version.text=bean!!.appVersion
-            if (PackageUtils.getVersionCode(this)<bean!!.appVersion.toInt()){
+            if (PackageUtils.getVersionName(this)!=bean!!.appVersion){
                 canUpdate=true
                 tv_notify.text="星顽半视频有新版本${bean!!.appVersion}更新啦！"
             }else{

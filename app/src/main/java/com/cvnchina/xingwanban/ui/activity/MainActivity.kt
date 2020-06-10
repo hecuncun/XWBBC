@@ -68,7 +68,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             CallbackObserver<UpdateAppBean>(){
             override fun onSucceed(updateAppBean: UpdateAppBean?, desc: String?) {
                 if (updateAppBean!=null){
-                    if (PackageUtils.getVersionCode(this@MainActivity)<updateAppBean.appVersion.toInt()){
+                    if (PackageUtils.getVersionName(this@MainActivity)!=updateAppBean.appVersion){
                         // 更新配置
 
                         val updateConfig = UpdateConfig().apply {
