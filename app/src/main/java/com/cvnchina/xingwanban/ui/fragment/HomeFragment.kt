@@ -22,8 +22,8 @@ import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
 import com.cvnchina.xingwanban.ui.activity.*
 import com.lhzw.bluetooth.base.BaseFragment
 import com.orhanobut.logger.Logger
-import com.uuzuche.lib_zxing.activity.CaptureActivity
-import com.uuzuche.lib_zxing.activity.CodeUtils
+//import com.uuzuche.lib_zxing.activity.CaptureActivity
+//import com.uuzuche.lib_zxing.activity.CodeUtils
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -102,13 +102,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
         }
         ll_scan.setOnClickListener {
-            //二维码扫描
-            if (isLogin) {
-                jumpToScannerActivity()
-            } else {
-                startActivity(Intent(activity, LoginActivity::class.java))
-                (activity!!as MainActivity).finish()
-            }
+            jumpToScannerActivity2()
         }
 
 
@@ -213,9 +207,22 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
         })
     }
-    private fun jumpToScannerActivity() {// Manifest.permission.VIBRATE允许访问振动设备
+//    private fun jumpToScannerActivity() {// Manifest.permission.VIBRATE允许访问振动设备
+//        if (checkPermissions(arrayOf(Manifest.permission.CAMERA, Manifest.permission.VIBRATE))) {
+//            val intent = Intent(activity, CaptureActivity::class.java)
+//            startActivityForResult(intent, REQUEST_CODE)
+//        } else {
+//            requestPermission(
+//                arrayOf(Manifest.permission.CAMERA, Manifest.permission.VIBRATE),
+//                PERMISS_REQUEST_CODE
+//            )
+//        }
+//
+//    }
+
+    private fun jumpToScannerActivity2() {// Manifest.permission.VIBRATE允许访问振动设备
         if (checkPermissions(arrayOf(Manifest.permission.CAMERA, Manifest.permission.VIBRATE))) {
-            val intent = Intent(activity, CaptureActivity::class.java)
+            val intent = Intent(activity, ScanQRCodeActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE)
         } else {
             requestPermission(
@@ -233,7 +240,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISS_REQUEST_CODE) {
-            val intent = Intent(activity, CaptureActivity::class.java)
+            val intent = Intent(activity, ScanQRCodeActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE)
         }
     }
@@ -323,9 +330,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         if (requestCode == REQUEST_CODE) {
             //扫描结果
             if (data != null) {
-                data.extras?.let {
-                    if (it.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-                        var result = it.getString(CodeUtils.RESULT_STRING)
+                val result=data.getStringExtra("result")
                         Logger.e("二维码==$result")
                         if (result != null && result.contains("&doType=")) {
 //                            result =
@@ -431,10 +436,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
 
                     } else {
-                        showToast("扫描失败")
+                        //showToast("扫描失败")
                     }
-                }
-            }
+
+
         }
     }
 }

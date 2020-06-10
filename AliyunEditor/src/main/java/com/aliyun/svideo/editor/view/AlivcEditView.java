@@ -540,6 +540,7 @@ public class AlivcEditView extends RelativeLayout
                         int height = mPasterContainer.getLayoutParams().height;
                         mCanvasController = mAliyunIEditor.obtainCanvasController(getContext(),
                                             width, height);
+
                         mCanvasController.setCurrentSize(dip2px(getContext(), 5));
                     }
 
@@ -637,7 +638,6 @@ public class AlivcEditView extends RelativeLayout
         mEditorService.addTabEffect(UIEditorPage.FILTER_EFFECT, mAliyunIEditor.getFilterLastApplyId());
         mEditorService.addTabEffect(UIEditorPage.AUDIO_MIX, mAliyunIEditor.getMusicLastApplyId());
         mEditorService.setPaint(mAliyunIEditor.getPaintLastApply());
-
         mTvRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -2612,19 +2612,17 @@ public class AlivcEditView extends RelativeLayout
     //TODO 设置选中功能
     public void setCheckedType(int type) {
         // //0滤镜  1音乐  2动图 3字幕 4mv 5音效  6特效 7变速 8专场 9涂鸦 10封面
-        if (type<0){
-            return;
-        }
-        switch (type){
-            case 0:
-            case 1:
-            case 4:
-            case 5:
-                mTabGroup.setCheckedIndex(type);
-                break;
-            default:
-
-        }
+//        if (type<0){ return; }
+//        switch (type){
+//            case 0:
+//            case 1:
+//            case 4:
+//            case 5:
+//                mTabGroup.setCheckedIndex(type);
+//                break;
+//            default:
+//
+//        }
 
 
 

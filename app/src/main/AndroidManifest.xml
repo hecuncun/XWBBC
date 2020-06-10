@@ -173,6 +173,7 @@
             android:theme="@style/authsdk_activity_dialog" ></activity>
         <activity android:name=".ui.activity.BindPhoneActivity" />
         <activity android:name=".ui.activity.ScanLoginActivity" />
+        <activity android:name=".ui.activity.ScanQRCodeActivity" />
         <!--一键登录阿里SDK-->
     </application>
 
