@@ -22,7 +22,7 @@
             android:paddingTop="2dp"
             android:paddingRight="10dp"
             android:paddingBottom="2dp"
-            android:text="#电影"
+            android:text=""
             android:textColor="@color/color_primary_yellow"
             android:textSize="12sp" />
         <ImageView
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:text="哈尼宝贝爱心卡点，谁用谁火，文案文案文案文案文案文案文案文案文案"
+        android:text=""
         android:textColor="@color/color_gray_F9F9F9" />
 
     <RelativeLayout
@@ -76,7 +76,7 @@
             android:paddingBottom="3dp"
             android:layout_marginTop="15dp"
             android:layout_alignParentRight="true"
-            android:text="审核中"/>
+            android:text=""/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -120,7 +120,7 @@
             android:drawableLeft="@mipmap/icon_zan"
             android:drawablePadding="5dp"
             android:gravity="center"
-            android:text="123"
+            android:text=""
             android:textColor="@color/color_gray_CCCCCC"
             android:textSize="12sp" />
 
@@ -132,7 +132,7 @@
             android:drawableLeft="@mipmap/icon_evaluate"
             android:drawablePadding="5dp"
             android:gravity="center"
-            android:text="123"
+            android:text=""
             android:textColor="@color/color_gray_CCCCCC"
             android:textSize="12sp" />
 
@@ -142,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="1天前"
+            android:text=""
             android:textColor="@color/color_gray_CCCCCC"
             android:textSize="12sp" />
     </LinearLayout>

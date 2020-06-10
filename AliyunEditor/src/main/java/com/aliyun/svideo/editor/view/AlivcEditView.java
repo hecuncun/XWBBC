@@ -2453,6 +2453,7 @@ public class AlivcEditView extends RelativeLayout
 
                 }
             });
+
         }
 
         @Override
@@ -2614,16 +2615,16 @@ public class AlivcEditView extends RelativeLayout
         if (type<0){
             return;
         }
-        mTabGroup.setCheckedIndex(type);
-//        switch (type){
-//            case 0:
-//            case 1:
-//            case 4:
-//            case 5:
-//                mTabGroup.setCheckedIndex(type);
-//            default:
-//
-//        }
+        switch (type){
+            case 0:
+            case 1:
+            case 4:
+            case 5:
+                mTabGroup.setCheckedIndex(type);
+                break;
+            default:
+
+        }
 
 
 

@@ -86,8 +86,6 @@ final class CameraConfigurationManager {
         parameters.setPreviewSize(cameraResolution.x, cameraResolution.y);
         setFlash(parameters);
         setZoom(parameters);
-        //setSharpness(parameters);
-        //modify here
         WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
         int rotation = display.getRotation();
@@ -112,11 +110,6 @@ final class CameraConfigurationManager {
             result = (info.orientation - degrees + 360) % 360;
         }
         camera.setDisplayOrientation(result);
-       // camera.setDisplayOrientation(270);
-        // 后置摄像头
-      //  camera.setDisplayOrientation(90);
-
-        //Toast.makeText(context,rotation+"",Toast.LENGTH_SHORT).show();
         camera.setParameters(parameters);
     }
 

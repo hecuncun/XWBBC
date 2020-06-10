@@ -22,7 +22,7 @@
             android:paddingTop="2dp"
             android:paddingRight="10dp"
             android:paddingBottom="2dp"
-            android:text="#电影"
+            android:text=""
             android:textColor="@color/color_primary_yellow"
             android:textSize="12sp" />
         <ImageView
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:text="哈尼宝贝爱心卡点，谁用谁火，文案文案文案文案文案文案文案文案文案"
+        android:text=""
         android:textColor="@color/color_gray_F9F9F9" />
 
     <RelativeLayout

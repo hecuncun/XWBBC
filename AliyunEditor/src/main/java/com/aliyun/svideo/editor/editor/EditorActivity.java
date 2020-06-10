@@ -88,8 +88,7 @@ public class EditorActivity extends FragmentActivity {
                 startActivity(intent);
             }
         });
-
-      // editView.setCheckedType(type);
+        editView.setCheckedType(type);
     }
     private int type ;
     private void initData() {
@@ -148,7 +147,6 @@ public class EditorActivity extends FragmentActivity {
         super.onResume();
         if (editView != null) {
             editView.onResume();
-            editView.setCheckedType(type);
         }
 
 
