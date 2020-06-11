@@ -72,7 +72,10 @@ class PlayerActivity : BaseActivity() {
             // tv_nick_name.text=
             if (workBean!!.contTags.size > 0) {
                 tv_tag.text = workBean!!.contTags[0].tagName
+                tv_tag.background=resources.getDrawable(R.drawable.bg_gray_26ffffff_r4)
                 tags=workBean!!.contTags[0].tagName
+            }else{
+                tv_tag.background=null
             }
         }
 
@@ -92,6 +95,12 @@ class PlayerActivity : BaseActivity() {
             tv_share.visibility=View.GONE
             tv_title.text = titlex
             tv_tag.text=tag
+            if (tag.isEmpty()){
+                tv_tag.visibility=View.GONE
+            }else{
+                tv_tag.visibility=View.VISIBLE
+                tv_tag.background=resources.getDrawable(R.drawable.bg_gray_26ffffff_r4)
+            }
             tags=tag
             title=titlex
         }
@@ -182,7 +191,7 @@ class PlayerActivity : BaseActivity() {
         shareVideoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<ShareBean>(){
             override fun onSucceed(t: ShareBean?) {
                 val video = UMVideo(t?.url)
-                video.title ="  " //视频的标题
+                video.title ="$nickname 给你分享了一个视频" //视频的标题
                 var thumb= UMImage(this@PlayerActivity,workBean!!.overimageurl)
                 video.setThumb(thumb) //视频的缩略图
                 video.description = workBean?.contSubTitle //视频的描述

@@ -3,7 +3,6 @@ package com.cvnchina.xingwanban.ui.activity
 import android.app.Activity
 import android.content.Intent
 import android.text.Html
-import com.aliyun.apsara.alivclittlevideo.constants.LittleVideoParamConfig
 import com.aliyun.qupai.editor.AliyunIComposeCallBack
 import com.aliyun.qupai.editor.impl.AliyunComposeFactory
 import com.aliyun.svideo.base.Constants
@@ -92,13 +91,29 @@ class PublishActivity : BaseActivity() {
         title = draftBean.title//视频标题
         description = draftBean.title
         et_title.textString = title
-        columns = draftBean.columns
-        tv_content_sort.text = draftBean.colName
-        tv_content_sort.setTextColor(resources.getColor(R.color.color_primary_yellow))
+        if (colName.isEmpty()){
+            var content= "<font>内容分类</font><font color=\'#999999\'><small>    \t发布时必填</small></font>"
+            tv_content_sort.text=Html.fromHtml(content)
+        }else{
+            columns = draftBean.columns
+            tv_content_sort.text = draftBean.colName
+            tv_content_sort.setTextColor(resources.getColor(R.color.color_primary_yellow))
+        }
+
         tags = draftBean.tags
-        talk_name.text = tags
-        talk_name.setTextColor(resources.getColor(R.color.color_primary_yellow))
-        tv_location.text = draftBean.address
+        if (tags.isEmpty()){
+            var talk= "<font>参与话题</font><font color=\'#999999\'><small>    \t发布时必填</small></font>"
+            talk_name.text=Html.fromHtml(talk)
+        }else{
+            talk_name.text = tags
+            talk_name.setTextColor(resources.getColor(R.color.color_primary_yellow))
+        }
+        if (draftBean.address.isEmpty()){
+            tv_location.text = "添加位置"
+        }else{
+            tv_location.text = draftBean.address
+        }
+
         city = draftBean.city
         lat = draftBean.lat
         lng = draftBean.lng
@@ -330,9 +345,10 @@ class PublishActivity : BaseActivity() {
     private var videoPath = ""
     private var videoName = ""
     fun initPath() {
-        videoName = System.currentTimeMillis().toString() + "_output_compose_video.mp4"
+        videoName = System.currentTimeMillis().toString() + "xwb_video.mp4"
         videoPath =
-            Constants.SDCardConstants.getDir(this) + LittleVideoParamConfig.DIR_COMPOSE + videoName
+            //Constants.SDCardConstants.getDir(this) + LittleVideoParamConfig.DIR_COMPOSE + videoName
+            Constants.SDCardConstants.getDir(this)+ videoName
     }
 private var saveLoc=false
     override fun initListener() {
@@ -347,7 +363,7 @@ private var saveLoc=false
             //1.发布上传 先检查填写的条件完整
             title = et_title.textString
             description = et_title.textString
-            if (title.isNotEmpty() && columns.isNotEmpty() && tags.isNotEmpty() && city.isNotEmpty() && lat.isNotEmpty() && lng.isNotEmpty() && isVisible.isNotEmpty() && address.isNotEmpty()) {
+            if (title.isNotEmpty() && columns.isNotEmpty() && tags.isNotEmpty() && isVisible.isNotEmpty()) {//&& city.isNotEmpty() && lat.isNotEmpty() && lng.isNotEmpty()&& address.isNotEmpty()
                 //2.根据mConfigPath合成文件
                 startCompose(true)
                 //3.上传视频文件
@@ -389,7 +405,7 @@ private var saveLoc=false
             startActivity(Intent(this, LocationActivity::class.java))
         }
         ll_permission.setOnClickListener {
-            startActivity(Intent(this, CanShowActivity::class.java))
+            //startActivity(Intent(this, CanShowActivity::class.java))
         }
     }
 

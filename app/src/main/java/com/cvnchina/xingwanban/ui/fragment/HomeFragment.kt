@@ -102,7 +102,13 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
         }
         ll_scan.setOnClickListener {
-            jumpToScannerActivity2()
+            //二维码扫描
+            if (isLogin) {
+                jumpToScannerActivity2()
+            } else {
+                startActivity(Intent(activity, LoginActivity::class.java))
+                (activity!!as MainActivity).finish()
+            }
         }
 
 
@@ -182,14 +188,19 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
         }
         tv_9.setOnClickListener {
-            if (isLogin) {
-                val param = AlivcEditInputParam.Builder()
-                    .build()
-                EditorMediaActivity.startImport(context, param,9)
-            } else {
-                startActivity(Intent(activity, LoginActivity::class.java))
-                (activity!!as MainActivity).finish()
-            }
+            val param = AlivcEditInputParam.Builder()
+                .build()
+            EditorMediaActivity.startImport(context, param,9)
+
+
+//            if (isLogin) {
+//                val param = AlivcEditInputParam.Builder()
+//                    .build()
+//                EditorMediaActivity.startImport(context, param,9)
+//            } else {
+//                startActivity(Intent(activity, LoginActivity::class.java))
+//                (activity!!as MainActivity).finish()
+//            }
         }
     }
 

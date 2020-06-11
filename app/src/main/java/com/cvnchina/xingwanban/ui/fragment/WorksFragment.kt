@@ -237,7 +237,7 @@ class WorksFragment : BaseFragment() {
         shareVideoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<ShareBean>(){
             override fun onSucceed(t: ShareBean?) {
                 val video = UMVideo(t?.url)
-                video.title ="  " //视频的标题
+                video.title ="$nickname 给你分享了一个视频" //视频的标题
                 var thumb= UMImage(activity,currentBean?.overimageurl)
                 video.setThumb(thumb) //视频的缩略图
                 video.description = currentBean?.contSubTitle //视频的描述

@@ -54,7 +54,7 @@
             android:layout_width="108dp"
             android:layout_height="144dp"
             android:background="@color/alivc_common_bg_black"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"/>
         <TextView
             android:id="@+id/tv_choose"
             android:layout_width="108dp"
@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:layout_weight="1"
-            android:text="参与话题（发布时必填）"
+            android:text="参与话题"
             android:textColor="@color/color_gray_F9F9F9"
             android:textSize="15dp" />
 

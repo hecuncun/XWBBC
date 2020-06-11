@@ -7,6 +7,7 @@ import com.cvnchina.xingwanban.bean.AgreementBean;
 import com.cvnchina.xingwanban.bean.BindPhoneBean;
 import com.cvnchina.xingwanban.bean.CityCodeBean;
 import com.cvnchina.xingwanban.bean.ContentSortBean;
+import com.cvnchina.xingwanban.bean.DefaultHeadPhoto;
 import com.cvnchina.xingwanban.bean.DefaultHeadPhotoBean;
 import com.cvnchina.xingwanban.bean.DemoWorksBean;
 import com.cvnchina.xingwanban.bean.EvaluateListBean;
@@ -88,7 +89,7 @@ public interface Api {
      * 修改头像id接口
      */
     @POST("vms/appapi/account/editPic")
-    Observable<BaseBean<NewPhotoBean>> changeDefaultHeadPhotoCall(@Query("id") int id);
+    Observable<BaseBean<DefaultHeadPhoto>> changeDefaultHeadPhotoCall(@Query("id") int id);
 
     /**
      * 修改自定义头像接口

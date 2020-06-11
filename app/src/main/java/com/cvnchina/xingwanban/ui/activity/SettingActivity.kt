@@ -90,6 +90,7 @@ private var updateAppBean:UpdateAppBean?=null
             isLogin=false
             token=""
             nickname=""
+            showToast("退出成功")
             startActivity(Intent(this@SettingActivity,LoginActivity::class.java))
             EventBus.getDefault().post(LogoutEvent())
             finish()

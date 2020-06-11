@@ -7,11 +7,11 @@ package com.aliyun.svideo.media;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
@@ -95,11 +95,16 @@ public class GalleryDirChooser {
                 popupWindow.showAsDropDown(anchor);
             } else {
                 // 适配 android 7.0
-                int[] location = new int[2];
-                anchor.getLocationOnScreen(location);
-                int x = location[0];
-                int y = location[1];
-                popupWindow.showAtLocation(anchor, Gravity.NO_GRAVITY, 0, y + anchor.getHeight());
+//                int[] location = new int[2];
+//                anchor.getLocationOnScreen(location);
+//                int x = location[0];
+//                int y = location[1];
+//                popupWindow.showAtLocation(anchor, Gravity.NO_GRAVITY, 0, y + anchor.getHeight());
+                Rect visibleFrame = new Rect();
+                anchor.getGlobalVisibleRect(visibleFrame);
+                int height = anchor.getResources().getDisplayMetrics().heightPixels - visibleFrame.bottom;
+                popupWindow.setHeight(height);
+                popupWindow.showAsDropDown(anchor, 0, 0);
             }
         }
         isShowGalleryDir = !isShowGalleryDir;

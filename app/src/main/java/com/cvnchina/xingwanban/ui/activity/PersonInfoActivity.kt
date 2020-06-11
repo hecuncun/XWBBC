@@ -12,10 +12,7 @@ import cn.qqtheme.framework.util.ConvertUtils
 import cn.qqtheme.framework.widget.WheelView.DividerConfig
 import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.base.BaseActivity
-import com.cvnchina.xingwanban.bean.CityCodeBean
-import com.cvnchina.xingwanban.bean.DefaultHeadPhotoBean
-import com.cvnchina.xingwanban.bean.NewPhotoBean
-import com.cvnchina.xingwanban.bean.PersonalInfoBean
+import com.cvnchina.xingwanban.bean.*
 import com.cvnchina.xingwanban.event.RefreshPersonalInfoEvent
 import com.cvnchina.xingwanban.ext.showToast
 import com.cvnchina.xingwanban.glide.GlideUtils
@@ -366,9 +363,10 @@ class PersonInfoActivity : BaseActivity() {
                         val changeDefaultHeadPhotoCall =
                             SLMRetrofit.instance.api.changeDefaultHeadPhotoCall(list[0].id.toInt())
                         changeDefaultHeadPhotoCall.compose(ThreadSwitchTransformer())
-                            .subscribe(object : CallbackObserver<NewPhotoBean>() {
-                                override fun onSucceed(t: NewPhotoBean?, desc: String?) {
+                            .subscribe(object : CallbackObserver<DefaultHeadPhoto>() {
+                                override fun onSucceed(t: DefaultHeadPhoto?, desc: String?) {
                                     EventBus.getDefault().post(RefreshPersonalInfoEvent())
+                                    showToast("修改成功")
 
                                 }
 
@@ -386,9 +384,9 @@ class PersonInfoActivity : BaseActivity() {
                         val changeDefaultHeadPhotoCall =
                             SLMRetrofit.instance.api.changeDefaultHeadPhotoCall(list[1].id.toInt())
                         changeDefaultHeadPhotoCall.compose(ThreadSwitchTransformer())
-                            .subscribe(object : CallbackObserver<NewPhotoBean>() {
-                                override fun onSucceed(t: NewPhotoBean?, desc: String?) {
-
+                            .subscribe(object : CallbackObserver<DefaultHeadPhoto>() {
+                                override fun onSucceed(t: DefaultHeadPhoto?, desc: String?) {
+                                    showToast("修改成功")
                                     EventBus.getDefault().post(RefreshPersonalInfoEvent())
                                 }
 
@@ -406,10 +404,10 @@ class PersonInfoActivity : BaseActivity() {
                         val changeDefaultHeadPhotoCall =
                             SLMRetrofit.instance.api.changeDefaultHeadPhotoCall(list[2].id.toInt())
                         changeDefaultHeadPhotoCall.compose(ThreadSwitchTransformer())
-                            .subscribe(object : CallbackObserver<NewPhotoBean>() {
-                                override fun onSucceed(t: NewPhotoBean?, desc: String?) {
+                            .subscribe(object : CallbackObserver<DefaultHeadPhoto>() {
+                                override fun onSucceed(t: DefaultHeadPhoto?, desc: String?) {
                                     EventBus.getDefault().post(RefreshPersonalInfoEvent())
-
+                                    showToast("修改成功")
                                 }
 
                                 override fun onFailed() {
@@ -426,10 +424,10 @@ class PersonInfoActivity : BaseActivity() {
                         val changeDefaultHeadPhotoCall =
                             SLMRetrofit.instance.api.changeDefaultHeadPhotoCall(list[3].id.toInt())
                         changeDefaultHeadPhotoCall.compose(ThreadSwitchTransformer())
-                            .subscribe(object : CallbackObserver<NewPhotoBean>() {
-                                override fun onSucceed(t: NewPhotoBean?, desc: String?) {
+                            .subscribe(object : CallbackObserver<DefaultHeadPhoto>() {
+                                override fun onSucceed(t: DefaultHeadPhoto?, desc: String?) {
                                     EventBus.getDefault().post(RefreshPersonalInfoEvent())
-
+                                    showToast("修改成功")
                                 }
 
                                 override fun onFailed() {
