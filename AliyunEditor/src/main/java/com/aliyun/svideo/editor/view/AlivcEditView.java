@@ -315,6 +315,7 @@ public class AlivcEditView extends RelativeLayout
     private boolean isMixRecord;
 
     private AlivcCircleLoadingDialog mLoadingDialog;
+    private Context context1;
 
 
     public AlivcEditView(Context context) {
@@ -327,6 +328,7 @@ public class AlivcEditView extends RelativeLayout
 
     public AlivcEditView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        context1 = context;
         init();
     }
 
@@ -520,6 +522,7 @@ public class AlivcEditView extends RelativeLayout
         mSurfaceView.setLayoutParams(marginParams);
         //mCanvasController = mAliyunIEditor.obtainCanvasController(getContext(),
         //                    marginParams.width, marginParams.height);
+
     }
 
     public float dip2px(Context paramContext, float paramFloat) {
@@ -542,7 +545,6 @@ public class AlivcEditView extends RelativeLayout
                                             width, height);
                         mCanvasController.setCurrentSize(dip2px(getContext(), 5));
                     }
-
                     mCanvasController.removeCanvas();
                     View canvasView = mCanvasController.getCanvas();
                     mPasterContainer.removeView(canvasView);
@@ -573,17 +575,17 @@ public class AlivcEditView extends RelativeLayout
         mViewStack.setEffectChange(this);
         mViewStack.setOnEffectActionLister(mOnEffectActionLister);
         mViewStack.setOnTransitionPreviewListener(mOnTransitionPreviewListener);
-        mTabGroup.addView(findViewById(R.id.tab_filter));
-        mTabGroup.addView(findViewById(R.id.tab_effect_audio_mix));
-        mTabGroup.addView(findViewById(R.id.tab_effect_overlay));
-        mTabGroup.addView(findViewById(R.id.tab_effect_caption));
-        mTabGroup.addView(findViewById(R.id.tab_effect_mv));
-        mTabGroup.addView(findViewById(R.id.tab_effect_sound));
-        mTabGroup.addView(findViewById(R.id.tab_effect_filter));
-        mTabGroup.addView(findViewById(R.id.tab_effect_time));
-        mTabGroup.addView(findViewById(R.id.tab_effect_transition));
-        mTabGroup.addView(findViewById(R.id.tab_paint));
-        mTabGroup.addView(findViewById(R.id.tab_cover));
+        mTabGroup.addView(findViewById(R.id.tab_filter));//滤镜
+        mTabGroup.addView(findViewById(R.id.tab_effect_audio_mix));//音乐
+        mTabGroup.addView(findViewById(R.id.tab_effect_overlay));//动图
+        mTabGroup.addView(findViewById(R.id.tab_effect_caption));//字幕
+        mTabGroup.addView(findViewById(R.id.tab_effect_mv));//mv
+        mTabGroup.addView(findViewById(R.id.tab_effect_sound));//音效
+        mTabGroup.addView(findViewById(R.id.tab_effect_filter));//特效
+        mTabGroup.addView(findViewById(R.id.tab_effect_time));//变速
+        mTabGroup.addView(findViewById(R.id.tab_effect_transition));//专场
+        mTabGroup.addView(findViewById(R.id.tab_paint));//涂鸦
+        mTabGroup.addView(findViewById(R.id.tab_cover));//封面
     }
 
     private void add2Control() {
@@ -2610,23 +2612,20 @@ public class AlivcEditView extends RelativeLayout
         }
     }
     //TODO 设置选中功能
-    public void setCheckedType(int type) {
+    public void setCheckedType(final int type) {
         // //0滤镜  1音乐  2动图 3字幕 4mv 5音效  6特效 7变速 8专场 9涂鸦 10封面
         if (type<0){ return; }
-        switch (type){
-            case 0:
-            case 1:
-            case 4:
-            case 5:
-                mTabGroup.setCheckedIndex(type);
-                break;
-            default:
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTabGroup.setCheckedIndex(type);
+                    }
+                },1000);
+
 
         }
 
 
-
-    }
     public void onResume() {
         mTvRight.setEnabled(true);
         if (isNeedResume) {

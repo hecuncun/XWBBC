@@ -3,6 +3,7 @@ package com.cvnchina.xingwanban.ui.activity
 import android.annotation.SuppressLint
 import android.os.Build
 import android.view.KeyEvent
+import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -14,6 +15,7 @@ import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
 import com.cvnchina.xingwanban.utils.AndroidBug5497Workaround
 import com.cvnchina.xingwanban.widget.MyWebView
+import kotlinx.android.synthetic.main.activity_webview.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 /**
@@ -29,6 +31,8 @@ class WebViewActivity : BaseActivity() {
     override fun initData() {
         //获取富文本内容
         if (type in 1..4){
+            iv_back.visibility= View.GONE
+            toolbar.visibility=View.VISIBLE
             val agreementCall = SLMRetrofit.instance.api.agreementCall(type.toString())
             agreementCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<AgreementBean>(){
                 override fun onSucceed(t: AgreementBean, desc: String?) {
@@ -43,6 +47,8 @@ class WebViewActivity : BaseActivity() {
         }
 
         if (type==5){
+            iv_back.visibility= View.VISIBLE
+            toolbar.visibility=View.GONE
             url=intent.getStringExtra("url")!!
             setUrl(type)
         }

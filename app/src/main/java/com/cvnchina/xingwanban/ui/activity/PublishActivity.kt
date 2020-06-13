@@ -349,6 +349,7 @@ class PublishActivity : BaseActivity() {
         videoPath =
             //Constants.SDCardConstants.getDir(this) + LittleVideoParamConfig.DIR_COMPOSE + videoName
             Constants.SDCardConstants.getDir(this)+ videoName
+
     }
 private var saveLoc=false
     override fun initListener() {
