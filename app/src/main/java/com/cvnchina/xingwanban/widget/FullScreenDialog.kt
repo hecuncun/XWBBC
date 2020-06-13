@@ -62,7 +62,7 @@ class FullScreenDialog(context: Context) : Dialog(context) {
         }
     }
 
-    fun startRecord(context: Context) {
+    private fun startRecord(context: Context) {
         val recordParam = AlivcRecordInputParam.Builder()
             .build()
         AlivcSvideoRecordActivity.startRecord(context, recordParam)
