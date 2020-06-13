@@ -5,11 +5,15 @@ import android.content.Intent
 import android.graphics.Point
 import android.os.Environment
 import android.support.v4.app.FragmentTransaction
+import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import cn.jzvd.JzvdStd
 import cn.qqtheme.framework.picker.WheelPicker
+import com.aliyun.svideo.common.base.BaseDialogFragment.getScreenWidth
+import com.aliyun.svideo.common.utils.ScreenUtils
+import com.blankj.utilcode.util.ScreenUtils.getScreenWidth
 import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.application.App
 import com.cvnchina.xingwanban.base.BaseActivity
@@ -25,6 +29,7 @@ import com.cvnchina.xingwanban.ui.fragment.MineFragment
 import com.cvnchina.xingwanban.utils.PackageUtils
 import com.cvnchina.xingwanban.widget.AgreementDialog
 import com.cvnchina.xingwanban.widget.FullScreenDialog
+import com.luck.picture.lib.tools.ScreenUtils.getScreenWidth
 import com.orhanobut.logger.Logger
 import com.umeng.socialize.view.BaseDialog
 import kotlinx.android.synthetic.main.activity_main.*
@@ -133,6 +138,13 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         if (!isAgree){//还未同意
 
             agreementDialog?.show()
+            //todo 适配今日头条弹窗不居中解决
+            val lp= agreementDialog!!.window.attributes;
+//设置宽高，高度默认是自适应的，宽度根据屏幕宽度比例设置
+            lp.width = ScreenUtils.getWidth(this);
+//这里设置居中
+            lp.gravity = Gravity.CENTER;
+            agreementDialog?.window?.attributes = lp
             agreementDialog?.setOnConfirmListener(View.OnClickListener {
                 //不同意
                 agreementDialog?.dismiss()

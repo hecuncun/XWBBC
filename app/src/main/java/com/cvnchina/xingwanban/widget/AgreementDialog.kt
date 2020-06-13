@@ -19,15 +19,16 @@ import com.cvnchina.xingwanban.utils.Preference
 import com.flyco.dialog.utils.CornerUtils
 import com.flyco.dialog.widget.base.BaseDialog
 import kotlinx.android.synthetic.main.dialog_agreement.*
+import me.jessyan.autosize.internal.CancelAdapt
 
 
 /**
  * Created by hecuncun on 2020-5-5
  */
-class AgreementDialog(context: Context) : BaseDialog<AgreementDialog>(context) {
+class AgreementDialog(context: Context) : BaseDialog<AgreementDialog>(context){
     private var isAgree: Boolean by Preference(Constant.IS_AGREE, false)
     override fun onCreateView(): View {
-        widthScale(0.8f)
+        widthScale(0.85f)
         // showAnim(Swing())
         // dismissAnim(this, new ZoomOutExit());
         val inflate = View.inflate(context, R.layout.dialog_agreement, null)
@@ -37,6 +38,8 @@ class AgreementDialog(context: Context) : BaseDialog<AgreementDialog>(context) {
                 dp2px(10f).toFloat()
             )
         )
+
+
         return inflate
     }
     override fun setUiBeforShow() {
