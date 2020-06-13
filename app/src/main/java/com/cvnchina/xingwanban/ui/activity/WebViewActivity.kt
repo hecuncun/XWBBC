@@ -33,17 +33,19 @@ class WebViewActivity : BaseActivity() {
         if (type in 1..4){
             iv_back.visibility= View.GONE
             toolbar.visibility=View.VISIBLE
-            val agreementCall = SLMRetrofit.instance.api.agreementCall(type.toString())
-            agreementCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<AgreementBean>(){
-                override fun onSucceed(t: AgreementBean, desc: String?) {
-                    url=t.content
-                    setUrl(type)
-                }
-
-                override fun onFailed() {
-
-                }
-            })
+//            val agreementCall = SLMRetrofit.instance.api.agreementCall(type.toString())
+//            agreementCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackObserver<AgreementBean>(){
+//                override fun onSucceed(t: AgreementBean, desc: String?) {
+//                    url=t.content
+//                    setUrl(type)
+//                }
+//
+//                override fun onFailed() {
+//
+//                }
+//            })
+            url="http://www.xingwanban.com/comment/agree?type=$type"
+            setUrl(type)
         }
 
         if (type==5){
@@ -93,8 +95,9 @@ class WebViewActivity : BaseActivity() {
     private fun setUrl(type:Int) {
         mWebView?.post {
            when(type){
-               1,2,3,4->mWebView?.loadDataWithBaseURL(null,getHtmlData(url), "text/html" , "utf-8", null)
-               5->{mWebView?.loadUrl(url)}
+               //mWebView?.loadDataWithBaseURL(null,getHtmlData(url), "text/html" , "utf-8", null)
+               1,2,3,4,5->mWebView?.loadUrl(url)
+               //5->{mWebView?.loadUrl(url)}
                else->{}
            }
         }

@@ -27,7 +27,7 @@ class InfoEditActivity : BaseActivity() {
         val personalInfoBean = intent.getParcelableExtra<PersonalInfoBean>("personalInfoBean")
         if (personalInfoBean!=null){
             sexCode=if ( (personalInfoBean.sex == "男")) 1 else 2
-            et_desc.setHint(personalInfoBean.signature)
+            et_desc.setTextString(personalInfoBean.signature)
         }
 
     }

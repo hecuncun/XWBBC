@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.dialog_agreement.*
 class AgreementDialog(context: Context) : BaseDialog<AgreementDialog>(context) {
     private var isAgree: Boolean by Preference(Constant.IS_AGREE, false)
     override fun onCreateView(): View {
-        widthScale(0.85f)
+        widthScale(0.8f)
         // showAnim(Swing())
         // dismissAnim(this, new ZoomOutExit());
         val inflate = View.inflate(context, R.layout.dialog_agreement, null)

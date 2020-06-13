@@ -1,12 +1,17 @@
 package com.cvnchina.xingwanban.ui.activity
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Point
 import android.os.Environment
 import android.support.v4.app.FragmentTransaction
 import android.view.KeyEvent
 import android.view.View
+import android.view.WindowManager
 import cn.jzvd.JzvdStd
+import cn.qqtheme.framework.picker.WheelPicker
 import com.cvnchina.xingwanban.R
+import com.cvnchina.xingwanban.application.App
 import com.cvnchina.xingwanban.base.BaseActivity
 import com.cvnchina.xingwanban.bean.UpdateAppBean
 import com.cvnchina.xingwanban.event.ChangeEvent
@@ -21,6 +26,7 @@ import com.cvnchina.xingwanban.utils.PackageUtils
 import com.cvnchina.xingwanban.widget.AgreementDialog
 import com.cvnchina.xingwanban.widget.FullScreenDialog
 import com.orhanobut.logger.Logger
+import com.umeng.socialize.view.BaseDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import listener.UpdateDownloadListener
 import model.UpdateConfig
@@ -125,6 +131,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         agreementDialog?.setCanceledOnTouchOutside(false)
         agreementDialog?.setCancelable(false)
         if (!isAgree){//还未同意
+
             agreementDialog?.show()
             agreementDialog?.setOnConfirmListener(View.OnClickListener {
                 //不同意
@@ -134,6 +141,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
 
     }
+
 
     override fun initListener() {
         tv_home.setOnClickListener(this)

@@ -48,7 +48,8 @@ class PlayerActivity : BaseActivity() {
         (player.titleTextView.parent as RelativeLayout).background=null
         if (workBean != null) {
             player.setUp(workBean!!.contDownUrl, "", JzvdStd.SCREEN_FULLSCREEN)
-            Glide.with(this).load(workBean!!.overimageurl).into(player.thumbImageView)
+          //  Glide.with(this).load(workBean!!.overimageurl).into(player.thumbImageView)
+            player.thumbImageView.visibility=View.GONE
             player.startVideo()
             player.backButton.visibility = View.GONE
             player.batteryTimeLayout.visibility = View.GONE

@@ -194,7 +194,7 @@ class LoginActivity : BaseActivity() {
                 SHARE_MEDIA.SINA -> {
                     //todo openId
                     type = 3
-                    openId = map["openid"]
+                    openId = map["access_token"]
                 }
             }
             lastLoginType=type

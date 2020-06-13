@@ -51,7 +51,6 @@ class WorksAdapter :
          player.fullscreenButton.visibility = View.INVISIBLE
          player.thumbImageView.scaleType=ImageView.ScaleType.CENTER_CROP
          GlideUtils.loadRoundImg(player.thumbImageView,item.overimageurl,R.mipmap.icon_def,8)
-
          helper.addOnClickListener(R.id.iv_start)
          helper.addOnClickListener(R.id.iv_share)
          helper.addOnClickListener(R.id.iv_move)

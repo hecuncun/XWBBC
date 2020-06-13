@@ -2,7 +2,12 @@ package com.cvnchina.xingwanban.ui.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.text.Html
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import com.aliyun.qupai.editor.AliyunIComposeCallBack
 import com.aliyun.qupai.editor.impl.AliyunComposeFactory
 import com.aliyun.svideo.base.Constants
@@ -63,6 +68,11 @@ class PublishActivity : BaseActivity() {
 
     private var mDraftBean: DraftBean? = null
     override fun initData() {
+        val content =SpannableString("内容分类    发布时必填")
+        content.setSpan(ForegroundColorSpan(Color.parseColor("#F9F9F9")),0,4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        content.setSpan(ForegroundColorSpan(Color.parseColor("#999999")),8,13, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        content.setSpan(RelativeSizeSpan(0.93F),8,13, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        tv_content_sort.text=content
         val intent = intent
         val draftBean = intent.getSerializableExtra("draftBean")
         if (draftBean != null) {
@@ -92,8 +102,12 @@ class PublishActivity : BaseActivity() {
         description = draftBean.title
         et_title.textString = title
         if (colName.isEmpty()){
-            var content= "<font>内容分类</font><font color=\'#999999\'><small>    \t发布时必填</small></font>"
-            tv_content_sort.text=Html.fromHtml(content)
+            val content =SpannableString("内容分类    发布时必填")
+            //val content= "<font>内容分类</font><font color=\'#999999\'><small>    \t发布时必填</small></font>"
+            content.setSpan(ForegroundColorSpan(Color.parseColor("#F9F9F9")),0,4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+            content.setSpan(ForegroundColorSpan(Color.parseColor("#999999")),8,13, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+            content.setSpan(RelativeSizeSpan(0.93F),8,13, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+            tv_content_sort.text=content
         }else{
             columns = draftBean.columns
             tv_content_sort.text = draftBean.colName
@@ -102,8 +116,7 @@ class PublishActivity : BaseActivity() {
 
         tags = draftBean.tags
         if (tags.isEmpty()){
-            var talk= "<font>参与话题</font><font color=\'#999999\'><small>    \t发布时必填</small></font>"
-            talk_name.text=Html.fromHtml(talk)
+            talk_name.text="参与话题"
         }else{
             talk_name.text = tags
             talk_name.setTextColor(resources.getColor(R.color.color_primary_yellow))
@@ -112,6 +125,8 @@ class PublishActivity : BaseActivity() {
             tv_location.text = "添加位置"
         }else{
             tv_location.text = draftBean.address
+            address = draftBean.address
+            tv_location.text = draftBean.addName
         }
 
         city = draftBean.city
@@ -120,8 +135,7 @@ class PublishActivity : BaseActivity() {
         isVisible = draftBean.isVisible
         tv_visiable.text = if (isVisible == "0") "公开" else "秘密"
 
-        address = draftBean.address
-        tv_location.text = draftBean.addName
+
 
 
     }
@@ -229,7 +243,7 @@ class PublishActivity : BaseActivity() {
                                                 }
 
                                                 if (saveLoc){
-                                                    showToast("视频保存在$videoPath")
+                                                    showToast("保存相册成功")
                                                 }else{
                                                     FileUtils.DeleteFolder(videoPath)
                                                 }
@@ -333,10 +347,6 @@ class PublishActivity : BaseActivity() {
         createAliyunCompose.init(this)
         initPath()
         progressDialog = ProgressDialog(this)
-        var talk= "<font>参与话题</font><font color=\'#999999\'><small>    \t发布时必填</small></font>"
-        talk_name.text=Html.fromHtml(talk)
-        var content= "<font>内容分类</font><font color=\'#999999\'><small>    \t发布时必填</small></font>"
-        tv_content_sort.text=Html.fromHtml(content)
     }
 
     /**

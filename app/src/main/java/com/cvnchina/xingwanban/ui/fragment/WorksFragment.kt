@@ -125,14 +125,16 @@ class WorksFragment : BaseFragment() {
                         palyer.startButton.performClick()
                         ivStart.setImageResource(R.mipmap.icon_play)
                     }
-                    // worksAdapter.notifyItemChanged(position)
 
                 }
                 R.id.tv_cover -> {
+                    isPlaying=false
+                    ivStart.setImageResource(R.mipmap.icon_play)
                     val intent = Intent(activity, PlayerActivity::class.java)
                     intent.putExtra("listBean", listBean)
                     intent.putExtra("show","0")
                     startActivity(intent)
+                    worksAdapter.notifyItemChanged(position)
                 }
                 R.id.iv_share -> {
                     shareDialog= ShareDialog(activity!!,true,listBean.ischeck=="y")
@@ -192,6 +194,9 @@ class WorksFragment : BaseFragment() {
 
                 }
                 R.id.tv_more->{
+                    isPlaying=false
+                    ivStart.setImageResource(R.mipmap.icon_play)
+                    worksAdapter.notifyItemChanged(position)
                     val intent = Intent(activity, PlayerActivity::class.java)
                     intent.putExtra("listBean", listBean)
                     intent.putExtra("show","1")
