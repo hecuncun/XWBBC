@@ -144,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="隐私协议"
+            android:text="隐私政策"
             android:textColor="@color/color_primary_yellow"
             android:textSize="12sp" />
     </LinearLayout>

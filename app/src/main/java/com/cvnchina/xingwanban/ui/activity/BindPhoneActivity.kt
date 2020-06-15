@@ -33,6 +33,16 @@ class BindPhoneActivity:BaseActivity() {
     }
 
     override fun initListener() {
+        tv_ruler.setOnClickListener {
+            val intent = Intent(this,WebViewActivity::class.java)
+            intent.putExtra("type",2)
+            startActivity(intent)
+        }
+        tv_private.setOnClickListener {
+            val intent = Intent(this,WebViewActivity::class.java)
+            intent.putExtra("type",3)
+            startActivity(intent)
+        }
         tv_get_code.setOnClickListener {
             //获取手机验证码
             val phone = et_phone.text.toString().trim()

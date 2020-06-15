@@ -17,7 +17,7 @@
                 android:layout_width="88dp"
                 android:layout_height="88dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="50dp"
                 android:src="@mipmap/logo_2" />
 
             <!--    <TextView-->
@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="隐私协议"
+                    android:text="隐私政策"
                     android:textColor="@color/color_primary_yellow"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="38dp"
+                android:layout_marginTop="28dp"
                 android:text="使用其它方式登录"
                 android:textColor="@color/white"
                 android:textSize="15sp" />

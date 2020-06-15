@@ -19,7 +19,6 @@ import com.cvnchina.xingwanban.utils.Preference
 import com.flyco.dialog.utils.CornerUtils
 import com.flyco.dialog.widget.base.BaseDialog
 import kotlinx.android.synthetic.main.dialog_agreement.*
-import me.jessyan.autosize.internal.CancelAdapt
 
 
 /**
@@ -48,7 +47,7 @@ class AgreementDialog(context: Context) : BaseDialog<AgreementDialog>(context){
             isAgree=true
             dismiss()
         }
-        val str: SpannableString = SpannableString("请您务必审慎阅读、充分理解“用户协议”和“隐私协议”各条款，包括但不限于：为了向您提供视频拍摄和视频剪辑、内容分享等服务，我们需要收集您的设备信息、操作日志等信息。您可以在“设置”中查看、变更、删除个人信息并管理您的授权，您可阅读《用户协议》和《隐私协议》了解详细信息。如您同意，请点击“同意”开始接受我们的服务")
+        val str: SpannableString = SpannableString("请您务必审慎阅读、充分理解“用户协议”和“隐私政策”各条款，包括但不限于：为了向您提供视频拍摄和视频剪辑、内容分享等服务，我们需要收集您的设备信息、操作日志等信息。您可以在“设置”中查看、变更、删除个人信息并管理您的授权，您可阅读《用户协议》和《隐私政策》了解详细信息。如您同意，请点击“同意”开始接受我们的服务")
         str.setSpan(
             ForegroundColorSpan(context.resources.getColor(R.color.color_primary_yellow)),115,121,
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)//（注意：包前不包后）
