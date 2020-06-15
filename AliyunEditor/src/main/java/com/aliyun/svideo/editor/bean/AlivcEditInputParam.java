@@ -1,6 +1,7 @@
 package com.aliyun.svideo.editor.bean;
 
 import android.graphics.BitmapFactory;
+import android.media.MediaMetadataRetriever;
 import android.util.Log;
 
 import com.aliyun.common.global.AliyunTag;
@@ -124,6 +125,16 @@ public class AlivcEditInputParam {
      * @return
      */
     public AliyunVideoParam generateVideoParam() {
+        int height=1280;
+        int width=720;
+        if (mediaInfos != null && mediaInfos.size() > 0) {
+            MediaMetadataRetriever retr = new MediaMetadataRetriever();
+            retr.setDataSource(mediaInfos.get(0).filePath);
+            height =Integer.parseInt(retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)) ; // 视频高度
+            width = Integer.parseInt(retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)); // 视频宽度
+            String rotation = retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION); // 视频旋转方向
+        }
+
         AliyunVideoParam param = new AliyunVideoParam.Builder()
         .frameRate(mFrameRate)
         .gop(mGop)
@@ -131,8 +142,10 @@ public class AlivcEditInputParam {
         .videoQuality(mVideoQuality)
         .scaleMode(mScaleMode)
         .scaleRate(mScaleRate)
-        .outputWidth(getOutputVideoWidth())
-        .outputHeight(geOutputtVideoHeight())
+        .outputWidth(width)
+       // .outputWidth(getOutputVideoWidth())
+        //.outputHeight(geOutputtVideoHeight())
+        .outputHeight(height)
         .videoCodec(mVideoCodec)
         .build();
         return param;

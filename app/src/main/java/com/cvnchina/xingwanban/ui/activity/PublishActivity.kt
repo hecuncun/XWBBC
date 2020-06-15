@@ -3,7 +3,7 @@ package com.cvnchina.xingwanban.ui.activity
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
-import android.text.Html
+import android.net.Uri
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
@@ -244,6 +244,7 @@ class PublishActivity : BaseActivity() {
 
                                                 if (saveLoc){
                                                     showToast("保存相册成功")
+                                                    sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile( File(videoPath))))
                                                 }else{
                                                     FileUtils.DeleteFolder(videoPath)
                                                 }
@@ -374,7 +375,7 @@ private var saveLoc=false
             //1.发布上传 先检查填写的条件完整
             title = et_title.textString
             description = et_title.textString
-            if (title.isNotEmpty() && columns.isNotEmpty() && tags.isNotEmpty() && isVisible.isNotEmpty()) {//&& city.isNotEmpty() && lat.isNotEmpty() && lng.isNotEmpty()&& address.isNotEmpty()
+            if (title.isNotEmpty() && columns.isNotEmpty()  && isVisible.isNotEmpty()) {//&& tags.isNotEmpty() && city.isNotEmpty() && lat.isNotEmpty() && lng.isNotEmpty()&& address.isNotEmpty()
                 //2.根据mConfigPath合成文件
                 startCompose(true)
                 //3.上传视频文件

@@ -9,10 +9,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.base.BaseActivity
-import com.cvnchina.xingwanban.bean.AgreementBean
-import com.cvnchina.xingwanban.net.CallbackObserver
-import com.cvnchina.xingwanban.net.SLMRetrofit
-import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
 import com.cvnchina.xingwanban.utils.AndroidBug5497Workaround
 import com.cvnchina.xingwanban.widget.MyWebView
 import kotlinx.android.synthetic.main.activity_webview.*
@@ -89,7 +85,9 @@ class WebViewActivity : BaseActivity() {
         }
         initWeb()
 
-
+        iv_back.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setUrl(type:Int) {

@@ -91,7 +91,7 @@ public class AlivcCropInputParam {
         mVideoCodecs = VideoCodecs.H264_HARDWARE;
         mGop = 250;
         mFrameRate = 30;
-        mRatioMode = RATIO_MODE_9_16;
+        mRatioMode = RATIO_MODE_ORIGINAL;//TODO RATIO_MODE_9_16
         mAction = CropKey.ACTION_TRANSCODE;
         mMinCropDuration = 2000;
         isUseGPU = false;
