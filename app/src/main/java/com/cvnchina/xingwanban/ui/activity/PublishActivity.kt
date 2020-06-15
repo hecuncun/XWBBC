@@ -3,7 +3,9 @@ package com.cvnchina.xingwanban.ui.activity
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.media.MediaScannerConnection
 import android.net.Uri
+import android.os.Build
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
@@ -11,6 +13,9 @@ import android.text.style.RelativeSizeSpan
 import com.aliyun.qupai.editor.AliyunIComposeCallBack
 import com.aliyun.qupai.editor.impl.AliyunComposeFactory
 import com.aliyun.svideo.base.Constants
+import com.aliyun.svideo.common.utils.ThreadUtils
+import com.aliyun.svideo.common.utils.ToastUtils
+import com.aliyun.svideo.common.utils.UriUtils
 import com.aliyun.svideo.common.utils.image.ImageLoaderImpl
 import com.aliyun.svideo.common.utils.image.ImageLoaderOptions
 import com.aliyun.svideo.editor.publish.CoverEditActivity
@@ -243,8 +248,34 @@ class PublishActivity : BaseActivity() {
                                                 }
 
                                                 if (saveLoc){
-                                                    showToast("保存相册成功")
-                                                    sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile( File(videoPath))))
+                                                   // showToast("保存相册成功")
+                                                    if (Build.VERSION.SDK_INT >=29) {
+                                                        //适配android Q
+                                                        ThreadUtils.runOnSubThread {
+                                                            UriUtils.saveVideoToMediaStore(
+                                                                this@PublishActivity,
+                                                                videoPath
+                                                            )
+                                                            ThreadUtils.runOnUiThread {
+                                                                ToastUtils.show(
+                                                                    this@PublishActivity,
+                                                                    "已保存到相册"
+                                                                )
+                                                            }
+                                                        }
+                                                    } else {
+                                                        MediaScannerConnection.scanFile(
+                                                            this@PublishActivity.applicationContext,
+                                                            arrayOf(videoPath),
+                                                            arrayOf("video/mp4"),
+                                                            null
+                                                        )
+                                                        ToastUtils.show(
+                                                            this@PublishActivity,
+                                                            "已保存到相册"
+                                                        )
+                                                    }
+                                                    //sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile( File(videoPath))))
                                                 }else{
                                                     FileUtils.DeleteFolder(videoPath)
                                                 }
@@ -297,6 +328,35 @@ class PublishActivity : BaseActivity() {
                             EventBus.getDefault().post(RefreshDraftEvent())
                             EventBus.getDefault().post(ChangeEvent())
                             startActivity(Intent(this@PublishActivity, MainActivity::class.java))
+                        if (saveLoc){
+                            // showToast("保存相册成功")
+                            if (Build.VERSION.SDK_INT >=29) {
+                                //适配android Q
+                                ThreadUtils.runOnSubThread {
+                                    UriUtils.saveVideoToMediaStore(
+                                        this@PublishActivity,
+                                        videoPath
+                                    )
+                                    ThreadUtils.runOnUiThread {
+                                        ToastUtils.show(
+                                            this@PublishActivity,
+                                            "已保存到相册"
+                                        )
+                                    }
+                                }
+                            } else {
+                                MediaScannerConnection.scanFile(
+                                    this@PublishActivity.applicationContext,
+                                    arrayOf(videoPath),
+                                    arrayOf("video/mp4"),
+                                    null
+                                )
+                                ToastUtils.show(
+                                    this@PublishActivity,
+                                    "已保存到相册"
+                                )
+                            }
+                        }
 
                         }
 

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:text="用户协议和隐私协议"
+        android:text="用户协议和隐私政策"
         android:textColor="@color/color_gray_666666"
         android:textSize="18sp" />
 

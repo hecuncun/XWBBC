@@ -113,6 +113,7 @@ public class AlivcEditInputParam {
         this.mScaleRate = 1.0F;
         this.mResolutionMode = RESOLUTION_720P;
         this.mRatio = RATIO_MODE_9_16;
+       // this.mRatio = RATIO_MODE_ORIGINAL;
         this.mGop = 250;
         this.mFrameRate = 30;
         this.mVideoQuality = VideoQuality.HD;
@@ -125,16 +126,6 @@ public class AlivcEditInputParam {
      * @return
      */
     public AliyunVideoParam generateVideoParam() {
-        int height=1280;
-        int width=720;
-        if (mediaInfos != null && mediaInfos.size() > 0) {
-            MediaMetadataRetriever retr = new MediaMetadataRetriever();
-            retr.setDataSource(mediaInfos.get(0).filePath);
-            height =Integer.parseInt(retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)) ; // 视频高度
-            width = Integer.parseInt(retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)); // 视频宽度
-            String rotation = retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION); // 视频旋转方向
-        }
-
         AliyunVideoParam param = new AliyunVideoParam.Builder()
         .frameRate(mFrameRate)
         .gop(mGop)
@@ -142,10 +133,10 @@ public class AlivcEditInputParam {
         .videoQuality(mVideoQuality)
         .scaleMode(mScaleMode)
         .scaleRate(mScaleRate)
-        .outputWidth(width)
-       // .outputWidth(getOutputVideoWidth())
-        //.outputHeight(geOutputtVideoHeight())
-        .outputHeight(height)
+        //.outputWidth(videoWidth)
+        .outputWidth(getOutputVideoWidth())
+        .outputHeight(geOutputtVideoHeight())
+        //.outputHeight(videoHeight)
         .videoCodec(mVideoCodec)
         .build();
         return param;
@@ -179,27 +170,55 @@ public class AlivcEditInputParam {
     public int geOutputtVideoHeight() {
         int height = 0;
         int width = getOutputVideoWidth();
-        switch (mRatio) {
-        case RATIO_MODE_1_1:
-            height = width;
-            break;
-        case RATIO_MODE_3_4:
-            height = width * 4 / 3;
-            break;
-        case RATIO_MODE_9_16:
+//        switch (mRatio) {
+//        case RATIO_MODE_1_1:
+//            height = width;
+//            break;
+//        case RATIO_MODE_3_4:
+//            height = width * 4 / 3;
+//            break;
+//        case RATIO_MODE_9_16:
+//            height = width * 16 / 9;
+//            break;
+//        case RATIO_MODE_ORIGINAL:
+//            if (mediaInfos != null && mediaInfos.size() > 0) {
+//                height = (int) (width / getMediaRatio(mediaInfos.get(0)));
+//            } else {
+//                height = width * 16 / 9;
+//            }
+//            break;
+//        default:
+//            height = width * 16 / 9;
+//            break;
+//        }
+        if (mediaInfos != null && mediaInfos.size() > 0) {
+            height = (int) (width / getMediaRatio(mediaInfos.get(0)));
+        } else {
             height = width * 16 / 9;
-            break;
-        case RATIO_MODE_ORIGINAL:
-            if (mediaInfos != null && mediaInfos.size() > 0) {
-                height = (int) (width / getMediaRatio(mediaInfos.get(0)));
-            } else {
-                height = width * 16 / 9;
-            }
-            break;
-        default:
-            height = width * 16 / 9;
-            break;
         }
+
+        //
+//       int height = 0;
+//        int width=0;
+//        int rotation=0;
+//        if (mediaInfos != null && mediaInfos.size() > 0) {
+//            if (mediaInfos.get(0).mimeType.startsWith("video") || mediaInfos.get(0).filePath.endsWith("gif") || mediaInfos.get(0).filePath.endsWith("GIF")){
+//                MediaMetadataRetriever retr = new MediaMetadataRetriever();
+//                retr.setDataSource(mediaInfos.get(0).filePath);
+//                height = Integer.parseInt(retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)); // 视频高度
+//                width = Integer.parseInt(retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)); // 视频宽度
+//                rotation = Integer.parseInt(retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION)); // 视频旋转方向
+//
+//            }else {
+//                BitmapFactory.Options options = new BitmapFactory.Options();
+//                options.inJustDecodeBounds = true;
+//                BitmapFactory.decodeFile(mediaInfos.get(0).filePath, options);
+//                height = options.outHeight;
+//            }
+//        }
+//        if (rotation==90 || rotation==270){
+//            return height;
+//        }
         return height;
     }
 
@@ -209,23 +228,48 @@ public class AlivcEditInputParam {
      * @return
      */
     public int getOutputVideoWidth() {
-        int width = 0;
-        switch (mResolutionMode) {
-        case RESOLUTION_360P:
-            width = 360;
-            break;
-        case RESOLUTION_480P:
-            width = 480;
-            break;
-        case RESOLUTION_540P:
-            width = 540;
-            break;
-        case RESOLUTION_720P:
-            width = 720;
-            break;
-        default:
-            width = 540;
-            break;
+        //int width = 0;
+//        switch (mResolutionMode) {
+//        case RESOLUTION_360P:
+//            width = 360;
+//            break;
+//        case RESOLUTION_480P:
+//            width = 480;
+//            break;
+//        case RESOLUTION_540P:
+//            width = 540;
+//            break;
+//        case RESOLUTION_720P:
+//            width = 720;
+//            break;
+//        default:
+//            width = 540;
+//            break;
+//        }
+        //todo 这里直接返回视频或照片的宽高
+        //
+        int height = 0;
+        int width=0;
+        int rotation=0;
+        if (mediaInfos != null && mediaInfos.size() > 0) {
+            if (mediaInfos.get(0).mimeType.startsWith("video") || mediaInfos.get(0).filePath.endsWith("gif") || mediaInfos.get(0).filePath.endsWith("GIF")){
+                MediaMetadataRetriever retr = new MediaMetadataRetriever();
+                retr.setDataSource(mediaInfos.get(0).filePath);
+                height = Integer.parseInt(retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)); // 视频高度
+                width = Integer.parseInt(retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)); // 视频宽度
+                rotation = Integer.parseInt(retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION)); // 视频旋转方向
+                Log.e("rotation","width=="+width+"height=="+height+"rotation=="+rotation);
+        }else {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(mediaInfos.get(0).filePath, options);
+                width = options.outWidth;
+                height = options.outHeight;
+                Log.e("image","width=="+width+"height=="+height);
+            }
+        }
+        if (rotation==90 || rotation==270){
+            return height;
         }
         return width;
     }
