@@ -259,6 +259,7 @@ public class AlivcEditInputParam {
                 width = Integer.parseInt(retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)); // 视频宽度
                 rotation = Integer.parseInt(retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION)); // 视频旋转方向
                 Log.e("rotation","width=="+width+"height=="+height+"rotation=="+rotation);
+
         }else {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
