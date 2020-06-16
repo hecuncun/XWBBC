@@ -10,6 +10,7 @@ import com.cvnchina.xingwanban.application.App
 import com.cvnchina.xingwanban.base.BaseActivity
 import com.cvnchina.xingwanban.bean.ShareBean
 import com.cvnchina.xingwanban.bean.WorksBean
+import com.cvnchina.xingwanban.ext.showToast
 import com.cvnchina.xingwanban.net.CallbackListObserver
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
@@ -190,30 +191,35 @@ class PlayerActivity : BaseActivity() {
             videoId
         )
         shareVideoCall.compose(ThreadSwitchTransformer()).subscribe(object :CallbackListObserver<ShareBean>(){
-            override fun onSucceed(t: ShareBean?) {
-                val video = UMVideo(t?.url)
-                video.title ="$nickname 给你分享了一个视频" //视频的标题
-                var thumb= UMImage(this@PlayerActivity,workBean!!.overimageurl)
-                video.setThumb(thumb) //视频的缩略图
-                video.description = workBean?.contSubTitle //视频的描述
-                when(platform){
-                    1->{
-                        ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(video).setCallback(umShareListener).share()
-                    }
-                    2->{
-                        ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withMedia(video).setCallback(umShareListener).share()
-                    }
-                    3->{
-                        ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.SINA).withMedia(video).setCallback(umShareListener).share()
-                    }
-                    4->{
-                        ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.QQ).withMedia(video).setCallback(umShareListener).share()
-                    }
-                    5->{
-                        ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.QZONE).withMedia(video).setCallback(umShareListener).share()
-                    }
+            override fun onSucceed(t: ShareBean) {
+                if (t.msg=="1"){
+                    val video = UMVideo(t?.url)
+                    video.title ="$nickname 给你分享了一个视频" //视频的标题
+                    var thumb= UMImage(this@PlayerActivity,workBean!!.overimageurl)
+                    video.setThumb(thumb) //视频的缩略图
+                    video.description = workBean?.contSubTitle //视频的描述
+                    when(platform){
+                        1->{
+                            ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(video).setCallback(umShareListener).share()
+                        }
+                        2->{
+                            ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withMedia(video).setCallback(umShareListener).share()
+                        }
+                        3->{
+                            ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.SINA).withMedia(video).setCallback(umShareListener).share()
+                        }
+                        4->{
+                            ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.QQ).withMedia(video).setCallback(umShareListener).share()
+                        }
+                        5->{
+                            ShareAction(this@PlayerActivity).setPlatform(SHARE_MEDIA.QZONE).withMedia(video).setCallback(umShareListener).share()
+                        }
 
+                    }
+                }else{
+                    showToast(t.msgCondition)
                 }
+
 
             }
 

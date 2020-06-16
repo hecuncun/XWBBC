@@ -50,9 +50,14 @@ class LocationActivity : BaseActivity() {
                 locationCall.compose(ThreadSwitchTransformer())
                     .subscribe(object : CallbackListObserver<LocationBean>() {
                         override fun onSucceed(t: LocationBean) {
-                            list.clear()
-                            list.addAll(t.data)
-                            locationAdapter.setNewData(list)
+                            if (t.msg=="1"){
+                                list.clear()
+                                list.addAll(t.data)
+                                locationAdapter.setNewData(list)
+                            }else{
+                                showToast(t.msgCondition)
+                            }
+
                         }
 
                         override fun onFailed() {

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.media.MediaScannerConnection
-import android.net.Uri
 import android.os.Build
 import android.text.SpannableString
 import android.text.Spanned
@@ -235,62 +234,62 @@ class PublishActivity : BaseActivity() {
                                     saveVideoCall.compose(ThreadSwitchTransformer())
                                         .subscribe(object : CallbackListObserver<BaseNoDataBean>() {
                                             override fun onSucceed(t: BaseNoDataBean) {
-                                                showToast(t.msgCondition)
-                                                if (mDraftBean!=null){
-                                                    val delete = LitePal.delete(
-                                                        DraftBean::class.java,
-                                                        mDraftBean!!.id
-                                                    )
-                                                    EventBus.getDefault().post(RefreshDraftEvent())
-                                                    Logger.e("草稿存在,删除$delete")
-                                                }else{
-                                                    Logger.e("草稿不存在")
-                                                }
-
-                                                if (saveLoc){
-                                                   // showToast("保存相册成功")
-                                                    if (Build.VERSION.SDK_INT >=29) {
-                                                        //适配android Q
-                                                        ThreadUtils.runOnSubThread {
-                                                            UriUtils.saveVideoToMediaStore(
-                                                                this@PublishActivity,
-                                                                videoPath
-                                                            )
-                                                            ThreadUtils.runOnUiThread {
-                                                                ToastUtils.show(
-                                                                    this@PublishActivity,
-                                                                    "已保存到相册"
-                                                                )
-                                                            }
-                                                        }
-                                                    } else {
-                                                        MediaScannerConnection.scanFile(
-                                                            this@PublishActivity.applicationContext,
-                                                            arrayOf(videoPath),
-                                                            arrayOf("video/mp4"),
-                                                            null
+                                                if (t.msg=="1"){
+                                                    if (mDraftBean!=null){
+                                                        val delete = LitePal.delete(
+                                                            DraftBean::class.java,
+                                                            mDraftBean!!.id
                                                         )
-                                                        ToastUtils.show(
-                                                            this@PublishActivity,
-                                                            "已保存到相册"
-                                                        )
+                                                        EventBus.getDefault().post(RefreshDraftEvent())
+                                                        Logger.e("草稿存在,删除$delete")
+                                                    }else{
+                                                        Logger.e("草稿不存在")
                                                     }
-                                                    //sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile( File(videoPath))))
-                                                }else{
-                                                    FileUtils.DeleteFolder(videoPath)
-                                                }
 
-                                                progressDialog?.dismiss()
-                                                EventBus.getDefault().post(RefreshWorksEvent())
-                                                EventBus.getDefault().post(ChangeEvent())
-                                                startActivity(
-                                                    Intent(
-                                                        this@PublishActivity,
-                                                        MainActivity::class.java
+                                                    if (saveLoc){
+                                                        // showToast("保存相册成功")
+                                                        if (Build.VERSION.SDK_INT >=29) {
+                                                            //适配android Q
+                                                            ThreadUtils.runOnSubThread {
+                                                                UriUtils.saveVideoToMediaStore(
+                                                                    this@PublishActivity,
+                                                                    videoPath
+                                                                )
+                                                                ThreadUtils.runOnUiThread {
+                                                                    ToastUtils.show(
+                                                                        this@PublishActivity,
+                                                                        "已保存到相册"
+                                                                    )
+                                                                }
+                                                            }
+                                                        } else {
+                                                            MediaScannerConnection.scanFile(
+                                                                this@PublishActivity.applicationContext,
+                                                                arrayOf(videoPath),
+                                                                arrayOf("video/mp4"),
+                                                                null
+                                                            )
+                                                            ToastUtils.show(
+                                                                this@PublishActivity,
+                                                                "已保存到相册"
+                                                            )
+                                                        }
+                                                        //sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile( File(videoPath))))
+                                                    }else{
+                                                        FileUtils.DeleteFolder(videoPath)
+                                                    }
+                                                    EventBus.getDefault().post(RefreshWorksEvent())
+                                                    EventBus.getDefault().post(ChangeEvent())
+                                                    startActivity(
+                                                        Intent(
+                                                            this@PublishActivity,
+                                                            MainActivity::class.java
+                                                        )
                                                     )
-                                                )
-
-
+                                                }else{
+                                                    showToast(t.msgCondition)
+                                                }
+                                                progressDialog?.dismiss()
                                             }
 
                                             override fun onFailed() {

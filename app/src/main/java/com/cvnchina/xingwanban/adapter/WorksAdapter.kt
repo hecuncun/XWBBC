@@ -25,9 +25,15 @@ class WorksAdapter :
             .setText(R.id.tv_title, item.contSubTitle)
             .setText(R.id.tv_date, item.createtime.split(" ")[0])
             .setText(R.id.tv_state, if (item.ischeck == "n") "审核中" else "")
+        val tvTag =  helper.getView<TextView>(R.id.tv_tag)
         if (item.contTags.isNotEmpty()) {
-            helper.setText(R.id.tv_tag, item.contTags[0].tagName)//显示一个标签
+            tvTag.setBackgroundResource(R.drawable.bg_gray_151516_r5)
+            tvTag.text = item.contTags[0].tagName//显示一个标签
+        }else{
+            tvTag.text =""
+            tvTag.background=null
         }
+
         val tvState = helper.getView<TextView>(R.id.tv_state)
         val tvZan = helper.getView<TextView>(R.id.tv_zan)
         val tvEvaluate = helper.getView<TextView>(R.id.tv_evaluate)

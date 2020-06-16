@@ -30,9 +30,14 @@ class SortActivity : BaseActivity() {
         contentSortCall.compose(ThreadSwitchTransformer())
             .subscribe(object : CallbackListObserver<ContentSortBean>() {
                 override fun onSucceed(t: ContentSortBean) {
-                    groupList = t.data[0].children
-                    childList= groupList[0].children
-                    initLeftListView()
+                    if (t.msg=="1"){
+                        groupList = t.data[0].children
+                        childList= groupList[0].children
+                        initLeftListView()
+                    }else{
+                        showToast(t.msgCondition)
+                    }
+
                 }
 
                 override fun onFailed() {

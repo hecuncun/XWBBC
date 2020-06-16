@@ -10,6 +10,7 @@ import com.cvnchina.xingwanban.bean.PersonalInfoBean
 import com.cvnchina.xingwanban.bean.ShareBean
 import com.cvnchina.xingwanban.event.LogoutEvent
 import com.cvnchina.xingwanban.event.RefreshPersonalInfoEvent
+import com.cvnchina.xingwanban.ext.showToast
 import com.cvnchina.xingwanban.glide.GlideUtils
 import com.cvnchina.xingwanban.net.CallbackListObserver
 import com.cvnchina.xingwanban.net.CallbackObserver
@@ -184,37 +185,42 @@ class MineFragment : BaseFragment() {
         )
         shareVideoCall.compose(ThreadSwitchTransformer())
             .subscribe(object : CallbackListObserver<ShareBean>() {
-                override fun onSucceed(t: ShareBean?) {
-                    val web = UMWeb(t?.url)
-                    web.title = "星顽半" //标题
-                    var thumb = UMImage(activity, R.mipmap.logo)
-                    thumb.compressFormat = Bitmap.CompressFormat.PNG//去除图片底部黑边
-                    web.setThumb(thumb) //缩略图
+                override fun onSucceed(t: ShareBean) {
+                    if (t.msg=="1"){
+                        val web = UMWeb(t?.url)
+                        web.title = "星顽半" //标题
+                        var thumb = UMImage(activity, R.mipmap.logo)
+                        thumb.compressFormat = Bitmap.CompressFormat.PNG//去除图片底部黑边
+                        web.setThumb(thumb) //缩略图
 
-                    web.description = "@$nickname 我的新视界，想要与你一起分享~" //描述
-                    when (platform) {
-                        1 -> {
-                            ShareAction(activity).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(web)
-                                .setCallback(umShareListener).share()
-                        }
-                        2 -> {
-                            ShareAction(activity).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)
-                                .withMedia(web).setCallback(umShareListener).share()
-                        }
-                        3 -> {
-                            ShareAction(activity).setPlatform(SHARE_MEDIA.SINA).withMedia(web)
-                                .setCallback(umShareListener).share()
-                        }
-                        4 -> {
-                            ShareAction(activity).setPlatform(SHARE_MEDIA.QQ).withMedia(web)
-                                .setCallback(umShareListener).share()
-                        }
-                        5 -> {
-                            ShareAction(activity).setPlatform(SHARE_MEDIA.QZONE).withMedia(web)
-                                .setCallback(umShareListener).share()
-                        }
+                        web.description = "@$nickname 我的新视界，想要与你一起分享~" //描述
+                        when (platform) {
+                            1 -> {
+                                ShareAction(activity).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(web)
+                                    .setCallback(umShareListener).share()
+                            }
+                            2 -> {
+                                ShareAction(activity).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)
+                                    .withMedia(web).setCallback(umShareListener).share()
+                            }
+                            3 -> {
+                                ShareAction(activity).setPlatform(SHARE_MEDIA.SINA).withMedia(web)
+                                    .setCallback(umShareListener).share()
+                            }
+                            4 -> {
+                                ShareAction(activity).setPlatform(SHARE_MEDIA.QQ).withMedia(web)
+                                    .setCallback(umShareListener).share()
+                            }
+                            5 -> {
+                                ShareAction(activity).setPlatform(SHARE_MEDIA.QZONE).withMedia(web)
+                                    .setCallback(umShareListener).share()
+                            }
 
+                        }
+                    }else{
+                        showToast(t.msgCondition)
                     }
+
 
                 }
 

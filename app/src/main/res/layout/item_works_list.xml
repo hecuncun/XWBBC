@@ -22,7 +22,6 @@
             android:paddingTop="2dp"
             android:paddingRight="10dp"
             android:paddingBottom="2dp"
-            android:text=""
             android:textColor="@color/color_primary_yellow"
             android:textSize="12sp" />
         <ImageView
@@ -38,7 +37,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:text=""
         android:textColor="@color/color_gray_F9F9F9" />
 
     <RelativeLayout
@@ -75,8 +73,7 @@
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
             android:layout_marginTop="15dp"
-            android:layout_alignParentRight="true"
-            android:text=""/>
+            android:layout_alignParentRight="true" />
 
         <RelativeLayout
             android:layout_width="match_parent"

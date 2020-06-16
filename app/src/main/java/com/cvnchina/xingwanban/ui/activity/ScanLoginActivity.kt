@@ -64,6 +64,8 @@ private var tvToken=""
                        if (t.msg=="1"){
                            showToast("登录成功")
                            finish()
+                       }else{
+                           showToast(t.msgCondition)
                        }
                     }
 
@@ -98,6 +100,8 @@ private var tvToken=""
                                     finish()
                                 }
 
+                            }else{
+                                showToast(t.msgCondition)
                             }
                         }
 
@@ -139,6 +143,8 @@ private var tvToken=""
                                     finish()
                                 }
 
+                            }else{
+                                showToast(t.msgCondition)
                             }
                         }
 

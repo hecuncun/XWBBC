@@ -63,7 +63,7 @@ class WorksFragment : BaseFragment() {
     }
 
     private var isPlaying = false
-
+    private var last =-1
     override fun initListener() {
 
         refreshLayout.setRefreshHeader(ClassicsHeader(activity))
@@ -109,7 +109,6 @@ class WorksFragment : BaseFragment() {
 
         }, rv_works)
 
-
         worksAdapter.setOnItemChildClickListener { adapter, view, position ->
             val listBean = adapter.getItem(position) as WorksBean.ListBean
             currentBean=listBean
@@ -117,18 +116,47 @@ class WorksFragment : BaseFragment() {
             val ivStart = adapter.getViewByPosition(position, R.id.iv_start) as ImageView
             when (view.id) {
                 R.id.iv_start -> {
-                    isPlaying = !isPlaying
-                    if (isPlaying) {
+                    if (last<0){
+                        last=position
+                        isPlaying=true
                         ivStart.setImageResource(R.mipmap.icon_stop_play)
                         palyer.startButton.performClick()
-                    } else {
-                        palyer.startButton.performClick()
-                        ivStart.setImageResource(R.mipmap.icon_play)
+                        return@setOnItemChildClickListener
                     }
+                    if (position==last){
+                        isPlaying = !isPlaying
+                        if (isPlaying) {
+                            ivStart.setImageResource(R.mipmap.icon_stop_play)
+                            palyer.startButton.performClick()
+                        } else {
+                            palyer.startButton.performClick()
+                            ivStart.setImageResource(R.mipmap.icon_play)
+                        }
+                        return@setOnItemChildClickListener
+                    }
+                    if (last!=position){
+                        isPlaying=true
+                        palyer.startButton.performClick()
+                        ivStart.setImageResource(R.mipmap.icon_stop_play)
+
+                        val lastStart = adapter.getViewByPosition(last, R.id.iv_start) as ImageView
+                        lastStart.setImageResource(R.mipmap.icon_play)
+                        //worksAdapter.notifyItemChanged(last)
+                        last=position
+                    }
+
+                    // worksAdapter.notifyItemChanged(position)
 
                 }
                 R.id.tv_cover -> {
                     isPlaying=false
+                    try {
+                        val lastStart = adapter.getViewByPosition(last, R.id.iv_start) as ImageView
+                        lastStart.setImageResource(R.mipmap.icon_play)
+                    }catch (e:Exception){
+
+                    }
+                    last=-1
                     ivStart.setImageResource(R.mipmap.icon_play)
                     val intent = Intent(activity, PlayerActivity::class.java)
                     intent.putExtra("listBean", listBean)
@@ -195,6 +223,13 @@ class WorksFragment : BaseFragment() {
                 }
                 R.id.tv_more->{
                     isPlaying=false
+                    try {
+                        val lastStart = adapter.getViewByPosition(last, R.id.iv_start) as ImageView
+                        lastStart.setImageResource(R.mipmap.icon_play)
+                    }catch (e:Exception){
+
+                    }
+                    last=-1
                     ivStart.setImageResource(R.mipmap.icon_play)
                     worksAdapter.notifyItemChanged(position)
                     val intent = Intent(activity, PlayerActivity::class.java)

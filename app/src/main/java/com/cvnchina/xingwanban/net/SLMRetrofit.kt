@@ -69,8 +69,8 @@ class SLMRetrofit private constructor() {
 
     companion object {
         private var mService: SLMRetrofit? = null
-        private const val DEFAULT_TIME_OUT = 10 //超时时间
-        private const val DEFAULT_READ_TIME_OUT = 10
+        private const val DEFAULT_TIME_OUT = 60 //超时时间
+        private const val DEFAULT_READ_TIME_OUT = 60
         val instance: SLMRetrofit
             get() {
                 if (mService == null) {

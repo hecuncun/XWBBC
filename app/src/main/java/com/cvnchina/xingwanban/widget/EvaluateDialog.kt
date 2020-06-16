@@ -5,6 +5,7 @@ import android.support.design.widget.BottomSheetDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ExpandableListView
+import com.blankj.utilcode.util.ToastUtils
 import com.cvnchina.xingwanban.R
 import com.cvnchina.xingwanban.adapter.CommentExpandAdapter
 import com.cvnchina.xingwanban.base.BaseNoDataBean
@@ -122,6 +123,8 @@ class EvaluateDialog(context: Context) : BottomSheetDialog(context,R.style.Trans
                                                     listReply.add(bean)
                                                 }
                                                 mAdapter?.addReplyList(listReply,groupPosition)
+                                            }else{
+                                                ToastUtils.showShort(t.msgCondition)
                                             }
 
                                         }
@@ -133,6 +136,8 @@ class EvaluateDialog(context: Context) : BottomSheetDialog(context,R.style.Trans
 
 
 
+                    }else{
+                        ToastUtils.showShort(t.msgCondition)
                     }
 
 
@@ -166,6 +171,8 @@ class EvaluateDialog(context: Context) : BottomSheetDialog(context,R.style.Trans
                                         context.showToast("评论成功")
                                         et_content.setText("")
                                         initData()
+                                    }else{
+                                      context.showToast(t.msgCondition)
                                     }
                                 }
 

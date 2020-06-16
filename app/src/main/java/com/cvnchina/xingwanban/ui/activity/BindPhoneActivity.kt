@@ -114,7 +114,7 @@ class BindPhoneActivity:BaseActivity() {
                        startActivity(Intent(this@BindPhoneActivity,MainActivity::class.java))
                        finish()
                    }else{
-                       showToast(t?.msgCondition+"失败")
+                       showToast(t?.msgCondition)
                    }
                 }
 

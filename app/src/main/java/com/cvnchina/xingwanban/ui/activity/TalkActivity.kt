@@ -9,6 +9,7 @@ import com.cvnchina.xingwanban.adapter.TalkAdapter
 import com.cvnchina.xingwanban.base.BaseActivity
 import com.cvnchina.xingwanban.bean.TalksBean
 import com.cvnchina.xingwanban.event.TalkEvent
+import com.cvnchina.xingwanban.ext.showToast
 import com.cvnchina.xingwanban.net.CallbackListObserver
 import com.cvnchina.xingwanban.net.SLMRetrofit
 import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
@@ -31,11 +32,16 @@ class TalkActivity : BaseActivity() {
         talksCall.compose(ThreadSwitchTransformer())
             .subscribe(object : CallbackListObserver<TalksBean>() {
                 override fun onSucceed(t: TalksBean) {
-                    if (t.data.isNotEmpty()){
-                        list.addAll(t.data)
-                        talkAdapter.setNewData(list)
-                        ll_create_talk.visibility= View.GONE
+                    if (t.msg=="1"){
+                        if (t.data.isNotEmpty()){
+                            list.addAll(t.data)
+                            talkAdapter.setNewData(list)
+                            ll_create_talk.visibility= View.GONE
+                        }
+                    }else{
+                        showToast(t.msgCondition)
                     }
+
 
                 }
 

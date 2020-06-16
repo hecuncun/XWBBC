@@ -127,6 +127,8 @@ class LoginOtherActivity : BaseActivity() {
                             startActivity(Intent(this@LoginOtherActivity,MainActivity::class.java))
                             //关闭登录页
                             finish()
+                        }else{
+                            showToast(t.msgCondition)
                         }
 
 
