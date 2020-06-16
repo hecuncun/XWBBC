@@ -71,7 +71,7 @@ class WebViewActivity : BaseActivity() {
         when(type){
             1-> toolbar_title.text="联系我们"
             2-> toolbar_title.text="用户协议"
-            3-> toolbar_title.text="隐私协议"
+            3-> toolbar_title.text="隐私政策"
             4-> toolbar_title.text="关于我们"
         }
         mWebView!!.webViewClient=object : WebViewClient() {

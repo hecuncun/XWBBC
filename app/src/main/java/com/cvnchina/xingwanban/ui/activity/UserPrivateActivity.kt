@@ -17,7 +17,7 @@ class UserPrivateActivity:BaseActivity() {
     }
 
     override fun initView() {
-        toolbar_title.text="隐私协议"
+        toolbar_title.text="隐私政策"
     }
 
     override fun initListener() {

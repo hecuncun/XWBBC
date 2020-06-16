@@ -83,7 +83,7 @@
         app:hintTextColor="@color/color_gray_CCCCCC"
         app:textColor="@color/white"
         app:maxLength="80"
-        app:hint="描述一下你的作品吧~" />
+        app:hint="描述一下你的作品吧~(暂不支持表情)" />
     <TextView
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"

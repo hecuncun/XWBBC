@@ -24,7 +24,7 @@
         android:layout_height="50dp"
         android:drawableRight="@mipmap/icon_arrow_right"
         android:gravity="center_vertical"
-        android:text="隐私协议"
+        android:text="隐私政策"
         android:textColor="@color/color_gray_F9F9F9"
         android:textSize="15sp" />
 

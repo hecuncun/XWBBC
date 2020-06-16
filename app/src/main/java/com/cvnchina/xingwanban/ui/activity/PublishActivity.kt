@@ -78,17 +78,18 @@ class PublishActivity : BaseActivity() {
         content.setSpan(RelativeSizeSpan(0.93F),8,13, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
         tv_content_sort.text=content
         val intent = intent
+
+        mConfigPath = intent.getStringExtra(KEY_PARAM_CONFIG)//配置文件
+        mThumbnailPath = intent.getStringExtra(KEY_PARAM_THUMBNAIL)//封面路径
+        Logger.e("传的封面地址==$mThumbnailPath")
+        videoRatio = intent.getFloatExtra(KEY_PARAM_VIDEO_RATIO, 0f)
+        mVideoPram = intent.getSerializableExtra(KEY_PARAM_VIDEO_PARAM) as AliyunVideoParam
         val draftBean = intent.getSerializableExtra("draftBean")
         if (draftBean != null) {
             //初始化数据
             mDraftBean = draftBean as DraftBean
             initDraftData(draftBean as DraftBean)
         }
-        mConfigPath = intent.getStringExtra(KEY_PARAM_CONFIG)//配置文件
-        mThumbnailPath = intent.getStringExtra(KEY_PARAM_THUMBNAIL)//封面路径
-        Logger.e("传的封面地址==$mThumbnailPath")
-        videoRatio = intent.getFloatExtra(KEY_PARAM_VIDEO_RATIO, 0f)
-        mVideoPram = intent.getSerializableExtra(KEY_PARAM_VIDEO_PARAM) as AliyunVideoParam
         ImageLoaderImpl().loadImage(
             this,
             mThumbnailPath!!,
@@ -103,9 +104,10 @@ class PublishActivity : BaseActivity() {
      */
     private fun initDraftData(draftBean: DraftBean) {
         title = draftBean.title//视频标题
+        mThumbnailPath=draftBean.thumbnailPath
         description = draftBean.title
         et_title.textString = title
-        if (colName.isEmpty()){
+        if (draftBean.colName.isEmpty()){
             val content =SpannableString("内容分类    发布时必填")
             //val content= "<font>内容分类</font><font color=\'#999999\'><small>    \t发布时必填</small></font>"
             content.setSpan(ForegroundColorSpan(Color.parseColor("#F9F9F9")),0,4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
@@ -114,10 +116,11 @@ class PublishActivity : BaseActivity() {
             tv_content_sort.text=content
         }else{
             columns = draftBean.columns
+            colName=draftBean.colName
             tv_content_sort.text = draftBean.colName
+
             tv_content_sort.setTextColor(resources.getColor(R.color.color_primary_yellow))
         }
-
         tags = draftBean.tags
         if (tags.isEmpty()){
             talk_name.text="参与话题"
@@ -125,14 +128,13 @@ class PublishActivity : BaseActivity() {
             talk_name.text = tags
             talk_name.setTextColor(resources.getColor(R.color.color_primary_yellow))
         }
-        if (draftBean.address.isEmpty()){
+        if (draftBean.addName.isEmpty()){
             tv_location.text = "添加位置"
         }else{
-            tv_location.text = draftBean.address
-            address = draftBean.address
             tv_location.text = draftBean.addName
         }
-
+        addName =draftBean.addName
+        address = draftBean.address
         city = draftBean.city
         lat = draftBean.lat
         lng = draftBean.lng
@@ -490,7 +492,7 @@ private var saveLoc=false
     private var lng = ""
     private var isVisible = "0"
     private var address = ""
-    private var addName = ""//大地址
+    private var addName = ""//显示的地址
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
