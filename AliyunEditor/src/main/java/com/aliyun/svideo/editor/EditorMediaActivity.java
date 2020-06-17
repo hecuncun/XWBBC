@@ -15,20 +15,21 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.aliyun.common.utils.ToastUtil;
+import com.aliyun.querrorcode.AliyunErrorCode;
 import com.aliyun.svideo.base.Constants;
+import com.aliyun.svideo.base.widget.ProgressDialog;
+import com.aliyun.svideo.common.utils.FastClickUtil;
 import com.aliyun.svideo.common.utils.MD5Utils;
+import com.aliyun.svideo.common.utils.ToastUtils;
 import com.aliyun.svideo.common.utils.UriUtils;
 import com.aliyun.svideo.crop.AliyunImageCropActivity;
 import com.aliyun.svideo.crop.AliyunVideoCropActivity;
 import com.aliyun.svideo.crop.bean.AlivcCropInputParam;
 import com.aliyun.svideo.crop.bean.AlivcCropOutputParam;
-import com.aliyun.querrorcode.AliyunErrorCode;
-import com.aliyun.svideo.base.widget.ProgressDialog;
-import com.aliyun.svideo.common.utils.FastClickUtil;
-import com.aliyun.svideo.common.utils.ToastUtils;
 import com.aliyun.svideo.editor.bean.AlivcEditInputParam;
 import com.aliyun.svideo.editor.editor.EditorActivity;
 import com.aliyun.svideo.media.MediaInfo;
@@ -78,6 +79,7 @@ public class EditorMediaActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.alivc_editor_media);
         initData();
         init();
