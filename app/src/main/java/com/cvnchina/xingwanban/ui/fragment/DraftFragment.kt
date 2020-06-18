@@ -32,7 +32,6 @@ class DraftFragment : BaseFragment() {
     override fun attachLayoutRes(): Int {
         return R.layout.fragment_draft
     }
-
     private var list = mutableListOf<DraftBean>()
     override fun initView(view: View) {
         deleteDialog= DeleteDialog(activity!!)

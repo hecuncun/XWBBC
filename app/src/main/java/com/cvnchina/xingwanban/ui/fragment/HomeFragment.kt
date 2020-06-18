@@ -1,5 +1,7 @@
 package com.cvnchina.xingwanban.ui.fragment
 
+//import com.uuzuche.lib_zxing.activity.CaptureActivity
+//import com.uuzuche.lib_zxing.activity.CodeUtils
 import android.Manifest
 import android.content.Intent
 import android.support.v4.app.FragmentTransaction
@@ -22,8 +24,6 @@ import com.cvnchina.xingwanban.net.ThreadSwitchTransformer
 import com.cvnchina.xingwanban.ui.activity.*
 import com.lhzw.bluetooth.base.BaseFragment
 import com.orhanobut.logger.Logger
-//import com.uuzuche.lib_zxing.activity.CaptureActivity
-//import com.uuzuche.lib_zxing.activity.CodeUtils
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -50,6 +50,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
     override fun initView(view: View) {
     }
+
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
