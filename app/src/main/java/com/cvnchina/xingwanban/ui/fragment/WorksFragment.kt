@@ -267,12 +267,12 @@ class WorksFragment : BaseFragment() {
         }
     }
 //重新显示
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!isHidden){
-            lazyLoad()
-        }
-    }
+//    override fun onHiddenChanged(hidden: Boolean) {
+//        super.onHiddenChanged(hidden)
+//        if (!isHidden){
+//            lazyLoad()
+//        }
+//    }
 
     private fun requestShare(platform: Int, type: Int, videoId: Int) {
         //分享到平台1-微信；2-朋友圈；3-微博；4-QQ好友；5.QQ空间  1-app分享 2-视频分享

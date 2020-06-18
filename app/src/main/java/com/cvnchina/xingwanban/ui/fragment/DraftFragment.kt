@@ -87,12 +87,12 @@ class DraftFragment : BaseFragment() {
         }
     }
     //重新显示
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!isHidden){
-            lazyLoad()
-        }
-    }
+//    override fun onHiddenChanged(hidden: Boolean) {
+//        super.onHiddenChanged(hidden)
+//        if (!isHidden){
+//            lazyLoad()
+//        }
+//    }
     override fun lazyLoad() {
         list.clear()
         list=LitePal.findAll(DraftBean::class.java)
