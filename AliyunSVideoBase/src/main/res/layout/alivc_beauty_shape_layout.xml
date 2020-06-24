@@ -82,7 +82,7 @@
         android:paddingTop="@dimen/alivc_common_padding_4"
         android:paddingBottom="@dimen/alivc_common_padding_18"
         android:gravity="center"
-        android:visibility="visible"
+        android:visibility="gone"
         android:textSize="@dimen/alivc_common_font_12"
         android:text="@string/alivc_base_beauty_race_copyright"
         android:textColor="@color/alivc_common_font_white"/>

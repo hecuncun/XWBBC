@@ -45,9 +45,11 @@
     <string name="alivc_base_beauty_custom_face">自定义</string>
     <!-- 美颜相关  end   -->
     <string name="alivc_base_tips_fine_tuning">点击可微调</string>
-    <string name="alivc_base_beauty_copyright">高级美颜美型由faceunity提供</string>
+<!--    <string name="alivc_base_beauty_copyright">高级美颜美型由faceunity提供</string>-->
+    <string name="alivc_base_beauty_copyright"></string>
     <string name="alivc_base_beauty_race_copyright">高级美颜美型由race提供</string>
-    <string name="alivc_base_beauty_copyright_link">如何获取</string>
+<!--    <string name="alivc_base_beauty_copyright_link">如何获取</string>-->
+    <string name="alivc_base_beauty_copyright_link"></string>
     <string name="alivc_base_svideo_next">下一步</string>
     <string name="alivc_base_svideo_save">保存</string>
 </resources>

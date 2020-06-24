@@ -2,24 +2,19 @@ package com.aliyun.svideo.base.widget.beauty.skin;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.aliyun.svideo.base.CopyrightWebActivity;
 import com.aliyun.svideo.base.R;
 import com.aliyun.svideo.base.widget.beauty.BeautyDetailSettingView;
 import com.aliyun.svideo.base.widget.beauty.BeautyParams;
@@ -161,14 +156,14 @@ public class AlivcBeautySkinSettingView extends FrameLayout {
         final int start = copyright.length();
         int end = copyright.length() + copyrightLink.length();
         SpannableString spannableString = new SpannableString(copyright + copyrightLink);
-        spannableString.setSpan(new UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new ClickableSpan() {
-            @Override
-            public void onClick(@NonNull View widget) {
-                Intent intent = new Intent(getContext(), CopyrightWebActivity.class);
-                getContext().startActivity(intent);
-            }
-        }, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
+       // spannableString.setSpan(new UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        spannableString.setSpan(new ClickableSpan() {
+//            @Override
+//            public void onClick(@NonNull View widget) {
+//                Intent intent = new Intent(getContext(), CopyrightWebActivity.class);
+//                getContext().startActivity(intent);
+//            }
+//        }, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
         spannableString.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.alivc_svideo_bg_balloon_tip_cyan)), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
