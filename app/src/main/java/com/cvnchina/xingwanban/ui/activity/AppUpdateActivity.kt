@@ -23,7 +23,8 @@ class AppUpdateActivity:BaseActivity() {
         bean = intent.getParcelableExtra<UpdateAppBean>("updateAppBean")
         if (bean!=null){
             tv_desc.text=bean!!.updateDesc
-            tv_app_version.text=bean!!.appVersion
+           // tv_app_version.text=bean!!.appVersion
+            tv_app_version.text=PackageUtils.getVersionName(this)
             if (PackageUtils.getVersionName(this)!=bean!!.appVersion){
                 canUpdate=true
                 tv_notify.text="星顽半视频有新版本${bean!!.appVersion}更新啦！"
