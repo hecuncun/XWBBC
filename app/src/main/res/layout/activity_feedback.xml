@@ -37,7 +37,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         app:textColor="@color/white"
-        app:hint="q(暂不支持表情)"
+        app:hint="(暂不支持表情)"
         app:hintTextColor="@color/color_gray_CCCCCC"
         app:maxLength="100" />
 
